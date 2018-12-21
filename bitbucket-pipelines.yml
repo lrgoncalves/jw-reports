@@ -1,0 +1,23 @@
+image: php:7.1.1
+
+pipelines:
+  default:
+    - step:
+        script:
+          - apt-get update && apt-get install -y python-dev zip libmcrypt-dev mysql-client
+          - docker-php-ext-install mcrypt && docker-php-ext-install pdo_mysql
+          - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          - php -r "if (hash_file('SHA384', 'composer-setup.php') === '93b54496392c062774670ac18b134c3b3a95e5a5e5c8f1a9f115f203b75bf9a129d5daa8ba6a13e2cc8a1da0806388a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+          - php composer-setup.php
+          - php -r "unlink('composer-setup.php');"
+          - php composer.phar install --no-plugins --no-scripts
+          - php artisan migrate
+          - python --version
+          - apt-get -y install python-pip
+          - curl -O https://bootstrap.pypa.io/get-pip.py
+          - python get-pip.py
+          - pip --help
+          - pip install awscli
+          - aws --version
+          - zip -r dev.zip ./
+          - aws s3 sync --delete . s3://bennu-deploy/doug --exclude "*" --include "dev.zip"
