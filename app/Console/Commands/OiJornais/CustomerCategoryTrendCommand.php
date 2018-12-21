@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\OiJornais;
 
 use App\Models\Category;
 use App\Models\Customer;
@@ -17,7 +17,7 @@ class CustomerCategoryTrendCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'customer-category-trend:generate {date?}';
+    protected $signature = 'oijornais:customer-category-trend {date?}';
 
     /**
      * The console command description.
@@ -77,8 +77,10 @@ class CustomerCategoryTrendCommand extends Command
             $email = $n['user']['email'];
 
             $customer = Customer::updateOrCreate([
+                'product_id' => Product::OIJORNAIS,
                 'msisdn' => $msisdn,
             ], [
+                'product_id' => Product::OIJORNAIS,
                 'msisdn' => $msisdn,
                 'email' => $email,
             ]);

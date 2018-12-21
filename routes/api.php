@@ -13,18 +13,28 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::prefix('v1')->middleware('jwtbob')->group(function() {
-    Route::prefix('customer')->group(function () {
-        Route::get('/category-trends/{msisdn}', 'CustomerCategoryTrendController@categoryTrends')
-            ->where('msisdn', '[0-9]+');
-    });
+Route::group(['prefix' => 'timbancavirtual'], function () {
+
 });
 
 
-Route::prefix('commands')->get('customer/category-trends/import/{date?}', function(Request $request, $date = null){
-    if (!$date) {
-        $date = Carbon\Carbon::yesterday()->format('Y-m-d');
-    }
-    Artisan::call('customer-category-trend:generate', ['date' => $date]);
-    return (Artisan::output());
+Route::group(['prefix' => 'oijornais'], function () {
+    
+    Route::group(['prefix' => 'commands'], function() {
+        Route::get('/customer/category-trends/import/{date?}', function(Request $request, $date = null){
+            if (!$date) {
+                $date = Carbon\Carbon::yesterday()->format('Y-m-d');
+            }
+            Artisan::call('oijornais:customer-category-trend', ['date' => $date]);
+            return (Artisan::output());
+        });
+    });
+
+    Route::prefix('v1')->middleware('jwtbob')->group(function() {
+        Route::prefix('customer')->group(function () {
+            Route::get('/category-trends/{msisdn}', 'CustomerCategoryTrendController@categoryTrends')
+                ->where('msisdn', '[0-9]+');
+        });
+    });
+
 });
