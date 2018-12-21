@@ -2,6 +2,9 @@
 
 namespace App\Console\Commands\OiJornais;
 
+use App\Models\Event;
+use App\Models\NewsTrendingTopic;
+use App\Models\Product;
 use Illuminate\Console\Command;
 
 class TrendingTopicsCommand extends Command
@@ -37,6 +40,43 @@ class TrendingTopicsCommand extends Command
      */
     public function handle()
     {
-        $this->info('Welcome!');
+        $this->info('Importing trending-topics!');
+
+        $trending = Event::getTrendingTopicsNewsIds(30);
+        if (is_null($trending) || $trending->count() == 0) {
+            return $this->error("Nao foi encontrado nenhuma noticia para o Trending Topics");
+        }
+
+        $this->clearTrendingTopics();
+        $this->createTrendingTopics($trending);
+        $this->info(sprintf("\n\nQue beleza ♪~ ᕕ(ᐛ)ᕗ \n\n %s \n\n", $trending));
+
+    }
+
+     /**
+     * limpa os registros atuais
+     *
+     * @return void
+     */
+    private function clearTrendingTopics()
+    {
+        NewsTrendingTopic::where('product_id', '=', Product::OIJORNAIS)->delete();
+    }
+
+    /**
+     * Cria o snapshot de page_views de trending topics
+     *
+     * @param collection $trending
+     * @return void
+     */
+    private function createTrendingTopics($trending)
+    {
+        foreach ($trending as $key => $value) {
+            NewsTrendingTopic::create([
+                'product_id' => Product::OIJORNAIS,
+                'news_id' => $key,
+                'total' => $value,
+            ]);
+        }
     }
 }
