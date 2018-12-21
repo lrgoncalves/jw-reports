@@ -35,6 +35,9 @@ Route::group(['prefix' => 'oijornais'], function () {
             Route::get('/category-trends/{msisdn}', 'CustomerCategoryTrendController@categoryTrends')
                 ->where('msisdn', '[0-9]+');
         });
+
+        Route::get('/trending-topics/{productId?}', 'TrendingTopicsController@index')
+            ->where('productId', '[0-9]+');
     });
 
 });

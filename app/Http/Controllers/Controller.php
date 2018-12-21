@@ -10,4 +10,10 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    protected function checkArray($param, $index) 
+    {
+        return array_has($param, $index) ? $param[$index] : null;
+    }
+
 }

@@ -38,5 +38,23 @@ class Event extends Eloquent
         return $trendingTopics; 
     }
 
+    public static function getNewsById($newsId)
+    {
+        $last24Hours = Carbon::now()->subHours(24);
+        $date = new \MongoDB\BSON\UTCDateTime($last24Hours);
+
+        return self::raw(function ($collection) use ($newsId, $date) {
+            return $collection->aggregate([
+                [
+                    '$match' => [
+                        'action' => 'news',
+                        'news.id' => $newsId,
+                        'datetime' => ['$gte' => $date]
+                    ],
+                ]
+            ]);
+        });
+    }
+
 
 }
