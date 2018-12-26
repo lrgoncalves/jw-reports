@@ -41,7 +41,8 @@ class Event extends Eloquent
     public static function getNewsById($newsId)
     {
         $last24Hours = Carbon::now()->subHours(24);
-        $date = new \MongoDB\BSON\UTCDateTime($last24Hours);
+        // $date = new \MongoDB\BSON\UTCDateTime($last24Hours);
+        $date = null;
 
         return self::raw(function ($collection) use ($newsId, $date) {
             return $collection->aggregate([
@@ -49,7 +50,7 @@ class Event extends Eloquent
                     '$match' => [
                         'action' => 'news',
                         'news.id' => $newsId,
-                        'datetime' => ['$gte' => $date]
+                        // 'datetime' => ['$gte' => $date]
                     ],
                 ]
             ]);
