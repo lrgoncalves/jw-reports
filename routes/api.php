@@ -28,6 +28,11 @@ Route::group(['prefix' => 'oijornais'], function () {
             Artisan::call('oijornais:customer-category-trend', ['date' => $date]);
             return (Artisan::output());
         });
+
+        Route::get('/trending-topics/import', function(Request $request, $date = null){
+            Artisan::call('oijornais:trending-topics');
+            return (Artisan::output());
+        });
     });
 
     Route::prefix('v1')->middleware('jwtbob')->group(function() {
