@@ -19,8 +19,8 @@ class Event extends Eloquent
      */
     public static function getTrendingTopicsNewsIds( $limit = 10)
     {
-        // $last24Hours = Carbon::now()->subHours(24);
-        $last24Hours = Carbon::createFromFormat('Y-m-d', '2018-12-01');
+        $last24Hours = Carbon::now()->subHours(24);
+        // $last24Hours = Carbon::createFromFormat('Y-m-d', '2018-12-01');
 
         $eventos = self::where('action', 'news')->where('datetime', '>=', $last24Hours)->get(); 
         $grouped = $eventos->map(function ($item, $key) {
