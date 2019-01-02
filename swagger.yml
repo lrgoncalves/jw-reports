@@ -1,0 +1,81 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: "DOUG Smart Content API"
+  description: "Api de gestão de acessos de conteúdos"
+  termsOfService: "terms"
+  contact:
+    name: "Suporte"
+    url: "http://bennu.tv"
+    email: "suporte@bennu.tv"
+  license:
+    name: "MIT"
+    url: "http://opensource.org/licenses/MIT"
+  servers: 
+  - url: https://dougsmartcontenttest.bennuapp.com.br
+    description: Teste
+  - url: https://dougsmartcontent.bennuapp.com.br
+    description: Produção
+paths:
+  /oijornais/v1/trending-topics/{productId}:
+    get:
+      tags:
+        - Trending Topics
+      summary: Obter as notícias mais lidas de um determinado produto
+      parameters: 
+        - in: path
+          name: productId
+          schema:
+            type: integer
+          description: ID do produto
+      responses:
+        200: 
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrendingTopics'
+        403:
+          $ref: '#/components/responses/Unauthorized'
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    TrendingTopics:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 456
+        title:
+          type: string
+          example: Ministro de Bolsonaro diz que Infraero vai acabar
+        publisher_media:
+          type: string
+          example: https://bobcontents.bennuapp.com.br/publisher_medias/correio-do-povo-color.png
+        media_publisher:
+          type: array
+          items:
+            $ref: '#/components/schemas/ArrayOfMediaPublisher'
+    ArrayOfMediaPublisher:
+      type: array
+      items: 
+        $ref: '#/components/schemas/MediaPublisher'
+    MediaPublisher:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 3442342432
+        type:
+          type: string
+          example: logo_color
+        content:
+          type: string
+          example: https://bobcontents.bennuapp.com.br/publisher_medias/correio-do-povo-color.png
+  responses:
+    Unauthorized:
+      description: Unauthorized
