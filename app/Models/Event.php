@@ -52,7 +52,7 @@ class Event extends Eloquent
                         'news.id' => $newsId,
                         'news.publisherId' => ['$exists' => true],
                         'news.logo' => ['$exists' => true],
-                        'datetime' => ['$gte' => $date]
+                        // 'datetime' => ['$gte' => $date]
                     ],
                 ]
             ]);
