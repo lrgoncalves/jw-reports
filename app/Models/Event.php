@@ -19,10 +19,10 @@ class Event extends Eloquent
      */
     public static function getTrendingTopicsNewsIds( $limit = 10)
     {
-        $last24Hours = Carbon::now()->subHours(24);
-        // $last24Hours = Carbon::createFromFormat('Y-m-d', '2018-12-01');
+        $lastHours = Carbon::now()->subHours(env('TRENDING_TOPICS_LAST_HOURS', 72));
+        // $lastHours = Carbon::createFromFormat('Y-m-d', '2018-12-01');
 
-        $eventos = self::where('action', 'news')->where('datetime', '>=', $last24Hours)->get(); 
+        $eventos = self::where('action', 'news')->where('datetime', '>=', $lastHours)->get(); 
         $grouped = $eventos->map(function ($item, $key) {
             return ['id' => $item["news"]["id"]];
         });
@@ -40,9 +40,9 @@ class Event extends Eloquent
 
     public static function getNewsById($newsId)
     {
-        $last24Hours = Carbon::now()->subHours(24);
-        // $date = new \MongoDB\BSON\UTCDateTime($last24Hours);
-        $date = null;
+        $lastHours = Carbon::now()->subHours(env('TRENDING_TOPICS_LAST_HOURS', 72));
+        $date = new \MongoDB\BSON\UTCDateTime($lastHours);
+        // $date = null;
 
         return self::raw(function ($collection) use ($newsId, $date) {
             return $collection->aggregate([
@@ -50,7 +50,9 @@ class Event extends Eloquent
                     '$match' => [
                         'action' => 'news',
                         'news.id' => $newsId,
-                        // 'datetime' => ['$gte' => $date]
+                        'news.publisherId' => ['$exists' => true],
+                        'news.logo' => ['$exists' => true],
+                        'datetime' => ['$gte' => $date]
                     ],
                 ]
             ]);

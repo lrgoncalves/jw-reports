@@ -32,7 +32,7 @@ class TrendingTopicsController extends Controller
         $news = [];
         foreach ($ids as $id) {
             $n = Event::getNewsById($id);
-
+            
             if (!count($n)) {
                 continue;
             }
@@ -46,6 +46,10 @@ class TrendingTopicsController extends Controller
             }
 
             if (!in_array($n[0]->news->publisherId, $publishersEnabled)) {
+                continue;
+            }
+
+            if (!isset($n[0]->news->logo)) {
                 continue;
             }
 
