@@ -44,5 +44,5 @@ pipelines:
             - pip --help
             - pip install awscli
             - aws --version
-            - zip -r dev.zip ./
+            - zip -r deploy.zip ./
             - aws s3 sync --delete . s3://bennu-deploy/DOUG-SMART-CONTENT-PROD --exclude "*" --include "deploy.zip"
