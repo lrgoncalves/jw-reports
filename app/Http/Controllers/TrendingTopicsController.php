@@ -68,6 +68,10 @@ class TrendingTopicsController extends Controller
                 'publisher_media' => $n[0]->news->logo,
                 'media_publisher' => $media
             ];
+
+            if (count($news) == 6) {
+                break;
+            }
         }
         return $news;
     }
