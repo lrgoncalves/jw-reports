@@ -63,6 +63,7 @@ class TrendingTopicsController extends Controller
                 break;
             }
         }
+        
         return $news;
     }
 }
