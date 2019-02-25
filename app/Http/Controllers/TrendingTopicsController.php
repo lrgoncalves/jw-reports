@@ -44,16 +44,19 @@ class TrendingTopicsController extends Controller
                 continue;
             }
 
+            $medias = [];
+            $medias[] = [
+                'id' => $n->id_media,
+                'type' => $n->type,
+                'content' => $n->image_url,
+            ];
+
             $news[] = [
                 'id' => $n->id,
                 'title' => $n->title,
                 'total_reads' => $t->total,
                 'publisher_media' => $n->image_url,
-                'media_publisher' => [
-                    'id' => $n->id_media,
-                    'type' => $n->type,
-                    'content' => $n->image_url,
-                ]
+                'media_publisher' => $medias
             ];
 
             if (count($news) == 6) {
