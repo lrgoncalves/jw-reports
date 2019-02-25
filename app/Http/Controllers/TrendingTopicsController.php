@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
 use App\Models\NewsTrendingTopic;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TrendingTopicsController extends Controller
 {
@@ -24,49 +24,36 @@ class TrendingTopicsController extends Controller
             $productId = Product::OIJORNAIS;
         }
 
-        $ids = NewsTrendingTopic::where('product_id', '=', $productId)
+        $trendings = NewsTrendingTopic::where('product_id', '=', $productId)
             ->orderBy('total', 'DESC')
-            ->get()
-            ->pluck('news_id');
+            ->get();
 
         $news = [];
-        foreach ($ids as $id) {
-            $n = Event::getNewsById($id);
+        foreach ($trendings as $t) {
+            $n = DB::connection('bob')
+                ->table('news AS n')
+                ->join('publishers AS p', 'n.publisher_id', '=', 'p.id')
+                ->join('publisher_medias AS m', 'm.publisher_id', '=', 'p.id')
+                ->selectRaw('n.id, n.title, m.id as id_media, m.image_url, m.type, m.image_url, m.label')
+                ->where('n.id', $t->id)
+                ->whereRaw('m.type = "logo-color2"')
+                ->whereRaw('n.active AND n.publisher_id in (' . $in . ')')
+                ->first();
             
-            if (!count($n)) {
+            if (!$n) {
                 continue;
-            }
-
-            if (!isset($n[0]->news)) {
-                continue;
-            }
-
-            if (!isset($n[0]->news->publisherId)) {
-                continue;
-            }
-
-            if (!in_array($n[0]->news->publisherId, $publishersEnabled)) {
-                continue;
-            }
-
-            if (!isset($n[0]->news->logo)) {
-                continue;
-            }
-
-            $media = [];
-            if ($n[0]->news->mediaPublisher and count($n[0]->news->mediaPublisher)) {
-                $media[] = [
-                    'id' => $n[0]->news->mediaPublisher[0]->id,
-                    'type' => $n[0]->news->mediaPublisher[0]->type,
-                    'content' => $n[0]->news->logo,
-                ];
             }
 
             $news[] = [
-                'id' => $n[0]->news->id,
-                'title' => $n[0]->news->title,
-                'publisher_media' => $n[0]->news->logo,
-                'media_publisher' => $media
+                'id' => $n->id,
+                'title' => $n->title,
+                'total_reads' => $t->total,
+                'publisher_media' => $n->image_url,
+                'media_publisher' => [
+                    'id' => $n->id_media,
+                    'type' => $n->type,
+                    'content' => $n->image_url,
+                ]
             ];
 
             if (count($news) == 6) {
