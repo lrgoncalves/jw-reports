@@ -4,6 +4,8 @@ pipelines:
   branches:
     develop:
       - step:
+          name: Deploy to testing
+          deployment: test
           script:
             - apt-get update && apt-get install -y python-dev zip libmcrypt-dev mysql-client
             - docker-php-ext-install mcrypt && docker-php-ext-install pdo_mysql
@@ -26,6 +28,8 @@ pipelines:
             - aws s3 sync --delete . s3://bennu-deploy/doug --exclude "*" --include "dev.zip"
     master:
       - step:
+          name: Deploy to production
+          deployment: production
           script:
             - apt-get update && apt-get install -y python-dev zip libmcrypt-dev mysql-client
             - docker-php-ext-install mcrypt && docker-php-ext-install pdo_mysql
