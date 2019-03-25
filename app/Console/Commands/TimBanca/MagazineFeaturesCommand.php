@@ -50,18 +50,14 @@ class MagazineFeaturesCommand extends Command
                 break;
             }
 
-
             $this->info('Saving data: ' . $r->_id->user_id . '@' . $r->_id->magazine_id . ':' . $r->count );
-            $d = MagazineFeature::updateOrCreate([
+            $mf = MagazineFeature::firstOrNew([
                 'product_id' => Product::TIMBANCA,
                 'user_id' => $r->_id->user_id,
                 'magazine_id' => $r->_id->magazine_id,
-            ],[
-                'product_id' => Product::TIMBANCA,
-                'user_id' => $r->_id->user_id,
-                'magazine_id' => $r->_id->magazine_id,
-                'total' => $r->count
             ]);
+            $mf->total = $mf->total + $r->count;
+            $mf->save();
         }
         $this->info('fim da importação');
         
