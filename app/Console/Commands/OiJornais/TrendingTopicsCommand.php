@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands\OiJornais;
 
-use App\Models\Event;
+use App\Models\OiJornais\Event;
 use App\Models\NewsTrendingTopic;
 use App\Models\Product;
 use Illuminate\Console\Command;

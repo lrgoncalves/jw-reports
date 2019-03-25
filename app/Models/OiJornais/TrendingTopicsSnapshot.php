@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\OiJornais;
 
 use Jenssegers\Mongodb\Eloquent\Model as Eloquent;
 use Carbon\Carbon;

@@ -4,13 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CustomerCategoryTrend extends Model
+class MagazineFeature extends Model
 {
     protected $fillable = [
+        'id',
         'product_id',
-        'category_id',
-        'customer_id',
-        'date',
+        'user_id',
+        'magazine_id',
         'total',
     ];
 
@@ -22,8 +22,6 @@ class CustomerCategoryTrend extends Model
     protected $hidden = [
         'id',
         'product_id',
-        'category_id',
-        'customer_id',
         'created_at',
         'updated_at',
     ];
@@ -31,15 +29,5 @@ class CustomerCategoryTrend extends Model
     public function product()
     {
         return $this->belongsTo(Product::class);
-    }
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function customer()
-    {
-        return $this->belongsTo(Customer::class);
     }
 }

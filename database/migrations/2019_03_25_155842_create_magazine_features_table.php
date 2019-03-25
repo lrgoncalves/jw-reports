@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCustomersTable extends Migration
+class CreateMagazineFeaturesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,17 @@ class CreateCustomersTable extends Migration
      */
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('magazine_features', function (Blueprint $table) {
             $table->increments('id');
 
             $table->integer('product_id')->unsigned();
             $table->foreign('product_id')->references("id")->on('products');
 
-            $table->bigInteger('msisdn')->unsigned();
-            $table->string('email')->nullable();
+            $table->integer('user_id')->unsigned();
+            $table->integer('magazine_id')->unsigned();
+            
+            $table->integer('total')->unsigned();
+
             $table->timestamps();
         });
     }
@@ -32,6 +35,6 @@ class CreateCustomersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('magazine_features');
     }
 }

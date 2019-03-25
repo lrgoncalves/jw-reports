@@ -72,6 +72,22 @@ return [
             'engine' => null,
         ],
 
+        'timbanca' => [
+            'driver' => 'mysql',
+            'host' => env('DB_TIMBANCA_HOST', '127.0.0.1'),
+            'port' => env('DB_TIMBANCA_PORT', '3306'),
+            'database' => env('DB_TIMBANCA_DATABASE', 'forge'),
+            'username' => env('DB_TIMBANCA_USERNAME', 'forge'),
+            'password' => env('DB_TIMBANCA_PASSWORD', ''),
+            'unix_socket' => env('DB_TIMBANCA_SOCKET', ''),
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_unicode_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => true,
+            'engine' => null,
+        ],
+
         'pgsql' => [
             'driver' => 'pgsql',
             'host' => env('DB_HOST', '127.0.0.1'),
@@ -98,7 +114,33 @@ return [
             'prefix_indexes' => true,
         ],
 
-        'mongodb' => mongodb_config(),
+        'mongodb' => [
+            'driver' => 'mongodb',
+            'host' => explode(',', env('MONGO_HOST', 'localhost')),
+            'port' => env('MONGO_PORT', 27017),
+            'database' => env('MONGO_DB'),
+            'username' => env('MONGO_USERNAME'),
+            'password' => env('MONGO_PASSWORD'),
+            'options' => [
+                'replicaSet' => env('MONGO_REPLICASET', null),
+                'authSource' => env('MONGO_AUTHDB', null),
+                'ssl' => env('MONGO_SSL', null),
+            ],
+        ],
+
+        'mongodb_timbanca' => [
+            'driver' => 'mongodb',
+            'host' => explode(',', env('MONGO_TIMBANCA_HOST', 'localhost')),
+            'port' => env('MONGO_TIMBANCA_PORT', 27017),
+            'database' => env('MONGO_TIMBANCA_DB'),
+            'username' => env('MONGO_TIMBANCA_USERNAME'),
+            'password' => env('MONGO_TIMBANCA_PASSWORD'),
+            'options' => [
+                'replicaSet' => env('MONGO_TIMBANCA_REPLICASET', null),
+                'authSource' => env('MONGO_TIMBANCA_AUTHDB', null),
+                'ssl' => env('MONGO_TIMBANCA_SSL', null),
+            ],
+        ]
 
     ],
 
@@ -147,30 +189,3 @@ return [
     ],
 
 ];
-
-
-function mongodb_config()
-{
-    // if (env('APP_ENV') == 'production') {
-        return [
-            'driver' => 'mongodb',
-            'host' => explode(',', env('MONGO_HOST', 'localhost')),
-            'port' => env('MONGO_PORT', 27017),
-            'database' => env('MONGO_DB'),
-            'username' => env('MONGO_USERNAME'),
-            'password' => env('MONGO_PASSWORD'),
-            'options' => [
-                'replicaSet' => env('MONGO_REPLICASET', null),
-                'authSource' => env('MONGO_AUTHDB', null),
-                'ssl' => env('MONGO_SSL', null),
-            ],
-        ];
-    // } else {
-    //     return [
-    //         'driver' => 'mongodb',
-    //         'host' => explode(',', env('MONGO_HOST', 'localhost')),
-    //         'port' => env('MONGO_PORT', 27017),
-    //         'database' => env('MONGO_DB'),
-    //     ];
-    // }
-}
