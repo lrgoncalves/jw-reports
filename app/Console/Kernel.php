@@ -26,6 +26,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        $schedule->command('timbanca:magazine-features')
+            ->dailyAt("04:00")
+            ->timezone('America/Sao_Paulo');
     }
 
     /**

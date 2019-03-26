@@ -6,6 +6,7 @@ use App\Models\MagazineFeature;
 use App\Models\Product;
 use App\Models\TimBanca\Event;
 use App\Models\TimBanca\MagazineFeature as Feature;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class MagazineFeaturesCommand extends Command
@@ -15,7 +16,7 @@ class MagazineFeaturesCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'timbanca:magazine-features';
+    protected $signature = 'timbanca:magazine-features {date?}';
 
     /**
      * The console command description.
@@ -41,8 +42,17 @@ class MagazineFeaturesCommand extends Command
      */
     public function handle()
     {
-        $this->info('Inicio da importacao ');
-        $result = Event::getMagazinesFeatures();
+        $this->info('Inicio da importacao');
+        $date = $this->argument('date');
+        if (!$date) {
+            $date = Carbon::yesterday();
+        } else {
+            $date = Carbon::createFromFormat('Y-m-d', $date)->setTime(0, 0, 0);
+
+        }
+
+        $result = Event::getMagazinesFeatures($date);
+        // dd($result->count());
         foreach ($result as  $r) {
             // dd($r);
             if ($r->count == 1) {
@@ -57,6 +67,7 @@ class MagazineFeaturesCommand extends Command
                 'magazine_id' => $r->_id->magazine_id,
             ]);
             $mf->total = $mf->total + $r->count;
+            $mf->date = $date;
             $mf->save();
         }
         $this->info('fim da importação');
@@ -64,6 +75,7 @@ class MagazineFeaturesCommand extends Command
         $this->info('Inicio do cálculo de acumulado de leituras');
         $result = MagazineFeature::where('product_id', Product::TIMBANCA)
             ->selectRaw('user_id, sum(total) as total_reads')
+            ->where('date', $date->format('Y-m-d'))
             ->groupBy('user_id')
             ->orderBy('total_reads', 'DESC')
             ->get();

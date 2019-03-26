@@ -10,12 +10,15 @@ class Event extends Eloquent
     protected $connection = 'mongodb_timbanca';
     protected $collection = 'eventos_v2';
 
-    public static function getMagazinesFeatures()
-    {
-        $lastHours = Carbon::now()->subHours(env('TRENDING_TOPICS_LAST_HOURS', 72));
-        $date = new \MongoDB\BSON\UTCDateTime($lastHours);
+    public static function getMagazinesFeatures(Carbon $dtEnd)
+    {   
+        $dtIni = clone $dtEnd;
+        $dtIni->subDay(1);
+        
+        $dateIni = new \MongoDB\BSON\UTCDateTime($dtIni);
+        $dateEnd = new \MongoDB\BSON\UTCDateTime($dtEnd);
 
-        return self::raw(function ($collection) use ($date) {
+        return self::raw(function ($collection) use ($dateIni, $dateEnd) {
             return $collection->aggregate([
                 [
                     '$match' => [
@@ -25,7 +28,10 @@ class Event extends Eloquent
                                 'magazine_download'
                             ]
                         ],
-                        'datetime' => ['$gte' => $date]
+                        'datetime' => [
+                            '$gte' => $dateIni, 
+                            '$lt' => $dateEnd
+                        ]
                     ],
                 ],[
                     '$group' => [

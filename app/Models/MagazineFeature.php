@@ -11,10 +11,12 @@ class MagazineFeature extends Model
         'product_id',
         'user_id',
         'magazine_id',
+        'date',
         'total',
     ];
 
     protected $dates = [
+        'date',
         'created_at',
         'updated_at',
     ];
