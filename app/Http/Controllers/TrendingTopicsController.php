@@ -12,7 +12,6 @@ class TrendingTopicsController extends Controller
     
     public function index(Request $request, $productId = null)
     {
-
         $in = $this->checkArray($request->get('decrypted'), 'news');
         if (empty($in)) {
             return response()->json(['message' => 'Unauthorized'], 403);
