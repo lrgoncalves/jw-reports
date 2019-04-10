@@ -42,7 +42,7 @@ class TrendingTopicsCommand extends Command
     {
         $this->info('Importing trending-topics!');
 
-        $trending = Event::getTrendingTopicsNewsIds(30);
+        $trending = Event::getTrendingTopicsNewsIds(100);
         if (is_null($trending) || $trending->count() == 0) {
             return $this->error("Nao foi encontrado nenhuma noticia para o Trending Topics");
         }
