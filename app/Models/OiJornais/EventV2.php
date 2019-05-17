@@ -150,4 +150,42 @@ class EventV2 extends Eloquent
         return $results;
     }
 
+    public function getActiveUsers(Carbon $inDate, Carbon $enDate)
+    {
+        $initialDate = new \MongoDB\BSON\UTCDateTime($inDate);
+        $ed = clone $enDate;
+        $ed->addDays(1);
+        $endDate = new \MongoDB\BSON\UTCDateTime($ed);
+
+        $results = self::raw(function ($collection) use ($initialDate, $endDate) {
+            return $collection->aggregate([
+                [
+                    '$match' => [
+                        'datetime' => [
+                            '$gte' => $initialDate,
+                            '$lt' => $endDate
+                        ],
+                        'action' => 'access',
+                    ],
+                ],
+                [
+                    '$group' => [
+                        '_id' => [
+                            'userid' => '$user.id',
+                            'plan' => '$plan.name'
+                        ]
+                    ],
+                ],
+                [
+                    '$group' => [
+                        '_id' => ['plan' => '$_id.plan'],
+                        'count' => ['$sum' => 1]
+                    ],
+                ],
+            ]);
+        });
+
+        return $results;
+
+    }
 }
