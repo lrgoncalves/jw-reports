@@ -30,6 +30,16 @@ class Kernel extends ConsoleKernel
         $schedule->command('timbanca:magazine-features')
             ->dailyAt("04:00")
             ->timezone('America/Sao_Paulo');
+
+        $schedule->command('report:active-users oijornais')
+            ->fridays()
+            ->at('06:00')
+            ->timezone('America/Sao_Paulo');
+
+        $schedule->command('report:active-users timbanca')
+            ->fridays()
+            ->at('07:00')
+            ->timezone('America/Sao_Paulo');
     }
 
     /**

@@ -5,9 +5,9 @@ namespace App\Console\Commands;
 use App\Models\OiJornais\EventV2 as EventOiJornais;
 use App\Models\TimBanca\EventV2 as EventTimBanca;
 use Carbon\Carbon;
-use Illuminate\Console\Command;
+use Storage;
 
-class ActiveUsersReportCommand extends Command
+class ActiveUsersReportCommand extends BaseCommand
 {
     /**
      * The name and signature of the console command.
@@ -44,6 +44,7 @@ class ActiveUsersReportCommand extends Command
         if ($application == 'oijornais') {
             $this->model = new EventOiJornais; 
         } else {
+            $application = 'timbanca';
             $this->model = new EventTimBanca;
         }
 
@@ -56,6 +57,8 @@ class ActiveUsersReportCommand extends Command
         $iniDate = clone $endDate;
         $iniDate->subDays(7);
 
+        $fileName = sprintf('active_users_%s_%s_%s.csv', $application, $iniDate->format('Y-m-d'), $endDate->format('Y-m-d'));
+
         $this->info(sprintf('Relatórios de Usuários Ativos - Período de %s até %s ', $iniDate->format('Y-m-d'), $endDate->format('Y-m-d')));
 
         $str = '';
@@ -67,7 +70,26 @@ class ActiveUsersReportCommand extends Command
             $iniDate->addDay(1);
         }
 
-        $this->info($str);
+        if (Storage::disk('local')->put($fileName, $str)) {
+            $this->info(sprintf('Arquivo gerado corretamente'));
+
+            $attachments = [
+                storage_path("app/$fileName")
+            ];
+
+            $result = $this->sendMailSuccess('Relatório de usuários ativos', 'Em anexo', $attachments);
+            if ($result) {
+                $this->info(sprintf('E-mail enviado com sucesso'));
+            } else {
+                $this->error(sprintf('ERRO ao enviar o e-mail'));
+            }
+
+            Storage::delete($fileName);
+
+
+        } else {
+            $this->error(sprintf('Problemas ao gerar o arquivo'));
+        }
     }
 
     private function getActives($endDate) 
