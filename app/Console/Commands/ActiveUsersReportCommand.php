@@ -54,10 +54,12 @@ class ActiveUsersReportCommand extends BaseCommand
         } else {
             $endDate = Carbon::createFromFormat('Y-m-d', $date)->setTime(0, 0, 0);
         }
-        $iniDate = clone $endDate;
-        $iniDate->subDays(7);
+        // $iniDate = clone $endDate;
+        // $iniDate->subDays(7);
+        $iniDate = Carbon::createFromFormat('Y-m-d', '2019-01-01')->setTime(0, 0, 0);
 
-        $fileName = sprintf('active_users_%s_%s_%s.csv', $application, $iniDate->format('Y-m-d'), $endDate->format('Y-m-d'));
+        $fileName = sprintf('%s/usuarios_ativos_nos_ultimos_30_dias.csv', $application);
+        // dd($fileName);die;
 
         $this->info(sprintf('Relatórios de Usuários Ativos - Período de %s até %s ', $iniDate->format('Y-m-d'), $endDate->format('Y-m-d')));
 
@@ -70,21 +72,21 @@ class ActiveUsersReportCommand extends BaseCommand
             $iniDate->addDay(1);
         }
 
-        if (Storage::disk('local')->put($fileName, $str)) {
+        if (Storage::disk('s3')->put($fileName, $str, ['ACL' => 'public-read'])) {
             $this->info(sprintf('Arquivo gerado corretamente'));
 
-            $attachments = [
-                storage_path("app/$fileName")
-            ];
+            // $attachments = [
+            //     storage_path("app/$fileName")
+            // ];
 
-            $result = $this->sendMailSuccess('Relatório de usuários ativos', 'Em anexo', $attachments);
-            if ($result) {
-                $this->info(sprintf('E-mail enviado com sucesso'));
-            } else {
-                $this->error(sprintf('ERRO ao enviar o e-mail'));
-            }
+            // $result = $this->sendMailSuccess('Relatório de usuários ativos', 'Em anexo', $attachments);
+            // if ($result) {
+            //     $this->info(sprintf('E-mail enviado com sucesso'));
+            // } else {
+            //     $this->error(sprintf('ERRO ao enviar o e-mail'));
+            // }
 
-            Storage::delete($fileName);
+            // Storage::delete($fileName);
 
 
         } else {
