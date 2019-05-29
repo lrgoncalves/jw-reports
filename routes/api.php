@@ -40,3 +40,7 @@ Route::group(['prefix' => 'oijornais'], function () {
     });
 
 });
+
+Route::prefix('v1')->middleware('jwtbob')->group(function () {
+    Route::get('/magazines/featured', 'MagazineController@getFeatured');
+});
