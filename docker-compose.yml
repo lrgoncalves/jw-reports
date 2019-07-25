@@ -9,4 +9,4 @@ services:
     volumes:
       - .:/var/www/app
     ports:
-      - "81:8080"
+      - "87:8080"

@@ -31,6 +31,10 @@ class Kernel extends ConsoleKernel
             ->dailyAt("04:00")
             ->timezone('America/Sao_Paulo');
 
+        $schedule->command('report:active-users vivonews')
+            ->dailyAt("04:00")
+            ->timezone('America/Sao_Paulo');
+
         $schedule->command('report:active-users oijornais')
             ->dailyAt("05:00")
             ->timezone('America/Sao_Paulo');

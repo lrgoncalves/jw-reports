@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Models\OiJornais\EventV2 as EventOiJornais;
 use App\Models\TimBanca\EventV2 as EventTimBanca;
+use App\Models\VivoNews\EventV2 as EventVivoNews;;
 use Carbon\Carbon;
 use Storage;
 
@@ -43,6 +44,9 @@ class ActiveUsersReportCommand extends BaseCommand
         $application = ($this->argument('application')) ? $this->argument('application') : 'oijornais';
         if ($application == 'oijornais') {
             $this->model = new EventOiJornais; 
+        } else if ($application == 'vivonews') {
+            $application = 'vivonews';
+            $this->model = new EventVivoNews;
         } else {
             $application = 'timbanca';
             $this->model = new EventTimBanca;
@@ -59,7 +63,6 @@ class ActiveUsersReportCommand extends BaseCommand
         $iniDate = Carbon::createFromFormat('Y-m-d', '2019-01-01')->setTime(0, 0, 0);
 
         $fileName = sprintf('%s/usuarios_ativos_nos_ultimos_30_dias.csv', $application);
-        // dd($fileName);die;
 
         $this->info(sprintf('Relatórios de Usuários Ativos - Período de %s até %s ', $iniDate->format('Y-m-d'), $endDate->format('Y-m-d')));
 
@@ -67,12 +70,16 @@ class ActiveUsersReportCommand extends BaseCommand
         while ($iniDate <= $endDate) {
 
             $this->info(sprintf('Obtendo registros do dia %s', $iniDate->format('Y-m-d')));
-            $str .= $this->getActives($iniDate);
+            $line = $this->getActives($iniDate);
+
+            if ($line != '') {
+                $str .= $line;
+            }
 
             $iniDate->addDay(1);
         }
 
-        if (Storage::disk('s3')->put($fileName, $str, ['ACL' => 'public-read'])) {
+        if (Storage::disk('s3')->put($fileName, $str)) {
             $this->info(sprintf('Arquivo gerado corretamente'));
 
             // $attachments = [

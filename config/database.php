@@ -140,6 +140,20 @@ return [
                 'authSource' => env('MONGO_TIMBANCA_AUTHDB', null),
                 'ssl' => env('MONGO_TIMBANCA_SSL', null),
             ],
+        ],
+
+        'mongodb_vivonews' => [
+            'driver' => 'mongodb',
+            'host' => explode(',', env('MONGO_VIVONEWS_HOST', 'localhost')),
+            'port' => env('MONGO_VIVONEWS_PORT', 27017),
+            'database' => env('MONGO_VIVONEWS_DB'),
+            'username' => env('MONGO_VIVONEWS_USERNAME'),
+            'password' => env('MONGO_VIVONEWS_PASSWORD'),
+            'options' => [
+                'replicaSet' => env('MONGO_VIVONEWS_REPLICASET', null),
+                'authSource' => env('MONGO_VIVONEWS_AUTHDB', null),
+                'ssl' => env('MONGO_VIVONEWS_SSL', null),
+            ],
         ]
 
     ],
