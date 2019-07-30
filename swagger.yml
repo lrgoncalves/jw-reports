@@ -12,9 +12,7 @@ info:
     name: "MIT"
     url: "http://opensource.org/licenses/MIT"
   servers: 
-  - url: https://dougsmartcontenttest.bennuapp.com.br
-    description: Teste
-  - url: https://dougsmartcontent.bennuapp.com.br
+  - url: https://doug.bennuapp.com.br
     description: Produção
 paths:
   /oijornais/v1/trending-topics/{productId}:
