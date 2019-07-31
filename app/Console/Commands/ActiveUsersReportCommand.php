@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\OiJornais\EventV2 as EventOiJornais;
 use App\Models\TimBanca\EventV2 as EventTimBanca;
 use App\Models\VivoNews\EventV2 as EventVivoNews;;
+use App\Models\HubeApp\EventV2 as EventHubeApp;;
 use Carbon\Carbon;
 use Storage;
 
@@ -47,6 +48,9 @@ class ActiveUsersReportCommand extends BaseCommand
         } else if ($application == 'vivonews') {
             $application = 'vivonews';
             $this->model = new EventVivoNews;
+        } else if ($application == 'hubeapp') {
+            $application = 'hubeapp';
+            $this->model = new EventHubeApp;
         } else {
             $application = 'timbanca';
             $this->model = new EventTimBanca;

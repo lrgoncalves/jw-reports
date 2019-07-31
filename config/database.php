@@ -154,6 +154,20 @@ return [
                 'authSource' => env('MONGO_VIVONEWS_AUTHDB', null),
                 'ssl' => env('MONGO_VIVONEWS_SSL', null),
             ],
+        ],
+
+        'mongodb_hubeapp' => [
+            'driver' => 'mongodb',
+            'host' => explode(',', env('MONGO_HUBEAPP_HOST', 'localhost')),
+            'port' => env('MONGO_HUBEAPP_PORT', 27017),
+            'database' => env('MONGO_HUBEAPP_DB'),
+            'username' => env('MONGO_HUBEAPP_USERNAME'),
+            'password' => env('MONGO_HUBEAPP_PASSWORD'),
+            'options' => [
+                'replicaSet' => env('MONGO_HUBEAPP_REPLICASET', null),
+                'authSource' => env('MONGO_HUBEAPP_AUTHDB', null),
+                'ssl' => env('MONGO_HUBEAPP_SSL', null),
+            ],
         ]
 
     ],
