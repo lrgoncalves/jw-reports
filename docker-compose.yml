@@ -5,8 +5,8 @@ services:
   # PHP (with Caddy)
   app:
     image: ambientum/php:7.1-caddy
-    container_name: doug-app
+    container_name: jw-reports
     volumes:
       - .:/var/www/app
     ports:
-      - "87:8080"
+      - "89:8080"

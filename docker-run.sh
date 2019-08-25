@@ -1,14 +1,12 @@
 #/bin/bash
 
-echo "Iniciando o ambiente de desenvolvimento DOUG"
+echo "Iniciando o ambiente de desenvolvimento "
 
 docker-compose up -d
 
 echo "Instalando dependencias"
 
-docker exec -it doug-app composer update
-
-docker exec -it doug-app composer install
+docker exec -it jw-reports composer install
 
 echo "Ambiente rodando"
 
