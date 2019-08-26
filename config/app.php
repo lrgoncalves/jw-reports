@@ -177,6 +177,8 @@ return [
 
         'Tymon\JWTAuth\Providers\JWTAuthServiceProvider',
 
+        JeroenNoten\LaravelAdminLte\ServiceProvider::class,
+
     ],
 
     /*

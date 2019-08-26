@@ -70,8 +70,6 @@
                 <div class="title m-b-md">
                     {{ env('APP_NAME') }}
                 </div>
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/Hygi3PlZI0Y" frameborder="0" allow="autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
-
             </div>
         </div>
     </body>
