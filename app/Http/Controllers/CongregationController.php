@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Yajra\Datatables\Datatables;
-use Illuminate\Support\Facades\DB;
-
 use App\Models\Congregation;
-use App\Models\Publisher;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Yajra\Datatables\Datatables;
 
 class CongregationController extends Controller
 {
@@ -17,16 +15,17 @@ class CongregationController extends Controller
         $this->middleware('auth');
     }
 
-    public function ajaxData() {
+    public function ajaxData() 
+    {
 
         $builder = Congregation::whereRaw('1=1');
 
         $dt = new Datatables();
         return $dt->eloquent($builder)
-            // ->addColumn('logoImage', function($item) {
-            //     $html = '<img src="'.$item->logo.'" style="width: 50px;" />';
-            //     return $html;
-            // })
+            ->addColumn('total_publishers', function($item) {
+                $html = $item->publishers()->count();
+                return $html;
+            })
 
             ->addColumn('action', function($item) {
                 $html = "";
@@ -37,7 +36,7 @@ class CongregationController extends Controller
             })
 
             ->rawColumns([
-                'code', 'name'
+                'code', 'name', 'action'
             ])
             ->make();
     }

@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Congregation edit')
+@section('title', 'publisher edit')
 
 @section('content_header')
 <h1>{{ $title }}</h1>
@@ -25,14 +25,20 @@
                             {{csrf_field()}}
                             <input type="hidden" name="redirects_to" value="{{ URL::previous() }}">
 
-                            <input type="hidden" name="id" value="{{ $congregation->id }}">
+                            <input type="hidden" name="id" value="{{ $publisher->id }}">
 
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Nome</label>
-                                        <input name="name" type="text" class="form-control" placeholder="" value="{{ $congregation->name }}" required
-                                            {{ ($disabled) ? 'disabled' : '' }}>
+                                        <label>Congregação</label>
+                                        <select class="form-control" id="selectCongregations" name="congregation_id" required>
+                                            @foreach ($congregations as $item)
+                                                <option value="{{ $item->id }}"
+                                                {{ $publisher->congregation_id == $item->id ? 'selected' : ''}}>
+                                                    {{ $item->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -40,10 +46,39 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Número</label>
-                                        <input name="code" type="text" class="form-control" 
-                                        placeholder="" value="{{ $congregation->code }}" {{ ($disabled)
+                                        <label>Nome</label>
+                                        <input name="name" type="text" class="form-control" placeholder="" value="{{ $publisher->name }}" required
+                                            {{ ($disabled) ? 'disabled' : '' }}>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Data de nascimento</label>
+                                        <input name="birth_date" type="text" class="form-control" data-inputmask="'mask': ['99/99/9999']" data-mask=""
+                                        placeholder="" value="{{ $publisher->birth_date }}" {{ ($disabled)
                                             ? 'disabled' : '' }}>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Data de batismo</label>
+                                        <input name="baptize_date" type="text" class="form-control" data-inputmask="'mask': ['99/99/9999']" data-mask=""
+                                        placeholder="" value="{{ $publisher->baptize_date }}" {{ ($disabled)
+                                            ? 'disabled' : '' }}>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Número de pioneiro (caso já tenha servido)</label>
+                                        <input name="pioneer_code" type="text" class="form-control" placeholder="" value="{{ $publisher->pioneer_code }}"
+                                            {{ ($disabled) ? 'disabled' : '' }}>
                                     </div>
                                 </div>
                             </div>

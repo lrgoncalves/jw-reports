@@ -30,5 +30,14 @@ Route::prefix('congregation')->group(function() {
     Route::post('/new', 'CongregationController@new');
     Route::post('/edit', 'CongregationController@update');
     Route::get('ajaxData', 'CongregationController@ajaxData')->name('congregation.ajaxData');
+});
 
+Route::prefix('publisher')->group(function() {
+    Route::get('/list', 'PublisherController@index')->name('publisher');
+    Route::get('/new', 'PublisherController@edit')->name('publisher.new');
+    Route::get('/edit/{id}', 'PublisherController@edit')->name('publisher.edit');
+    Route::post('/new', 'PublisherController@new');
+    Route::post('/edit', 'PublisherController@update');
+    Route::get('ajaxData', 'PublisherController@ajaxData')->name('publisher.ajaxData');
+    Route::get('/delete/{id}', 'PublisherController@delete')->name('publisher.delete');
 });

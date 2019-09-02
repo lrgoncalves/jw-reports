@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'congregation List')
+@section('title', 'publisher List')
 
 @section('content_header')
-    <h1>Congregações</h1>
+    <h1>Publicadores</h1>
 @stop
 
 @section('content')
@@ -14,7 +14,7 @@
 
 @include('components.confirmwarning', [
     'display'=>'none',
-    'message'=>'Tem certeza que deseja remover a congregação? Esse item não será mais listado.'
+    'message'=>'Tem certeza que deseja remover o publicador? Esse item não será mais listado.'
 ])
 
 <div class="row">
@@ -22,21 +22,20 @@
         <div class="box">
             <div class="box-header">
                 <div class="col-md-3">
-                    <button type="button" class="btn btn-block btn-primary btn-lg" onclick="window.location='{{ url('congregation/new') }}'">
-                        Nova Congregação
+                    <button type="button" class="btn btn-block btn-primary btn-lg" onclick="window.location='{{ url('publisher/new') }}'">
+                        Novo Publicador
                     </button>
                 </div>
             </div>
             <div class="box-body">
                 <div class="row">
                     <div class="col-sm-12 table-overflow-x">
-                        <table class="table table-bordered table-striped dataTable" id="congregationDataTable">
+                        <table class="table table-bordered table-striped dataTable" id="publisherDataTable">
                             <thead>
                                 <tr>
                                     <th style="width: 50px">ID</th>
-                                    <th style="width: 50px">Número</th>
                                     <th>Nome</th>
-                                    <th>Total de Publicadores</th>
+                                    <th>Data de batismo</th>
                                     <th style="width: 110px">Ações</th>
                                 </tr>
                             </thead>
@@ -56,7 +55,7 @@
         var idPartner = 0
         $('[data-toggle="tooltip"]').tooltip()
 
-        $('#congregationDataTable').DataTable({
+        $('#publisherDataTable').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json"
             },
@@ -64,12 +63,11 @@
             "lengthChange": false,
             "processing": true,
             "serverSide": true,
-            "ajax": "{{ route('congregation.ajaxData') }}",
+            "ajax": "{{ route('publisher.ajaxData') }}",
             "columns": [
                 { "data": "id", "name" : "id" },
-                { "data": "code", "name" : "code" },
                 { "data": "name", "name" : "name" },
-                { "data": "total_publishers", "name" : "total_publishers" },
+                { "data": "baptize_date", "name": "baptize_date"},
                 { "data": "action" }
             ]
         })
@@ -81,7 +79,8 @@
     }
 
     function confirmRemover() {
-        window.location = 'congregation/remover/' + idPartner
+        var url = "{{ route('publisher.delete', 0) }}";
+        window.location = url.substring(0, url.length-1) + idPartner;
     }
 </script>
 @endpush
