@@ -96,13 +96,13 @@ class CongregationController extends Controller
     public function new(Request $req) {
         $this->save($req);
         return redirect('/congregation/list')
-            ->with('status', 'Parceiro cadastrado com sucesso.');
+            ->with('status', 'Congregação cadastrada com sucesso.');
     }
 
     public function update(Request $req) {
         $this->save($req);
         $url = $req->redirects_to;
         return redirect()->to($url)
-            ->with('status', 'Parceiro atualizado com sucesso.');
+            ->with('status', 'Congregação atualizada com sucesso.');
     }
 }
