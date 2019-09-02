@@ -15,6 +15,8 @@ class CreatePublishersTable extends Migration
     {
         Schema::create('publishers', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('congregation_id')->unsigned();
+            $table->foreign('congregation_id')->references("id")->on('congregations');
             $table->string('name', 60);
             $table->date('birth_date');
             $table->date('baptize_date')->nullable();

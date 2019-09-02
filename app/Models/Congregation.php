@@ -10,4 +10,9 @@ class Congregation extends Model
         'code',
         'name',
     ];    
+
+    public function publishers()
+    {
+        return $this->hasMany(Publisher::class);
+    }
 }

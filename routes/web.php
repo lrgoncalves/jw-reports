@@ -22,3 +22,13 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::prefix('congregation')->group(function() {
+    Route::get('/list', 'CongregationController@index')->name('congregation');
+    Route::get('/new', 'CongregationController@edit')->name('congregation.new');
+    Route::get('/edit/{id}', 'CongregationController@edit')->name('congregation.edit');
+    Route::post('/new', 'CongregationController@new');
+    Route::post('/edit', 'CongregationController@update');
+    Route::get('ajaxData', 'CongregationController@ajaxData')->name('congregation.ajaxData');
+
+});
