@@ -118,13 +118,13 @@ return [
         [
             'text'        => 'Congregações',
             'url'         => 'congregation/list',
-            'icon'        => 'address-book',
+            'icon'        => 'home',
             'active' => ['congregations/*'],
         ],
         [
             'text'        => 'Publicadores',
             'url'         => 'publisher/list',
-            'icon'        => 'tags',
+            'icon'        => 'address-book',
             'active' => ['publishers/*'],
         ],
         'RELATÓRIOS',

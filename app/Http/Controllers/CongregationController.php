@@ -27,20 +27,15 @@ class CongregationController extends Controller
             //     $html = '<img src="'.$item->logo.'" style="width: 50px;" />';
             //     return $html;
             // })
+
             ->addColumn('action', function($item) {
-                $contacts = $item->publishers()->get();
-                $html = "0";
-                if($contacts->count() > 0) {
-                    $html = '<span class="label label-success">'.$contacts->count().'</span>';
-                }
-                // $html = '';
-                // $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Contatos" onclick="javascript: window.location=\'contacts/'.$item->id.'\'">
-                //     <i class="fa fa-address-book text-yellow"></i>
-                //     '.$qtdContacts.'
-                // </a>';
-                
+                $html = "";
+                $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Editar" onclick="javascript: window.location=\'edit/'.$item->id.'\'">
+                    <i class="fa fa-pencil text-blue"></i>
+                </a>';
                 return $html;
             })
+
             ->rawColumns([
                 'code', 'name'
             ])

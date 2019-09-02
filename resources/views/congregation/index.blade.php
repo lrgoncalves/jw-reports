@@ -36,7 +36,7 @@
                                     <th style="width: 50px">ID</th>
                                     <th style="width: 50px">Número</th>
                                     <th>Nome</th>
-                                    <th style="width: 110px">Total de publicadores</th>
+                                    <th style="width: 110px">Ações</th>
                                 </tr>
                             </thead>
                         </table>
