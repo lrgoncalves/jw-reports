@@ -56,7 +56,7 @@ class CongregationController extends Controller
 
         if($id != null) {
             $action = '/congregation/edit';
-            $title = "Editar parceiro";
+            $title = "Editar congregação";
             $congregation = Congregation::where('id', '=', $id)
                 ->first();
         }
