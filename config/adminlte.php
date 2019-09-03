@@ -119,13 +119,20 @@ return [
             'text'        => 'Congregações',
             'url'         => 'congregation/list',
             'icon'        => 'home',
-            'active' => ['congregations/*'],
+            'active' => ['congregation/*'],
         ],
         [
             'text'        => 'Publicadores',
             'url'         => 'publisher/list',
             'icon'        => 'address-book',
-            'active' => ['publishers/*'],
+            'active' => ['publisher/*'],
+        ],
+        'LANÇAMENTOS', 
+        [
+            'text'        => 'Serviço de campo',
+            'url'         => 'field_service/list',
+            'icon'        => 'calendar',
+            'active' => ['field_service/*'],
         ],
         'RELATÓRIOS',
         [

@@ -41,3 +41,13 @@ Route::prefix('publisher')->group(function() {
     Route::get('ajaxData', 'PublisherController@ajaxData')->name('publisher.ajaxData');
     Route::get('/delete/{id}', 'PublisherController@delete')->name('publisher.delete');
 });
+
+Route::prefix('field_service')->group(function() {
+    Route::get('/list', 'FieldServiceController@index')->name('field_service');
+    Route::get('/new', 'FieldServiceController@edit')->name('field_service.new');
+    Route::get('/edit/{id}', 'FieldServiceController@edit')->name('field_service.edit');
+    Route::post('/new', 'FieldServiceController@new');
+    Route::post('/edit', 'FieldServiceController@update');
+    Route::get('ajaxData', 'FieldServiceController@ajaxData')->name('field_service.ajaxData');
+    Route::get('/delete/{id}', 'FieldServiceController@delete')->name('field_service.delete');
+});
