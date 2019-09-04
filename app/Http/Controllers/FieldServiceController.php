@@ -55,8 +55,19 @@ class FieldServiceController extends Controller
         return view('field_service/index');
     }
 
-    public function edit($id = null)
+    public function edit(Request $req, $id = null)
     {
+        $defaultMonth = sprintf('%s/%s', str_pad(date('m') - 1, 2, '0', STR_PAD_LEFT), date('Y'));
+
+        if (!$id and ($req->has('pbid'))) {
+            $defaultDate = $this->convertStringMY2Carbon($defaultMonth);
+            $fieldService = FieldService::where('publisher_id', $req->get('pbid'))
+                ->where('date', $defaultDate->format('Y-m-d'))
+                ->first();
+            if ($fieldService)
+                $id = $fieldService->id;
+        }
+
         $action = 'nova';
         $title = "Novo Lançamento";
         $fieldService = new FieldService();
@@ -69,7 +80,6 @@ class FieldServiceController extends Controller
                 ->first();
         }
 
-        $defaultMonth = sprintf('%s/%s', str_pad(date('m') - 1, 2, '0', STR_PAD_LEFT), date('Y'));
 
         return view('field_service/edit', [
             'action' => $action,
@@ -77,7 +87,8 @@ class FieldServiceController extends Controller
             'fieldService' => $fieldService,
             'defaultMonth' => $defaultMonth,
             'publishers' => Publisher::all(),
-            'disabled' => false
+            'disabled' => false,
+            'pbid' => ($req->has('pbid')) ? $req->get('pbid') : null,
         ]);
     }
 

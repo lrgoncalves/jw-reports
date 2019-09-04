@@ -35,7 +35,7 @@
                                         <select class="form-control publisherSelect" id="publisherSelect" name="publisher_id" required>
                                             @foreach ($publishers as $item)
                                                 <option value="{{ $item->id }}"
-                                                {{ $fieldService->publisher_id == $item->id ? 'selected' : ''}}>
+                                                {{ (($fieldService->publisher_id == $item->id) or ($pbid == $item->id)) ? 'selected' : ''}}>
                                                     {{ $item->name }}
                                                 </option>
                                             @endforeach
@@ -49,7 +49,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Mês</label>
-                                        <input name="date" type="text" class="form-control" placeholder="" value="{{ ($fieldService->date) ? $fieldService->date : $defaultMonth }}" required data-inputmask="'mask': ['99/9999']" data-mask=""
+                                        <input name="date" type="text" class="form-control" placeholder="" value="{{ ($fieldService->date) ? date('m/Y', strtotime($fieldService->date)) : $defaultMonth }}" required data-inputmask="'mask': ['99/9999']" data-mask=""
                                             {{ ($disabled) ? 'disabled' : '' }}>
                                     </div>
                                 </div>

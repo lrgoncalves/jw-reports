@@ -58,7 +58,7 @@
                                     <div class="form-group">
                                         <label>Data de nascimento</label>
                                         <input name="birth_date" type="text" class="form-control" data-inputmask="'mask': ['99/99/9999']" data-mask=""
-                                        placeholder="" value="{{ $publisher->birth_date }}" {{ ($disabled)
+                                        placeholder="" value="{{ ($publisher->birth_date) ? date('d/m/Y', strtotime($publisher->birth_date)) : '' }}" {{ ($disabled)
                                             ? 'disabled' : '' }}>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
                                     <div class="form-group">
                                         <label>Data de batismo</label>
                                         <input name="baptize_date" type="text" class="form-control" data-inputmask="'mask': ['99/99/9999']" data-mask=""
-                                        placeholder="" value="{{ $publisher->baptize_date }}" {{ ($disabled)
+                                        placeholder="" value="{{ ($publisher->baptize_date) ? date('d/m/Y', strtotime($publisher->baptize_date)) : '' }}" {{ ($disabled)
                                             ? 'disabled' : '' }}>
                                     </div>
                                 </div>

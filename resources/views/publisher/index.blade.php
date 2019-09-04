@@ -82,5 +82,10 @@
         var url = "{{ route('publisher.delete', 0) }}";
         window.location = url.substring(0, url.length-1) + idPartner;
     }
+
+    function lancar(id) {
+        var url = "{{ route('field_service.new', ['pbid' =>0]) }}";
+        window.location = url.substring(0, url.length-1) + id;
+    }
 </script>
 @endpush
