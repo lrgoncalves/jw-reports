@@ -58,17 +58,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Horas</label>
-                                        <input name="hours" type="number" class="form-control" placeholder="" value="{{ $fieldService->hours }}"
-                                            {{ ($disabled) ? 'disabled' : '' }}>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Colocações</label>
+                                        <label>Publicações</label>
                                         <input name="placements" type="number" class="form-control" placeholder="" value="{{ $fieldService->placements }}"
                                             {{ ($disabled) ? 'disabled' : '' }}>
                                     </div>
@@ -80,6 +70,16 @@
                                     <div class="form-group">
                                         <label>Vídeos</label>
                                         <input name="videos" type="number" class="form-control" placeholder="" value="{{ $fieldService->videos }}"
+                                            {{ ($disabled) ? 'disabled' : '' }}>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Horas</label>
+                                        <input name="hours" type="number" class="form-control" placeholder="" value="{{ $fieldService->hours }}"
                                             {{ ($disabled) ? 'disabled' : '' }}>
                                     </div>
                                 </div>

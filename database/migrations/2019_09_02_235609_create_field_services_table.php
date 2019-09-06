@@ -17,6 +17,10 @@ class CreateFieldServicesTable extends Migration
             $table->increments('id');
             $table->integer('publisher_id')->unsigned();
             $table->foreign('publisher_id')->references("id")->on('publishers');
+
+            $table->integer('publisher_type_id')->unsigned()->default(1);
+            $table->foreign('publisher_type_id')->after('congregation_id')->references("id")->on('publisher_types');
+
             $table->date('date');
             $table->integer('hours')->nullable();
             $table->integer('placements')->nullable();

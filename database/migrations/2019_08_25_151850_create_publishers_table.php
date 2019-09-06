@@ -17,6 +17,10 @@ class CreatePublishersTable extends Migration
             $table->increments('id');
             $table->integer('congregation_id')->unsigned();
             $table->foreign('congregation_id')->references("id")->on('congregations');
+
+            $table->integer('publisher_type_id')->unsigned()->default(1);
+            $table->foreign('publisher_type_id')->after('congregation_id')->references("id")->on('publisher_types');
+
             $table->string('name', 60);
             $table->date('birth_date');
             $table->date('baptize_date')->nullable();
