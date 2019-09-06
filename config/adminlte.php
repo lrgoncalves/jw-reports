@@ -116,10 +116,10 @@ return [
         ],
         'CADASTROS',
         [
-            'text'        => 'Congregações',
-            'url'         => 'congregation/list',
+            'text'        => 'Anos de Serviço',
+            'url'         => 'year_service/list',
             'icon'        => 'home',
-            'active' => ['congregation/*'],
+            'active' => ['year_service/*'],
         ],
         [
             'text'        => 'Publicadores',

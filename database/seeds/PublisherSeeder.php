@@ -13,17 +13,19 @@ class PublisherSeeder extends Seeder
     public function run()
     {
         Publisher::create([
-            'congregation_id' => 1,
+            'id' => 1,
+            'householder_id' => 1,
             'name' => 'Leandro da Rocha Gonçalves',
-            'birth_date' => '1986-06-18',
+            'birthdate' => '1986-06-18',
             'baptize_date' => '2010-12-11',
             'pioneer_code' => null,
         ]);
 
         Publisher::create([
-            'congregation_id' => 1,
+            'id' => 2,
+            'householder_id' => 1,
             'name' => 'Talita Pereira Sousa Gonçalves',
-            'birth_date' => '1985-10-24',
+            'birthdate' => '1985-10-24',
             'baptize_date' => '1996-02-04',
             'pioneer_code' => 285629,
         ]);
