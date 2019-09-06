@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Congregation edit')
+@section('title', 'year_service edit')
 
 @section('content_header')
 <h1>{{ $title }}</h1>
@@ -25,14 +25,15 @@
                             {{csrf_field()}}
                             <input type="hidden" name="redirects_to" value="{{ URL::previous() }}">
 
-                            <input type="hidden" name="id" value="{{ $congregation->id }}">
+                            <input type="hidden" name="id" value="{{ $yearService->id }}">
 
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Nome</label>
-                                        <input name="name" type="text" class="form-control" placeholder="" value="{{ $congregation->name }}" required
-                                            {{ ($disabled) ? 'disabled' : '' }}>
+                                        <label>Início</label>
+                                        <input name="start_at" type="text" class="form-control" data-inputmask="'mask': ['99/99/9999']" data-mask=""
+                                        placeholder="" value="{{ ($yearService->start_at) ? date('d/m/Y', strtotime($yearService->start_at)) : '' }}" {{ ($disabled)
+                                            ? 'disabled' : '' }}>
                                     </div>
                                 </div>
                             </div>
@@ -40,9 +41,9 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Número</label>
-                                        <input name="code" type="text" class="form-control" 
-                                        placeholder="" value="{{ $congregation->code }}" {{ ($disabled)
+                                        <label>Fim</label>
+                                        <input name="finish_at" type="text" class="form-control" data-inputmask="'mask': ['99/99/9999']" data-mask=""
+                                        placeholder="" value="{{ ($yearService->finish_at) ? date('d/m/Y', strtotime($yearService->finish_at)) : '' }}" {{ ($disabled)
                                             ? 'disabled' : '' }}>
                                     </div>
                                 </div>
@@ -101,48 +102,6 @@
             // return retorno
             return true
         })
-
-        $('#selectResposta').on('change', function(){
-            if($('#selectResposta option:selected').val() == '') {
-                $('#taResposta').val('')
-            } else {
-                $('#taResposta').val($('#selectResposta option:selected').val())
-            }
-        })
-
-        function showErrors(msg) {
-            $('.alert').hide()
-            $('.alert-danger').show()
-            $('#msgError').text(msg)
-        }
-
-        let cep = ""
-        $('#zipcode').on('keypress', function(e) {
-            cep = this.value.replace("-","")
-            getAddress(cep)
-        })
-        $('#getAddress').click(function(){
-            if(cep == "") {
-                cep = $('#zipcode').val().replace("-","")
-                getAddress(cep)
-            }
-        })
-
-        function getAddress(cep) {
-            $.ajax({
-                type: 'get',
-                url: '//viacep.com.br/ws/'+cep+'/json/',
-                async: true,
-                success: function(data) {
-                    console.log(data)
-                    $('[name=address]').val(data.logradouro)
-                    $('[name=neighborhood]').val(data.bairro)
-                    $('[name=city]').val(data.localidade)
-                    $('[name=state]').val(data.uf)
-                    $('[name=country]').val("Brasil")
-                }
-            })
-        }
     })
 
 </script>

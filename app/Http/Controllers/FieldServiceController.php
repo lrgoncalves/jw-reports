@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\FieldService;
 use App\Models\Publisher;
+use App\Models\YearService;
 use App\Traits\DateTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -52,6 +53,12 @@ class FieldServiceController extends Controller
 
     public function index()
     {
+        $hasYearService = YearService::all();
+        if (!$hasYearService->count()) {
+            return view('year_service/init');
+        }
+
+
         return view('field_service/index');
     }
 

@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Congregation;
+use App\Models\YearService;
+use App\Traits\DateTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
 
-class CongregationController extends Controller
+class YearServiceController extends Controller
 {
+    use DateTrait;
 
     public function __construct()
     {
@@ -18,13 +20,17 @@ class CongregationController extends Controller
     public function ajaxData() 
     {
 
-        $builder = Congregation::whereRaw('1=1');
+        $builder = YearService::whereRaw('1=1');
 
         $dt = new Datatables();
         return $dt->eloquent($builder)
-            ->addColumn('total_publishers', function($item) {
-                $html = $item->publishers()->count();
-                return $html;
+
+            ->addColumn('start_at', function($item) {
+                return ($item->start_at) ? date('d/m/Y', strtotime($item->start_at)) : "";
+            })
+
+            ->addColumn('finish_at', function($item) {
+                return ($item->finish_at) ? date('d/m/Y', strtotime($item->finish_at)) : "";
             })
 
             ->addColumn('action', function($item) {
@@ -36,34 +42,34 @@ class CongregationController extends Controller
             })
 
             ->rawColumns([
-                'code', 'name', 'action'
+                'action'
             ])
             ->make();
     }
 
     public function index()
     {
-        return view('congregation/index');
+        return view('year_service/index');
     }
 
     public function edit($id = null)
     {
-        $action = 'nova';
-        $title = "Nova congregação";
-        $congregation = new Congregation();
-        $action = '/congregation/new';
+        $action = 'novo';
+        $title = "Novo Ano de Serviço";
+        $yearService = new YearService();
+        $action = '/year_service/new';
 
         if($id != null) {
-            $action = '/congregation/edit';
-            $title = "Editar congregação";
-            $congregation = Congregation::where('id', '=', $id)
+            $action = '/year_service/edit';
+            $title = "Editar Ano de Serviço";
+            $yearService = YearService::where('id', '=', $id)
                 ->first();
         }
 
-        return view('congregation/edit', [
+        return view('year_service/edit', [
             'action' => $action,
             'title' => $title,
-            'congregation' => $congregation,
+            'yearService' => $yearService,
             'disabled' => false
         ]);
     }
@@ -71,16 +77,16 @@ class CongregationController extends Controller
     private function save(Request $req, $status = "0")
     {
         try {
-            $congregation = new Congregation();
+            $yearService = new YearService();
 
             if($req->id) {
-                $congregation = Congregation::where('id','=',$req->id)->first();
+                $yearService = YearService::where('id','=',$req->id)->first();
             }
 
-            $congregation->name = $req->name;
-            $congregation->code = $req->code;
+            $yearService->start_at = $this->convertString2Carbon($req->start_at);
+            $yearService->finish_at = $this->convertString2Carbon($req->finish_at);
 
-            $congregation->save();
+            $yearService->save();
 
             return true;
         } catch (Illuminate\Database\QueryException $e) {
@@ -94,14 +100,14 @@ class CongregationController extends Controller
 
     public function new(Request $req) {
         $this->save($req);
-        return redirect('/congregation/list')
-            ->with('status', 'Congregação cadastrada com sucesso.');
+        return redirect('/year_service/list')
+            ->with('status', 'Ano de Serviço cadastrada com sucesso.');
     }
 
     public function update(Request $req) {
         $this->save($req);
         $url = $req->redirects_to;
         return redirect()->to($url)
-            ->with('status', 'Congregação atualizada com sucesso.');
+            ->with('status', 'Ano de Serviço atualizada com sucesso.');
     }
 }

@@ -23,13 +23,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::prefix('congregation')->group(function() {
-    Route::get('/list', 'CongregationController@index')->name('congregation');
-    Route::get('/new', 'CongregationController@edit')->name('congregation.new');
-    Route::get('/edit/{id}', 'CongregationController@edit')->name('congregation.edit');
-    Route::post('/new', 'CongregationController@new');
-    Route::post('/edit', 'CongregationController@update');
-    Route::get('ajaxData', 'CongregationController@ajaxData')->name('congregation.ajaxData');
+Route::prefix('year_service')->group(function() {
+    Route::get('/list', 'YearServiceController@index')->name('year_service');
+    Route::get('/new', 'YearServiceController@edit')->name('year_service.new');
+    Route::get('/edit/{id}', 'YearServiceController@edit')->name('year_service.edit');
+    Route::post('/new', 'YearServiceController@new');
+    Route::post('/edit', 'YearServiceController@update');
+    Route::get('ajaxData', 'YearServiceController@ajaxData')->name('year_service.ajaxData');
 });
 
 Route::prefix('publisher')->group(function() {

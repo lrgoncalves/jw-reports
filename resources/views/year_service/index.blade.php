@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'congregation List')
+@section('title', 'year_service List')
 
 @section('content_header')
-    <h1>Congregações</h1>
+    <h1>Ano de Serviço</h1>
 @stop
 
 @section('content')
@@ -22,21 +22,20 @@
         <div class="box">
             <div class="box-header">
                 <div class="col-md-3">
-                    <button type="button" class="btn btn-block btn-primary btn-lg" onclick="window.location='{{ url('congregation/new') }}'">
-                        Nova Congregação
+                    <button type="button" class="btn btn-block btn-primary btn-lg" onclick="window.location='{{ url('year_service/new') }}'">
+                        Novo Ano de Serviço
                     </button>
                 </div>
             </div>
             <div class="box-body">
                 <div class="row">
                     <div class="col-sm-12 table-overflow-x">
-                        <table class="table table-bordered table-striped dataTable" id="congregationDataTable">
+                        <table class="table table-bordered table-striped dataTable" id="year_serviceDataTable">
                             <thead>
                                 <tr>
                                     <th style="width: 50px">ID</th>
-                                    <th style="width: 50px">Número</th>
-                                    <th>Nome</th>
-                                    <th>Total de Publicadores</th>
+                                    <th>Início</th>
+                                    <th>Fim</th>
                                     <th style="width: 110px">Ações</th>
                                 </tr>
                             </thead>
@@ -56,7 +55,7 @@
         var idPartner = 0
         $('[data-toggle="tooltip"]').tooltip()
 
-        $('#congregationDataTable').DataTable({
+        $('#year_serviceDataTable').DataTable({
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json"
             },
@@ -64,12 +63,11 @@
             "lengthChange": false,
             "processing": true,
             "serverSide": true,
-            "ajax": "{{ route('congregation.ajaxData') }}",
+            "ajax": "{{ route('year_service.ajaxData') }}",
             "columns": [
                 { "data": "id", "name" : "id" },
-                { "data": "code", "name" : "code" },
-                { "data": "name", "name" : "name" },
-                { "data": "total_publishers", "name" : "total_publishers" },
+                { "data": "start_at", "name" : "start_at" },
+                { "data": "finish_at", "name" : "finish_at" },
                 { "data": "action" }
             ]
         })
@@ -81,7 +79,7 @@
     }
 
     function confirmRemover() {
-        window.location = 'congregation/remover/' + idPartner
+        window.location = 'year_service/remover/' + idPartner
     }
 </script>
 @endpush
