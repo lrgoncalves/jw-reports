@@ -7,15 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class Publisher extends Model
 {
     protected $fillable = [
-        'congregation_id',
         'name',
-        'birth_date',
+        'birthdate',
         'baptize_date',
         'pioneer_code',
+        'householder_id',
     ];
 
-    public function congregation()
+    public function householder()
     {
-        return $this->belongsTo(Congregation::class);
+        return $this->belongsTo('App\Models\Publisher', 'id', 'householder_id');
+        // return $this->belongsTo(Publisher::class);
     }
 }

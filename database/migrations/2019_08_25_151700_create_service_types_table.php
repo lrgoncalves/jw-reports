@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCongregationsTable extends Migration
+class CreateServiceTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateCongregationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('congregations', function (Blueprint $table) {
+        Schema::create('service_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('code');
-            $table->string('name');
+            $table->string('name', 45);
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateCongregationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('congregations');
+        Schema::dropIfExists('service_types');
     }
 }

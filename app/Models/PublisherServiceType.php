@@ -4,22 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FieldService extends Model
+class PublisherServiceType extends Model
 {
     protected $fillable = [
         'publisher_id',
-        'year_service_id',
         'service_type_id',
-        'date',
-        'placements',
-        'videos',
-        'hours',
-        'return_visits',
-        'studies',
+        'start_at',
+        'finish_at',
     ];
 
     protected $dates = [
-        'date',
+        'start_at',
+        'finish_at',
         'created_at',
         'updated_at',
     ];
@@ -27,11 +23,6 @@ class FieldService extends Model
     public function publisher()
     {
         return $this->belongsTo(Publisher::class);
-    }
-
-    public function yearService()
-    {
-        return $this->belongsTo(YearService::class);
     }
 
     public function serviceType()

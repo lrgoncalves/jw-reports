@@ -15,14 +15,11 @@ class CreatePublishersTable extends Migration
     {
         Schema::create('publishers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('congregation_id')->unsigned();
-            $table->foreign('congregation_id')->references("id")->on('congregations');
-
-            $table->integer('publisher_type_id')->unsigned()->default(1);
-            $table->foreign('publisher_type_id')->after('congregation_id')->references("id")->on('publisher_types');
+            $table->integer('householder_id')->nullable()->unsigned();
+            $table->foreign('householder_id')->references("id")->on('publishers');
 
             $table->string('name', 60);
-            $table->date('birth_date');
+            $table->date('birthdate')->nullable();
             $table->date('baptize_date')->nullable();
             $table->integer('pioneer_code')->nullable();
             $table->timestamps();

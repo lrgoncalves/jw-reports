@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePublisherTypesTable extends Migration
+class CreateMeetingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class CreatePublisherTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('publisher_types', function (Blueprint $table) {
+        Schema::create('meetings', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 45);
+            $table->date('date');
+            $table->integer('attendance')->nullable();
+            $table->string('observations', 255)->nullable();
             $table->timestamps();
         });
     }
@@ -27,6 +29,6 @@ class CreatePublisherTypesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('publisher_types');
+        Schema::dropIfExists('meetings');
     }
 }
