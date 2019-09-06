@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             CongregationSeeder::class,
             PublisherTypeSeeder::class,
             PublisherSeeder::class,
+            UserSeeder::class,
         ]);
     }
 }
