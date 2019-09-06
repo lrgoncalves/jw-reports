@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Congregation;
 use App\Models\FieldService;
 use App\Models\Publisher;
 use App\Traits\DateTrait;
@@ -94,7 +93,7 @@ class PublisherController extends Controller
             'action' => $action,
             'title' => $title,
             'publisher' => $publisher,
-            'congregations' => Congregation::all(),
+            'householders' => Publisher::whereNull('householder_id')->get(),
             'disabled' => false
         ]);
     }
@@ -108,9 +107,9 @@ class PublisherController extends Controller
                 $publisher = Publisher::where('id','=',$req->id)->first();
             }
 
-            $publisher->congregation_id = $req->congregation_id;
+            $publisher->householder_id = $req->householder_id;
             $publisher->name = $req->name;
-            $publisher->birth_date = $this->convertString2Carbon($req->birth_date);
+            $publisher->birthdate = $this->convertString2Carbon($req->birthdate);
             $publisher->baptize_date = $this->convertString2Carbon($req->baptize_date);
 
             $publisher->pioneer_code = $req->pioneer_code;

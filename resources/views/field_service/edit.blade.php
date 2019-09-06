@@ -47,6 +47,42 @@
 
                             <div class="row">
                                 <div class="col-md-12">
+
+                                    <div class="form-group">
+                                        <label>Ano de Serviço</label>
+                                        <select class="form-control yearserviceSelect" id="yearserviceSelect" name="year_service_id" required>
+                                            @foreach ($yearServices as $item)
+                                                <option value="{{ $item->id }}"
+                                                {{ (($fieldService->year_service_id == $item->id)) ? 'selected' : ''}}>
+                                                    {{ $item->start_at->format('Y') }} / {{ $item->finish_at->format('Y') }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
+                                        <label>Perfil</label>
+                                        <select class="form-control serviceTypesSelect" id="serviceTypesSelect" name="year_service_id" required>
+                                            @foreach ($serviceTypes as $item)
+                                                <option value="{{ $item->id }}"
+                                                {{ (($fieldService->year_service_id == $item->id)) ? 'selected' : ''}}>
+                                                    {{ $item->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Mês</label>
                                         <input name="date" type="text" class="form-control" placeholder="" value="{{ ($fieldService->date) ? date('m/Y', strtotime($fieldService->date)) : $defaultMonth }}" required data-inputmask="'mask': ['99/9999']" data-mask=""

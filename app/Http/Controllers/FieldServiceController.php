@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\FieldService;
 use App\Models\Publisher;
 use App\Models\YearService;
+use App\Models\ServiceType;
 use App\Traits\DateTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -88,12 +89,18 @@ class FieldServiceController extends Controller
         }
 
 
+        $yearServiceDefaul = YearService::orderBy('start_at', 'DESC')->first();
+
+
         return view('field_service/edit', [
             'action' => $action,
             'title' => $title,
             'fieldService' => $fieldService,
             'defaultMonth' => $defaultMonth,
             'publishers' => Publisher::all(),
+            'yearServices' => YearService::all(),
+            'YearServiceDefault' => $yearServiceDefaul,
+            'serviceTypes' => ServiceType::all(),
             'disabled' => false,
             'pbid' => ($req->has('pbid')) ? $req->get('pbid') : null,
         ]);
@@ -109,6 +116,7 @@ class FieldServiceController extends Controller
             }
 
             $fieldService->publisher_id = $req->publisher_id;
+            $fieldService->year_service_id = $req->year_service_id;
             $fieldService->date = $this->convertStringMY2Carbon($req->date);
             $fieldService->hours = $req->hours;
             $fieldService->placements = $req->placements;
@@ -131,13 +139,13 @@ class FieldServiceController extends Controller
     public function new(Request $req) {
         $this->save($req);
         return redirect('/field_service/list')
-            ->with('status', 'Publicador cadastrado com sucesso.');
+            ->with('status', 'Relatório cadastrado com sucesso.');
     }
 
     public function update(Request $req) {
         $this->save($req);
         return redirect('/field_service/list')
-            ->with('status', 'Publicador atualizado com sucesso.');
+            ->with('status', 'Relatório atualizado com sucesso.');
     }
 
     public function delete(Request $req, $id)
@@ -146,7 +154,7 @@ class FieldServiceController extends Controller
             ->first();
         $fieldService->forceDelete();
         return redirect('/field_service/list')
-            ->with('status', 'Publicador removido.');
+            ->with('status', 'Relatório removido.');
 
     }
 }

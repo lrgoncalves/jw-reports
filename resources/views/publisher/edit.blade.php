@@ -30,11 +30,12 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Congregação</label>
-                                        <select class="form-control" id="selectCongregations" name="congregation_id" required>
-                                            @foreach ($congregations as $item)
+                                        <label>Chefe da família</label>
+                                        <select class="form-control selecthouseholders" id="selecthouseholders" name="householder_id">
+                                            <option value="">Selecione se o publicador for dependente de outro publicador</option>
+                                            @foreach ($householders as $item)
                                                 <option value="{{ $item->id }}"
-                                                {{ $publisher->congregation_id == $item->id ? 'selected' : ''}}>
+                                                {{ $publisher->householder_id == $item->id ? 'selected' : ''}}>
                                                     {{ $item->name }}
                                                 </option>
                                             @endforeach
@@ -57,8 +58,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Data de nascimento</label>
-                                        <input name="birth_date" type="text" class="form-control" data-inputmask="'mask': ['99/99/9999']" data-mask=""
-                                        placeholder="" value="{{ ($publisher->birth_date) ? date('d/m/Y', strtotime($publisher->birth_date)) : '' }}" {{ ($disabled)
+                                        <input name="birthdate" type="text" class="form-control" data-inputmask="'mask': ['99/99/9999']" data-mask=""
+                                        placeholder="" value="{{ ($publisher->birthdate) ? date('d/m/Y', strtotime($publisher->birthdate)) : '' }}" {{ ($disabled)
                                             ? 'disabled' : '' }}>
                                     </div>
                                 </div>
@@ -111,6 +112,8 @@
 <script>
     $( function() {
         $('[data-mask]').inputmask()
+
+        $('.selecthouseholders').select2();
 
         $('form').on('submit', function() {
 
