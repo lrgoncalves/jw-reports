@@ -61,3 +61,13 @@ Route::prefix('pioneer')->group(function() {
     Route::get('ajaxData', 'PioneerController@ajaxData')->name('pioneer.ajaxData');
     Route::get('/delete/{id}', 'PioneerController@delete')->name('pioneer.delete');
 });
+
+Route::prefix('meeting')->group(function() {
+    Route::get('/list', 'MeetingController@index')->name('meeting');
+    Route::get('/new', 'MeetingController@edit')->name('meeting.new');
+    Route::get('/edit/{id}', 'MeetingController@edit')->name('meeting.edit');
+    Route::post('/new', 'MeetingController@new');
+    Route::post('/edit', 'MeetingController@update');
+    Route::get('ajaxData', 'MeetingController@ajaxData')->name('meeting.ajaxData');
+    Route::get('/delete/{id}', 'MeetingController@delete')->name('meeting.delete');
+});

@@ -140,6 +140,12 @@ return [
             'icon'        => 'calendar',
             'active' => ['field_service/*'],
         ],
+        [
+            'text'        => 'Reuniões',
+            'url'         => 'meeting/list',
+            'icon'        => 'calendar',
+            'active' => ['meeting/*'],
+        ],
         'RELATÓRIOS',
         [
             'text' => 'Campo',
