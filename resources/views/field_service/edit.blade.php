@@ -49,6 +49,27 @@
                                 <div class="col-md-12">
 
                                     <div class="form-group">
+                                        <label>Perfil</label>
+                                        <select class="form-control serviceTypesSelect" id="serviceTypesSelect" name="year_service_id" required>
+                                            @foreach ($serviceTypes as $item)
+                                                <option value="{{ $item->id }}"
+                                                {{ (($fieldService->year_service_id == $item->id)) ? 'selected' : ''}}
+                                                
+                                                {{ ($item->id == $publisherServiceTypeId) ? 'selected' : '' }}
+                                                >
+                                                    {{ $item->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <div class="form-group">
                                         <label>Ano de Serviço</label>
                                         <select class="form-control yearserviceSelect" id="yearserviceSelect" name="year_service_id" required>
                                             @foreach ($yearServices as $item)
@@ -65,28 +86,23 @@
 
                             <div class="row">
                                 <div class="col-md-12">
-
-                                    <div class="form-group">
-                                        <label>Perfil</label>
-                                        <select class="form-control serviceTypesSelect" id="serviceTypesSelect" name="year_service_id" required>
-                                            @foreach ($serviceTypes as $item)
-                                                <option value="{{ $item->id }}"
-                                                {{ (($fieldService->year_service_id == $item->id)) ? 'selected' : ''}}>
-                                                    {{ $item->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Mês</label>
-                                        <input name="date" type="text" class="form-control" placeholder="" value="{{ ($fieldService->date) ? date('m/Y', strtotime($fieldService->date)) : $defaultMonth }}" required data-inputmask="'mask': ['99/9999']" data-mask=""
-                                            {{ ($disabled) ? 'disabled' : '' }}>
+                                        <select name="month" id="monthSelect" class="form-control monthSelect" required>
+                                            <option value="">Selectione</option>
+                                            <option value="9" {{ (($fieldService->month == 9) || ($lastMonth == 9)) ? 'selected' : ''}} >Setembro</option>
+                                            <option value="10" {{ (($fieldService->month == 10) || ($lastMonth == 10)) ? 'selected' : ''}} >Outubro</option>
+                                            <option value="11" {{ (($fieldService->month == 11) || ($lastMonth == 11)) ? 'selected' : ''}} >Novembro</option>
+                                            <option value="12" {{ (($fieldService->month == 12) || ($lastMonth == 12)) ? 'selected' : ''}} >Dezembro</option>
+                                            <option value="1" {{ (($fieldService->month == 1) || ($lastMonth == 1)) ? 'selected' : ''}} >Janeiro</option>
+                                            <option value="2" {{ (($fieldService->month == 2) || ($lastMonth == 2)) ? 'selected' : ''}} >Fevereiro</option>
+                                            <option value="3" {{ (($fieldService->month == 3) || ($lastMonth == 3)) ? 'selected' : ''}} >Março</option>
+                                            <option value="4" {{ (($fieldService->month == 4) || ($lastMonth == 4)) ? 'selected' : ''}} >Abril</option>
+                                            <option value="5" {{ (($fieldService->month == 5) || ($lastMonth == 5)) ? 'selected' : ''}} >Maio</option>
+                                            <option value="6" {{ (($fieldService->month == 6) || ($lastMonth == 6)) ? 'selected' : ''}} >Junho</option>
+                                            <option value="7" {{ (($fieldService->month == 7) || ($lastMonth == 7)) ? 'selected' : ''}} >Julho</option>
+                                            <option value="8" {{ (($fieldService->month == 8) || ($lastMonth == 8)) ? 'selected' : ''}} >Agosto</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>

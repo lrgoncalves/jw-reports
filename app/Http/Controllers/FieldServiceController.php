@@ -6,6 +6,7 @@ use App\Models\FieldService;
 use App\Models\Publisher;
 use App\Models\YearService;
 use App\Models\ServiceType;
+use App\Models\PublisherServiceType;
 use App\Traits\DateTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -40,8 +41,8 @@ class FieldServiceController extends Controller
                 
                 return $html;
             })
-            ->addColumn('date', function($item) {
-                return ($item->date->format('m/Y'));
+            ->addColumn('month', function($item) {
+                return ($this->getMonth($item->month));
             })
             ->addColumn('publisher_name', function($item) {
                 return ($item->publisher()->first()->name);
@@ -65,29 +66,45 @@ class FieldServiceController extends Controller
 
     public function edit(Request $req, $id = null)
     {
-        $defaultMonth = sprintf('%s/%s', str_pad(date('m') - 1, 2, '0', STR_PAD_LEFT), date('Y'));
+        $lastMonth = date('m') - 1;
 
+        $dt =  sprintf('%s-%s-%s', date('Y'), str_pad($lastMonth, 2, '0', STR_PAD_LEFT), '01');
+
+        $yearService = YearService::
+                    whereRaw('"'.$dt.'" >= start_at')
+                    ->whereRaw('"'.$dt.'" <= finish_at')
+                    ->first();
+
+        $fieldService = null;
+        $publisherServiceTypeId = null;
         if (!$id and ($req->has('pbid'))) {
-            $defaultDate = $this->convertStringMY2Carbon($defaultMonth);
-            $fieldService = FieldService::where('publisher_id', $req->get('pbid'))
-                ->where('date', $defaultDate->format('Y-m-d'))
+            $fieldService = FieldService::where('publisher_id', $req->pbid)
+                ->where('month', $lastMonth)
+                ->where('year_service_id', $yearService->id)
                 ->first();
-            if ($fieldService)
-                $id = $fieldService->id;
+            
+            $publisherServiceType = PublisherServiceType::where('publisher_id', $req->pbid)
+                ->whereRaw('"'.$dt.'" >= start_at')
+                ->where(function ($q) use ($dt) {
+                    return $q->whereRaw('"'.$dt.'" <= finish_at')->orWhereNull('finish_at');
+                })
+                ->first();
+            if ($publisherServiceType) {
+                $publisherServiceTypeId = $publisherServiceType->serviceType()->first()->id;
+            }
+        } else if ($id) {
+            $fieldService = FieldService::where('id', $id)->first();
         }
 
-        $action = 'nova';
-        $title = "Novo Lançamento";
-        $fieldService = new FieldService();
-        $action = '/field_service/new';
-
-        if($id != null) {
+        if ($fieldService) {
             $action = '/field_service/edit';
             $title = "Editar Lançamento";
-            $fieldService = FieldService::where('id', '=', $id)
-                ->first();
+        } else {
+            $action = 'nova';
+            $title = "Novo Lançamento";
+            $fieldService = new FieldService();
+            $action = '/field_service/new';
         }
-
 
         $yearServiceDefaul = YearService::orderBy('start_at', 'DESC')->first();
 
@@ -96,11 +113,12 @@ class FieldServiceController extends Controller
             'action' => $action,
             'title' => $title,
             'fieldService' => $fieldService,
-            'defaultMonth' => $defaultMonth,
+            'lastMonth' => $lastMonth,
             'publishers' => Publisher::all(),
             'yearServices' => YearService::all(),
             'YearServiceDefault' => $yearServiceDefaul,
             'serviceTypes' => ServiceType::all(),
+            'publisherServiceTypeId' => $publisherServiceTypeId,
             'disabled' => false,
             'pbid' => ($req->has('pbid')) ? $req->get('pbid') : null,
         ]);
@@ -117,7 +135,7 @@ class FieldServiceController extends Controller
 
             $fieldService->publisher_id = $req->publisher_id;
             $fieldService->year_service_id = $req->year_service_id;
-            $fieldService->date = $this->convertStringMY2Carbon($req->date);
+            $fieldService->month = $req->month;
             $fieldService->hours = $req->hours;
             $fieldService->placements = $req->placements;
             $fieldService->videos = $req->videos;

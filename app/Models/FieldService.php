@@ -16,10 +16,10 @@ class FieldService extends Model
         'hours',
         'return_visits',
         'studies',
+        'month',
     ];
 
     protected $dates = [
-        'date',
         'created_at',
         'updated_at',
     ];

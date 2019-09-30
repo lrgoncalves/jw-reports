@@ -127,6 +127,12 @@ return [
             'icon'        => 'address-book',
             'active' => ['publisher/*'],
         ],
+        [
+            'text'        => 'Pioneiros',
+            'url'         => 'pioneer/list',
+            'icon'        => 'book',
+            'active' => ['pioneer/*'],
+        ],
         'LANÇAMENTOS', 
         [
             'text'        => 'Serviço de campo',

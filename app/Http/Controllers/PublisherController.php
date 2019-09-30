@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\FieldService;
 use App\Models\Publisher;
+use App\Models\YearService;
 use App\Traits\DateTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -31,10 +32,18 @@ class PublisherController extends Controller
                     <i class="fa fa-pencil text-blue"></i>
                 </a>';
 
-                $defaultMonth = sprintf('%s/%s', str_pad(date('m') - 1, 2, '0', STR_PAD_LEFT), date('Y'));
-                $defaultDate = $this->convertStringMY2Carbon($defaultMonth);
+                $lastMonth = date('m') - 1;
+
+                $dt =  sprintf('%s-%s-%s', date('Y'), str_pad($lastMonth, 2, '0', STR_PAD_LEFT), '01');
+
+                $yearService = YearService::
+                    whereRaw('"'.$dt.'" >= start_at')
+                    ->whereRaw('"'.$dt.'" <= finish_at')
+                    ->first();
+                    
                 $fieldServiceAv = FieldService::where('publisher_id', $item->id)
-                    ->where('date', $defaultDate->format('Y-m-d'))
+                    ->where('month', $lastMonth)
+                    ->where('year_service_id', $yearService->id)
                     ->first();
                 
                 $color = 'text-green';
