@@ -115,7 +115,7 @@ class FieldServiceController extends Controller
             'fieldService' => $fieldService,
             'lastMonth' => $lastMonth,
             'publishers' => Publisher::all(),
-            'yearServices' => YearService::all(),
+            'yearServices' => YearService::orderBy('id', 'desc')->get(),
             'YearServiceDefault' => $yearServiceDefaul,
             'serviceTypes' => ServiceType::all(),
             'publisherServiceTypeId' => $publisherServiceTypeId,

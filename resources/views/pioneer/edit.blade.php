@@ -69,7 +69,7 @@
                                         <label>Início</label>
                                         <input name="start_at" type="text" class="form-control" data-inputmask="'mask': ['99/99/9999']" data-mask=""
                                         placeholder="" value="{{ ($pioneer->start_at) ? date('d/m/Y', strtotime($pioneer->start_at)) : '' }}" {{ ($disabled)
-                                            ? 'disabled' : '' }}>
+                                            ? 'disabled' : '' }} required>
                                     </div>
                                 </div>
                             </div>
