@@ -8,5 +8,10 @@ class ServiceType extends Model
 {
     protected $fillable = [
         'name',
-    ];  
+    ];
+
+    public function publishers()
+    {
+        return $this->hasMany(PublisherServiceType::class);
+    }
 }
