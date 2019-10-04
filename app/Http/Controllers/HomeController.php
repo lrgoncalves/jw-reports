@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
 use App\Models\FieldService;
 use App\Models\Publisher;
 use App\Models\PublisherServiceType;
@@ -46,6 +47,27 @@ class HomeController extends Controller
         $totalNonBaptizedPublishers = Publisher::whereNull('baptize_date')->count();
 
 
-        return view('home', compact('totalPublishers', 'totalPioneers', 'totalReports', 'totalNonBaptizedPublishers'));
+        $groups = Group::orderBy('name', 'ASC')->get();
+        $membersGroups = [];
+        $colors = ['yellow', 'purple', 'green',  'blue'];
+        $i = 0; 
+        foreach ($groups as $g) {
+
+            $members = $g->members()->count();
+            foreach ($g->members()->get() as $householder) {
+                // dd($householder->householder_id);
+                $family = Publisher::where('householder_id', $householder->householder_id)->count();
+                $members = $members + $family;
+            }
+            
+            $membersGroups[$g->name] = [
+                'color' => $colors[$i],
+                'total' => $members
+            ];
+            $i++;
+            
+        }
+
+        return view('home', compact('totalPublishers', 'totalPioneers', 'totalReports', 'totalNonBaptizedPublishers', 'membersGroups'));
     }
 }

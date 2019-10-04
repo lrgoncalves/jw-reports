@@ -19,4 +19,10 @@ class Publisher extends Model
         return $this->belongsTo('App\Models\Publisher', 'id', 'householder_id');
         // return $this->belongsTo(Publisher::class);
     }
+
+    public function members()
+    {
+        return $this->hasMany('App\Models\Publisher', 'householder_id', 'id');
+
+    }
 }

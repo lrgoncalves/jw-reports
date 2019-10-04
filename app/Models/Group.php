@@ -22,4 +22,9 @@ class Group extends Model
         return $this->belongsTo(Publisher::class);
     }
 
+    public function members()
+    {
+        return $this->hasMany(GroupMember::class);
+    }
+
 }
