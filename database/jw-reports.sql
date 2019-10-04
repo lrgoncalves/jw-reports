@@ -42,7 +42,7 @@ CREATE TABLE `field_services` (
   CONSTRAINT `field_services_publisher_id_foreign` FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`id`),
   CONSTRAINT `field_services_service_type_id_foreign` FOREIGN KEY (`service_type_id`) REFERENCES `service_types` (`id`),
   CONSTRAINT `field_services_year_service_id_foreign` FOREIGN KEY (`year_service_id`) REFERENCES `year_services` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -51,8 +51,67 @@ CREATE TABLE `field_services` (
 
 LOCK TABLES `field_services` WRITE;
 /*!40000 ALTER TABLE `field_services` DISABLE KEYS */;
-INSERT INTO `field_services` VALUES (2,5,3,1,9,42,NULL,75,11,3,'2019-10-01 22:26:50','2019-10-01 22:26:50'),(3,6,3,1,9,13,1,75,13,5,'2019-10-01 22:30:10','2019-10-01 22:30:10'),(4,8,3,1,9,11,2,77,24,6,'2019-10-01 22:33:04','2019-10-01 22:33:04'),(5,1,3,1,9,3,10,12,4,1,'2019-10-01 22:37:32','2019-10-01 22:37:32');
+INSERT INTO `field_services` VALUES (2,5,3,1,9,42,NULL,75,11,3,'2019-10-01 22:26:50','2019-10-01 22:26:50'),(3,6,3,1,9,13,1,75,13,5,'2019-10-01 22:30:10','2019-10-01 22:30:10'),(4,8,3,1,9,11,2,77,24,6,'2019-10-01 22:33:04','2019-10-01 22:33:04'),(5,1,3,1,9,3,10,12,4,1,'2019-10-01 22:37:32','2019-10-01 22:37:32'),(6,11,3,1,9,27,2,82,15,2,'2019-10-02 23:15:16','2019-10-02 23:15:16'),(7,34,3,1,9,10,1,10,10,2,'2019-10-02 23:16:54','2019-10-02 23:16:54'),(8,4,3,1,9,82,3,90,38,7,'2019-10-02 23:17:53','2019-10-02 23:17:53'),(9,35,3,1,9,24,NULL,20,1,NULL,'2019-10-02 23:19:09','2019-10-02 23:19:09'),(10,16,3,1,9,NULL,NULL,11,2,NULL,'2019-10-02 23:21:39','2019-10-02 23:21:39'),(11,36,3,1,9,17,NULL,23,1,NULL,'2019-10-02 23:22:37','2019-10-02 23:22:37'),(12,18,3,1,9,NULL,1,7,3,1,'2019-10-02 23:23:10','2019-10-02 23:23:10'),(13,37,3,1,9,10,NULL,9,2,NULL,'2019-10-02 23:25:38','2019-10-02 23:25:38'),(14,38,3,1,9,19,5,51,17,6,'2019-10-02 23:27:35','2019-10-02 23:27:35'),(15,12,3,1,9,40,NULL,83,23,NULL,'2019-10-02 23:29:15','2019-10-02 23:29:15'),(16,39,3,1,9,4,NULL,18,3,1,'2019-10-03 17:23:37','2019-10-03 17:23:37'),(17,19,3,1,9,5,NULL,14,2,1,'2019-10-03 17:24:10','2019-10-03 17:24:10'),(18,40,3,1,9,18,NULL,12,NULL,NULL,'2019-10-03 17:25:19','2019-10-03 17:25:19'),(19,15,3,1,9,72,NULL,70,26,4,'2019-10-03 17:25:58','2019-10-03 17:25:58'),(20,41,3,1,9,30,4,25,10,2,'2019-10-03 17:28:16','2019-10-03 17:28:16'),(21,2,3,1,9,5,6,50,2,NULL,'2019-10-03 17:29:32','2019-10-03 17:29:32'),(22,42,3,1,9,NULL,4,7,9,1,'2019-10-03 17:31:29','2019-10-03 17:31:29'),(23,43,3,1,9,NULL,2,5,1,NULL,'2019-10-03 17:31:56','2019-10-03 17:31:56'),(24,7,3,1,9,20,NULL,15,1,NULL,'2019-10-03 17:32:23','2019-10-03 17:32:23'),(25,27,3,1,9,25,4,76,18,5,'2019-10-03 17:33:12','2019-10-03 17:33:12'),(26,44,3,1,9,5,NULL,5,4,3,'2019-10-03 21:58:48','2019-10-03 21:58:48');
 /*!40000 ALTER TABLE `field_services` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `group_members`
+--
+
+DROP TABLE IF EXISTS `group_members`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `group_members` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `group_id` int(10) unsigned NOT NULL,
+  `householder_id` int(10) unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `group_members`
+--
+
+LOCK TABLES `group_members` WRITE;
+/*!40000 ALTER TABLE `group_members` DISABLE KEYS */;
+INSERT INTO `group_members` VALUES (1,1,1,'2019-10-04 00:06:23','2019-10-04 00:06:23'),(2,1,13,'2019-10-04 00:09:04','2019-10-04 00:09:04'),(3,1,11,'2019-10-04 00:09:14','2019-10-04 00:09:14'),(4,1,37,'2019-10-04 00:09:23','2019-10-04 00:09:23'),(5,1,49,'2019-10-04 00:09:31','2019-10-04 00:09:31'),(6,1,60,'2019-10-04 00:09:43','2019-10-04 00:09:43'),(8,1,61,'2019-10-04 00:10:13','2019-10-04 00:10:13'),(9,1,79,'2019-10-04 00:11:31','2019-10-04 00:11:31'),(10,1,55,'2019-10-04 00:11:43','2019-10-04 00:11:43'),(11,1,75,'2019-10-04 00:11:59','2019-10-04 00:11:59'),(12,1,74,'2019-10-04 00:12:25','2019-10-04 00:12:25'),(13,1,45,'2019-10-04 00:12:49','2019-10-04 00:12:49'),(14,1,65,'2019-10-04 00:13:00','2019-10-04 00:13:00'),(15,1,22,'2019-10-04 00:13:11','2019-10-04 00:13:11'),(16,2,14,'2019-10-04 00:14:00','2019-10-04 00:14:00'),(17,2,17,'2019-10-04 00:14:12','2019-10-04 00:14:12'),(18,2,5,'2019-10-04 00:14:28','2019-10-04 00:14:28'),(19,2,23,'2019-10-04 00:14:42','2019-10-04 00:14:42'),(20,4,16,'2019-10-04 00:14:53','2019-10-04 00:14:53'),(21,4,9,'2019-10-04 00:15:07','2019-10-04 00:15:07'),(22,4,50,'2019-10-04 00:16:36','2019-10-04 00:16:36'),(23,4,48,'2019-10-04 00:16:49','2019-10-04 00:16:49'),(24,4,42,'2019-10-04 00:17:01','2019-10-04 00:17:01'),(25,4,7,'2019-10-04 00:17:27','2019-10-04 00:17:27'),(26,4,30,'2019-10-04 00:17:36','2019-10-04 00:17:36'),(27,4,66,'2019-10-04 00:17:46','2019-10-04 00:17:46'),(28,3,15,'2019-10-04 00:18:30','2019-10-04 00:18:30'),(29,3,19,'2019-10-04 00:18:44','2019-10-04 00:18:44'),(30,3,3,'2019-10-04 00:18:51','2019-10-04 00:18:51'),(31,3,44,'2019-10-04 00:19:01','2019-10-04 00:19:01'),(32,3,29,'2019-10-04 00:19:13','2019-10-04 00:19:13'),(33,3,77,'2019-10-04 00:19:23','2019-10-04 00:19:23'),(34,3,64,'2019-10-04 00:19:38','2019-10-04 00:19:38'),(35,3,26,'2019-10-04 00:19:51','2019-10-04 00:19:51'),(36,3,21,'2019-10-04 00:20:05','2019-10-04 00:20:05'),(37,3,52,'2019-10-04 00:20:14','2019-10-04 00:20:14');
+/*!40000 ALTER TABLE `group_members` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `groups`
+--
+
+DROP TABLE IF EXISTS `groups`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `groups` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `overseer_id` int(10) unsigned NOT NULL,
+  `assistant_id` int(10) unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `groups_overseer_id_foreign` (`overseer_id`),
+  KEY `groups_assistant_id_foreign` (`assistant_id`),
+  CONSTRAINT `groups_assistant_id_foreign` FOREIGN KEY (`assistant_id`) REFERENCES `publishers` (`id`),
+  CONSTRAINT `groups_overseer_id_foreign` FOREIGN KEY (`overseer_id`) REFERENCES `publishers` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `groups`
+--
+
+LOCK TABLES `groups` WRITE;
+/*!40000 ALTER TABLE `groups` DISABLE KEYS */;
+INSERT INTO `groups` VALUES (1,1,13,'Arnaldo Tavares','2019-10-03 23:30:27','2019-10-03 23:30:27'),(2,14,17,'Vila Norma','2019-10-03 23:38:38','2019-10-03 23:38:38'),(3,15,19,'José Bittencourt','2019-10-03 23:40:19','2019-10-03 23:40:19'),(4,16,9,'Oswaldo Cruz','2019-10-03 23:41:26','2019-10-03 23:41:26');
+/*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -95,7 +154,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +163,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (9,'2014_10_12_000000_create_users_table',1),(10,'2014_10_12_100000_create_password_resets_table',1),(11,'2019_08_25_151700_create_service_types_table',1),(12,'2019_08_25_151850_create_publishers_table',1),(13,'2019_09_06_080959_create_publisher_service_types_table',1),(14,'2019_09_06_081506_create_year_services_table',1),(15,'2019_09_06_081609_create_field_services_table',1),(16,'2019_09_06_081953_create_meetings_table',1),(17,'2019_09_29_233239_create_pioneers_table',1);
+INSERT INTO `migrations` VALUES (9,'2014_10_12_000000_create_users_table',1),(10,'2014_10_12_100000_create_password_resets_table',1),(11,'2019_08_25_151700_create_service_types_table',1),(12,'2019_08_25_151850_create_publishers_table',1),(13,'2019_09_06_080959_create_publisher_service_types_table',1),(14,'2019_09_06_081506_create_year_services_table',1),(15,'2019_09_06_081609_create_field_services_table',1),(16,'2019_09_06_081953_create_meetings_table',1),(17,'2019_09_29_233239_create_pioneers_table',1),(18,'2019_10_03_231402_create_groups_table',2);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,7 +241,7 @@ CREATE TABLE `publisher_service_types` (
   KEY `publisher_service_types_service_type_id_foreign` (`service_type_id`),
   CONSTRAINT `publisher_service_types_publisher_id_foreign` FOREIGN KEY (`publisher_id`) REFERENCES `publishers` (`id`),
   CONSTRAINT `publisher_service_types_service_type_id_foreign` FOREIGN KEY (`service_type_id`) REFERENCES `service_types` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -191,7 +250,7 @@ CREATE TABLE `publisher_service_types` (
 
 LOCK TABLES `publisher_service_types` WRITE;
 /*!40000 ALTER TABLE `publisher_service_types` DISABLE KEYS */;
-INSERT INTO `publisher_service_types` VALUES (1,2,4,'2019-09-01',NULL,'2019-09-30 00:04:34','2019-09-30 00:04:34'),(2,4,4,'2016-12-01',NULL,'2019-09-30 00:37:55','2019-10-01 22:40:02'),(3,2,3,'2019-08-01','2019-08-31','2019-09-30 00:48:49','2019-09-30 00:48:49'),(4,5,4,'2019-01-01',NULL,'2019-10-01 22:25:16','2019-10-01 22:25:16'),(5,6,4,'2014-04-01',NULL,'2019-10-01 22:29:00','2019-10-01 22:29:00'),(6,8,4,'2019-09-01',NULL,'2019-10-01 22:32:30','2019-10-01 22:32:30'),(7,10,4,'2008-11-01',NULL,'2019-10-01 22:41:54','2019-10-01 22:41:54'),(8,11,4,'2014-09-01',NULL,'2019-10-01 22:43:32','2019-10-01 22:43:32'),(9,12,4,'2019-09-01',NULL,'2019-10-01 22:46:31','2019-10-01 22:46:31'),(10,20,4,'2017-06-01',NULL,'2019-10-01 22:57:12','2019-10-01 22:57:12'),(11,21,4,'2018-09-01',NULL,'2019-10-01 23:09:37','2019-10-01 23:09:37'),(12,15,4,'2015-08-01',NULL,'2019-10-01 23:10:02','2019-10-01 23:10:02'),(13,22,4,'2010-09-01',NULL,'2019-10-01 23:10:31','2019-10-01 23:10:31'),(14,23,4,'2008-11-01',NULL,'2019-10-01 23:11:00','2019-10-01 23:11:00'),(15,24,4,'2019-01-01',NULL,'2019-10-01 23:11:21','2019-10-01 23:11:21'),(16,25,4,'2013-09-01',NULL,'2019-10-01 23:11:40','2019-10-01 23:11:40'),(17,26,4,'2010-09-01',NULL,'2019-10-01 23:11:59','2019-10-01 23:11:59'),(18,27,4,'2015-08-01',NULL,'2019-10-01 23:12:25','2019-10-01 23:12:25'),(19,28,4,'2016-09-01',NULL,'2019-10-01 23:13:52','2019-10-01 23:13:52'),(20,19,4,'2006-06-01',NULL,'2019-10-01 23:14:40','2019-10-01 23:14:40'),(21,31,4,'2018-01-01',NULL,'2019-10-01 23:15:00','2019-10-01 23:15:00'),(22,33,4,'2018-02-01',NULL,'2019-10-01 23:15:17','2019-10-01 23:15:17');
+INSERT INTO `publisher_service_types` VALUES (1,2,4,'2019-09-01',NULL,'2019-09-30 00:04:34','2019-09-30 00:04:34'),(2,4,4,'2016-12-01',NULL,'2019-09-30 00:37:55','2019-10-01 22:40:02'),(3,2,3,'2019-08-01','2019-08-31','2019-09-30 00:48:49','2019-09-30 00:48:49'),(4,5,4,'2019-01-01',NULL,'2019-10-01 22:25:16','2019-10-01 22:25:16'),(5,6,4,'2014-04-01',NULL,'2019-10-01 22:29:00','2019-10-01 22:29:00'),(6,8,4,'2019-09-01',NULL,'2019-10-01 22:32:30','2019-10-01 22:32:30'),(7,10,4,'2008-11-01',NULL,'2019-10-01 22:41:54','2019-10-01 22:41:54'),(8,11,4,'2014-09-01',NULL,'2019-10-01 22:43:32','2019-10-01 22:43:32'),(9,12,4,'2019-09-01',NULL,'2019-10-01 22:46:31','2019-10-01 22:46:31'),(10,20,4,'2017-06-01',NULL,'2019-10-01 22:57:12','2019-10-01 22:57:12'),(11,21,4,'2018-09-01',NULL,'2019-10-01 23:09:37','2019-10-01 23:09:37'),(12,15,4,'2015-08-01',NULL,'2019-10-01 23:10:02','2019-10-01 23:10:02'),(13,22,4,'2010-09-01',NULL,'2019-10-01 23:10:31','2019-10-01 23:10:31'),(14,23,4,'2008-11-01',NULL,'2019-10-01 23:11:00','2019-10-01 23:11:00'),(15,24,4,'2019-01-01',NULL,'2019-10-01 23:11:21','2019-10-01 23:11:21'),(16,25,4,'2013-09-01',NULL,'2019-10-01 23:11:40','2019-10-01 23:11:40'),(17,26,4,'2010-09-01',NULL,'2019-10-01 23:11:59','2019-10-01 23:11:59'),(18,27,4,'2015-08-01',NULL,'2019-10-01 23:12:25','2019-10-01 23:12:25'),(19,28,4,'2016-09-01',NULL,'2019-10-01 23:13:52','2019-10-01 23:13:52'),(20,19,4,'2006-06-01',NULL,'2019-10-01 23:14:40','2019-10-01 23:14:40'),(21,31,4,'2018-01-01',NULL,'2019-10-01 23:15:00','2019-10-01 23:15:00'),(22,33,4,'2018-02-01',NULL,'2019-10-01 23:15:17','2019-10-01 23:15:17'),(23,67,3,'2017-08-01',NULL,'2019-10-03 22:50:39','2019-10-03 22:50:39');
 /*!40000 ALTER TABLE `publisher_service_types` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -214,7 +273,7 @@ CREATE TABLE `publishers` (
   PRIMARY KEY (`id`),
   KEY `publishers_householder_id_foreign` (`householder_id`),
   CONSTRAINT `publishers_householder_id_foreign` FOREIGN KEY (`householder_id`) REFERENCES `publishers` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=80 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,7 +282,7 @@ CREATE TABLE `publishers` (
 
 LOCK TABLES `publishers` WRITE;
 /*!40000 ALTER TABLE `publishers` DISABLE KEYS */;
-INSERT INTO `publishers` VALUES (1,NULL,'Leandro da Rocha Gonçalves','1986-06-18','2010-12-11',NULL,'2019-09-29 23:36:14','2019-09-29 23:36:14'),(2,1,'Talita Pereira Sousa Gonçalves','1985-10-24','1996-02-04',285629,'2019-09-29 23:36:36','2019-10-01 22:59:18'),(3,NULL,'José Messias de Souza Barbosa',NULL,NULL,NULL,'2019-09-30 00:37:05','2019-10-01 22:38:42'),(4,3,'Sirlene Vasconcellos da Rocha Barbosa','1962-07-05','1975-11-30',90907,'2019-09-30 00:37:22','2019-10-01 22:39:36'),(5,NULL,'Jane Monteiro Escuri da Silva','1961-07-21','1982-04-24',276959,'2019-10-01 22:20:44','2019-10-01 22:24:46'),(6,7,'Katia Cilene Marques dos Santos','1984-08-16','2002-04-20',133447,'2019-10-01 22:28:23','2019-10-01 22:29:31'),(7,NULL,'Thiago Gomes Baptista',NULL,NULL,NULL,'2019-10-01 22:29:19','2019-10-01 22:29:19'),(8,3,'Thayra Vasconcellos da Rocha Barbosa','1990-04-30','2002-08-31',120254,'2019-10-01 22:31:52','2019-10-01 22:31:52'),(9,NULL,'Diego Gomes Baptista','1988-01-13','2004-04-01',NULL,'2019-10-01 22:40:31','2019-10-01 22:50:30'),(10,9,'Daiana Souza de Oliveira Baptista','1994-10-19','2007-03-25',139265,'2019-10-01 22:41:28','2019-10-01 22:41:28'),(11,NULL,'Maria Alice Gomes Baptista','1956-02-16','2008-04-05',204376,'2019-10-01 22:42:56','2019-10-01 22:42:56'),(12,13,'Ana Julia da Silva Barbosa','2003-11-28','2017-12-09',283442,'2019-10-01 22:45:01','2019-10-01 22:46:00'),(13,NULL,'Tiago Araújo Barbosa','1982-06-30','1998-12-12',NULL,'2019-10-01 22:45:46','2019-10-01 22:51:20'),(14,NULL,'Nicanor Henrique Barreto','1962-11-02','1975-12-21',NULL,'2019-10-01 22:48:04','2019-10-01 22:48:04'),(15,NULL,'Kingsley Nkemjika Duru','1968-06-01','1988-01-01',NULL,'2019-10-01 22:48:54','2019-10-01 22:48:54'),(16,NULL,'André Luis Esteves da Rosa','1973-05-18','1995-12-16',NULL,'2019-10-01 22:49:49','2019-10-01 22:49:49'),(17,NULL,'Victor Carneiro da Silva Machado','1992-07-02','2007-05-11',NULL,'2019-10-01 22:52:09','2019-10-01 22:52:09'),(18,16,'Guilherme Souza da Rosa','1998-10-06','2011-12-11',NULL,'2019-10-01 22:52:43','2019-10-01 22:52:43'),(19,NULL,'Fernando Joaquim da Silva','1953-05-05','1983-12-31',NULL,'2019-10-01 22:53:19','2019-10-01 22:53:19'),(20,14,'Natália José da Silva Barreto','1975-12-25','1997-07-19',151066,'2019-10-01 22:54:25','2019-10-01 22:54:25'),(21,NULL,'Renata Maciel da Silva Costa','1975-10-03','2010-12-12',272522,'2019-10-01 22:55:53','2019-10-01 22:55:53'),(22,NULL,'Maria José de Farias Gomes','1949-04-03','1995-07-15',156976,'2019-10-01 22:58:23','2019-10-01 22:58:23'),(23,NULL,'Salita Silva dos Santos Lopes','1977-01-15','2006-11-04',139161,'2019-10-01 23:00:12','2019-10-01 23:00:12'),(24,17,'Sara Santos Machado','1992-01-19','2004-10-23',154752,'2019-10-01 23:00:56','2019-10-01 23:00:56'),(25,NULL,'Lucimar de Oliveira Mendes','1975-09-15','2009-12-12',194045,'2019-10-01 23:02:05','2019-10-01 23:02:05'),(26,NULL,'Maria Lucilha de Carvalho Moraes','1960-05-13','1988-08-28',53570,'2019-10-01 23:03:04','2019-10-01 23:03:04'),(27,15,'Silvânia da Silva Nóbrega','1977-10-12','1992-04-25',8920,'2019-10-01 23:03:52','2019-10-01 23:03:52'),(28,29,'Sheila Queiroga Pires Werderits','1979-07-12','2014-02-09',237957,'2019-10-01 23:04:47','2019-10-01 23:05:13'),(29,NULL,'Tiago Francisco Rosa Werderits',NULL,NULL,NULL,'2019-10-01 23:04:58','2019-10-01 23:04:58'),(30,NULL,'Antonio Silvestre da Silva',NULL,NULL,NULL,'2019-10-01 23:06:22','2019-10-01 23:06:22'),(31,30,'Valéria Silvestre da Silva','1962-10-08','1987-12-19',262329,'2019-10-01 23:07:07','2019-10-01 23:07:07'),(32,NULL,'Florisvaldo Lemos de Souza',NULL,NULL,NULL,'2019-10-01 23:07:28','2019-10-01 23:07:28'),(33,32,'Iza Oliveira de Souza','1959-01-02','1981-07-25',148584,'2019-10-01 23:08:11','2019-10-01 23:08:11');
+INSERT INTO `publishers` VALUES (1,NULL,'Leandro da Rocha Gonçalves','1986-06-18','2010-12-11',NULL,'2019-09-29 23:36:14','2019-09-29 23:36:14'),(2,1,'Talita Pereira Sousa Gonçalves','1985-10-24','1996-02-04',285629,'2019-09-29 23:36:36','2019-10-01 22:59:18'),(3,NULL,'José Messias de Souza Barbosa','1957-12-25','2008-04-05',NULL,'2019-09-30 00:37:05','2019-10-03 22:26:51'),(4,3,'Sirlene Vasconcellos da Rocha Barbosa','1962-07-05','1975-11-30',90907,'2019-09-30 00:37:22','2019-10-01 22:39:36'),(5,NULL,'Jane Monteiro Escuri da Silva','1961-07-21','1982-04-24',276959,'2019-10-01 22:20:44','2019-10-01 22:24:46'),(6,7,'Katia Cilene Marques dos Santos','1984-08-16','2002-04-20',133447,'2019-10-01 22:28:23','2019-10-01 22:29:31'),(7,NULL,'Thiago Gomes Baptista','1988-01-13','2006-04-01',NULL,'2019-10-01 22:29:19','2019-10-03 22:31:17'),(8,3,'Thayra Vasconcellos da Rocha Barbosa','1990-04-30','2002-08-31',120254,'2019-10-01 22:31:52','2019-10-01 22:31:52'),(9,NULL,'Diego Gomes Baptista','1988-01-13','2004-04-01',NULL,'2019-10-01 22:40:31','2019-10-01 22:50:30'),(10,9,'Daiana Souza de Oliveira Baptista','1994-10-19','2007-03-25',139265,'2019-10-01 22:41:28','2019-10-01 22:41:28'),(11,NULL,'Maria Alice Gomes Baptista','1956-02-16','2008-04-05',204376,'2019-10-01 22:42:56','2019-10-01 22:42:56'),(12,13,'Ana Julia da Silva Barbosa','2003-11-28','2017-12-09',283442,'2019-10-01 22:45:01','2019-10-01 22:46:00'),(13,NULL,'Tiago Araújo Barbosa','1982-06-30','1998-12-12',NULL,'2019-10-01 22:45:46','2019-10-01 22:51:20'),(14,NULL,'Nicanor Henrique Barreto','1962-11-02','1975-12-21',NULL,'2019-10-01 22:48:04','2019-10-01 22:48:04'),(15,NULL,'Kingsley Nkemjika Duru','1968-06-01','1988-01-01',NULL,'2019-10-01 22:48:54','2019-10-01 22:48:54'),(16,NULL,'André Luis Esteves da Rosa','1973-05-18','1995-12-16',NULL,'2019-10-01 22:49:49','2019-10-01 22:49:49'),(17,NULL,'Victor Carneiro da Silva Machado','1992-07-02','2007-05-11',NULL,'2019-10-01 22:52:09','2019-10-01 22:52:09'),(18,16,'Guilherme Souza da Rosa','1998-10-06','2011-12-11',NULL,'2019-10-01 22:52:43','2019-10-01 22:52:43'),(19,NULL,'Fernando Joaquim da Silva','1953-05-05','1983-12-31',NULL,'2019-10-01 22:53:19','2019-10-01 22:53:19'),(20,14,'Natália José da Silva Barreto','1975-12-25','1997-07-19',151066,'2019-10-01 22:54:25','2019-10-01 22:54:25'),(21,NULL,'Renata Maciel da Silva Costa','1975-10-03','2010-12-12',272522,'2019-10-01 22:55:53','2019-10-01 22:55:53'),(22,NULL,'Maria José de Farias Gomes','1949-04-03','1995-07-15',156976,'2019-10-01 22:58:23','2019-10-01 22:58:23'),(23,NULL,'Salita Silva dos Santos Lopes','1977-01-15','2006-11-04',139161,'2019-10-01 23:00:12','2019-10-01 23:00:12'),(24,17,'Sara Santos Machado','1992-01-19','2004-10-23',154752,'2019-10-01 23:00:56','2019-10-01 23:00:56'),(25,74,'Lucimar de Oliveira Mendes','1975-09-15','2009-12-12',194045,'2019-10-01 23:02:05','2019-10-03 22:57:56'),(26,NULL,'Maria Lucilha de Carvalho Moraes','1960-05-13','1988-08-28',53570,'2019-10-01 23:03:04','2019-10-01 23:03:04'),(27,15,'Silvânia da Silva Nóbrega','1977-10-12','1992-04-25',8920,'2019-10-01 23:03:52','2019-10-01 23:03:52'),(28,29,'Sheila Queiroga Pires Werderits','1979-07-12','2014-02-09',237957,'2019-10-01 23:04:47','2019-10-01 23:05:13'),(29,NULL,'Tiago Francisco Rosa Werderits','1985-04-14','1997-04-19',NULL,'2019-10-01 23:04:58','2019-10-03 22:32:41'),(30,NULL,'Antonio Silvestre da Silva','1960-07-14','1987-12-19',NULL,'2019-10-01 23:06:22','2019-10-03 22:28:09'),(31,30,'Valéria Silvestre da Silva','1962-10-08','1987-12-19',262329,'2019-10-01 23:07:07','2019-10-01 23:07:07'),(32,NULL,'Florisvaldo Lemos de Souza',NULL,NULL,NULL,'2019-10-01 23:07:28','2019-10-01 23:07:28'),(33,32,'Iza Oliveira de Souza','1959-01-02','1981-07-25',148584,'2019-10-01 23:08:11','2019-10-01 23:08:11'),(34,37,'Sandra Vasconcellos Rocha','1971-05-25','1985-08-23',NULL,'2019-10-02 23:16:25','2019-10-03 22:44:01'),(35,NULL,'Marlucia',NULL,NULL,NULL,'2019-10-02 23:18:42','2019-10-02 23:18:42'),(36,16,'Flávia Maria de Souza da Rosa','1972-11-12','1995-12-16',NULL,'2019-10-02 23:22:10','2019-10-03 23:00:04'),(37,NULL,'Maria Rosa Vasconcellos da Rocha','1934-01-28','1961-04-16',NULL,'2019-10-02 23:25:16','2019-10-03 22:44:48'),(38,50,'Suelen Sant\'ana de Oliveira Silva','1984-05-30','2013-10-26',203829,'2019-10-02 23:26:25','2019-10-03 22:55:35'),(39,19,'Pedro Lucas Maciel Da Silva Mendonça','2001-12-19','2014-06-27',NULL,'2019-10-03 17:23:15','2019-10-03 22:28:30'),(40,21,'Vanderley Correa Costa Júnior','1999-12-13','2015-07-04',NULL,'2019-10-03 17:24:49','2019-10-03 22:35:26'),(41,37,'Shirlei Vasconcellos da Rocha','1964-02-25','1985-08-23',NULL,'2019-10-03 17:27:53','2019-10-03 22:43:23'),(42,NULL,'Paulo Reinaldo Almeida dos Santos','1978-01-16','1997-12-13',NULL,'2019-10-03 17:30:49','2019-10-03 22:27:36'),(43,42,'Jaqueline Simoões Rocha','1980-04-27','1996-08-17',NULL,'2019-10-03 17:31:03','2019-10-03 22:48:21'),(44,NULL,'Sandra Cristina dos Santos Pereira',NULL,NULL,NULL,'2019-10-03 21:57:51','2019-10-03 21:57:51'),(45,NULL,'Iracema Raquel Da Silva','1941-08-15','2001-07-21',NULL,'2019-10-03 22:23:26','2019-10-03 22:23:26'),(46,60,'Ana Maria Cunha da Silva Menezes',NULL,NULL,NULL,'2019-10-03 22:24:09','2019-10-03 22:42:11'),(47,30,'Daniel Silvestre da Silva','1997-05-05','2008-11-15',NULL,'2019-10-03 22:30:08','2019-10-03 22:30:08'),(48,NULL,'Marcelo dos Santos Pimentel','1964-08-11','1995-07-15',NULL,'2019-10-03 22:30:43','2019-10-03 22:30:43'),(49,NULL,'Silas Vasconcellos da Rocha','1974-12-28','1991-10-29',NULL,'2019-10-03 22:31:54','2019-10-03 22:31:54'),(50,NULL,'Carlos Henrique Silva',NULL,NULL,NULL,'2019-10-03 22:33:18','2019-10-03 22:37:42'),(51,50,'Caio Henrique Rodrigues','2004-06-26','2017-04-15',NULL,'2019-10-03 22:33:51','2019-10-03 22:33:51'),(52,NULL,'Bianca Rodrigues e Silva','1979-03-04','2005-02-22',NULL,'2019-10-03 22:34:11','2019-10-03 22:57:01'),(53,52,'Robert Rodrigues da Silva','2004-07-06','2015-12-12',NULL,'2019-10-03 22:34:40','2019-10-03 22:34:40'),(54,52,'Benaia Rodrigues e Silva','2005-10-05','2015-12-12',NULL,'2019-10-03 22:36:28','2019-10-03 22:36:28'),(55,NULL,'José Carlos dos Santos Freitas','1948-04-26','1978-06-12',NULL,'2019-10-03 22:37:02','2019-10-03 22:37:02'),(56,50,'Yan Lincoln Silva de Oliveira','2009-04-30',NULL,NULL,'2019-10-03 22:38:14','2019-10-03 22:38:14'),(57,50,'Angelo Marcelo Silva Maurício','2002-06-21',NULL,NULL,'2019-10-03 22:38:41','2019-10-03 22:38:41'),(58,50,'Darline Shayene Martins Gonçalves','2004-11-04',NULL,NULL,'2019-10-03 22:39:45','2019-10-03 22:39:45'),(59,48,'Rosemere Brasil Pimentel','1960-03-01','1995-12-15',32558,'2019-10-03 22:40:33','2019-10-03 22:40:56'),(60,NULL,'Beatriz Rodrigues da Silva','1939-04-21','1984-12-08',NULL,'2019-10-03 22:41:56','2019-10-03 22:41:56'),(61,NULL,'Angela Maria Feliciano Leite',NULL,'2016-07-02',NULL,'2019-10-03 22:42:46','2019-10-03 22:42:46'),(62,49,'Brenda Cristiny Alves da Rocha','2007-03-04',NULL,NULL,'2019-10-03 22:45:22','2019-10-03 22:45:22'),(63,13,'Ana Paula da Silva Barbosa','1982-05-31','1997-12-17',NULL,'2019-10-03 22:46:05','2019-10-03 22:46:05'),(64,NULL,'Maria do Carmo Arruda da Silva','1936-12-16','1987-12-19',NULL,'2019-10-03 22:46:39','2019-10-03 22:46:39'),(65,NULL,'Maria C de Souza Caçula','1937-02-06','1969-03-08',NULL,'2019-10-03 22:47:30','2019-10-03 22:47:30'),(66,NULL,'Kelly Cristina Gonçalves Rodrigues','1983-06-05','2018-03-18',NULL,'2019-10-03 22:49:01','2019-10-03 22:49:01'),(67,66,'Katlen Cristina Rodrigues','1999-06-22','2017-04-15',NULL,'2019-10-03 22:49:43','2019-10-03 22:49:43'),(68,30,'Raquel Silvestre da Silva','1992-01-13','2016-07-22',NULL,'2019-10-03 22:51:22','2019-10-03 22:51:22'),(69,19,'Rita Luzia Maciel da Silva','1956-04-10','1989-12-07',NULL,'2019-10-03 22:52:05','2019-10-03 22:52:05'),(70,52,'Emily Rodrigues e Silva','2001-04-23','2014-05-17',NULL,'2019-10-03 22:52:54','2019-10-03 22:52:54'),(71,NULL,'Rosimar de Oliveira Sobrinho',NULL,'1996-03-30',NULL,'2019-10-03 22:53:34','2019-10-03 22:53:34'),(72,26,'Samanta de Carvalho Moraes','1986-07-04','1999-12-11',78906,'2019-10-03 22:53:50','2019-10-03 22:54:35'),(73,NULL,'Maria José Ribeiro da Silva','1978-11-04',NULL,NULL,'2019-10-03 22:56:29','2019-10-03 22:56:29'),(74,NULL,'Vera Lúcia de Oliveira Mendes','1947-06-03','2015-11-22',NULL,'2019-10-03 22:57:44','2019-10-03 22:57:44'),(75,NULL,'Luci dos Santos Nogueira','1946-08-14','1967-09-01',NULL,'2019-10-03 22:58:40','2019-10-03 22:58:40'),(76,NULL,'Ivairda Luiza Mazala de Araújo','1935-06-09','1985-12-21',NULL,'2019-10-03 22:59:22','2019-10-03 22:59:22'),(77,NULL,'Jorge Arthour','1948-08-31','1964-01-02',NULL,'2019-10-03 23:00:25','2019-10-03 23:03:39'),(78,77,'Maria da Conceição Arthour','1949-08-10','1964-10-02',NULL,'2019-10-03 23:01:02','2019-10-03 23:01:02'),(79,NULL,'Alcineia Portes','1969-01-28','1991-01-06',256816,'2019-10-03 23:04:28','2019-10-03 23:04:28');
 /*!40000 ALTER TABLE `publishers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -320,4 +379,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-01 23:16:49
+-- Dump completed on 2019-10-04  0:57:47
