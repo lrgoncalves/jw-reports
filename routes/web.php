@@ -71,3 +71,13 @@ Route::prefix('meeting')->group(function() {
     Route::get('ajaxData', 'MeetingController@ajaxData')->name('meeting.ajaxData');
     Route::get('/delete/{id}', 'MeetingController@delete')->name('meeting.delete');
 });
+
+Route::prefix('group')->group(function() {
+    Route::get('/list', 'GroupController@index')->name('group');
+    Route::get('/new', 'GroupController@edit')->name('group.new');
+    Route::get('/edit/{id}', 'GroupController@edit')->name('group.edit');
+    Route::post('/new', 'GroupController@new');
+    Route::post('/edit', 'GroupController@update');
+    Route::get('ajaxData', 'GroupController@ajaxData')->name('group.ajaxData');
+    Route::get('/delete/{id}', 'GroupController@delete')->name('group.delete');
+});

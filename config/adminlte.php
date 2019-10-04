@@ -114,19 +114,27 @@ return [
             'icon'        => 'dashboard',
             'active' => ['home'],
         ],
-        'CADASTROS',
-        [
-            'text'        => 'Anos de Serviço',
-            'url'         => 'year_service/list',
-            'icon'        => 'home',
-            'active' => ['year_service/*'],
-        ],
+        'PUBLICADORES',
         [
             'text'        => 'Publicadores',
             'url'         => 'publisher/list',
             'icon'        => 'address-book',
             'active' => ['publisher/*'],
         ],
+        'GRUPOS',
+        [
+            'text'        => 'Grupos',
+            'url'         => 'group/list',
+            'icon'        => 'address-book',
+            'active' => ['group/*'],
+        ],
+        [
+            'text'        => 'Membros',
+            'url'         => 'group/list',
+            'icon'        => 'book',
+            'active' => ['group/*'],
+        ],
+        'PIONEIROS',
         [
             'text'        => 'Pioneiros',
             'url'         => 'pioneer/list',
@@ -146,20 +154,26 @@ return [
             'icon'        => 'calendar',
             'active' => ['meeting/*'],
         ],
-        'RELATÓRIOS',
-        [
-            'text' => 'Campo',
-            'url' => 'reports/partners',
-            'icon' => 'address-book',
-            'active' => ['reports/partners']
-        ],
-        [
-            'text' => 'Assistência as reuniões',
-            'url' => 'reports/total',
-            'icon' => 'ticket',
-            'active' => ['reports/total']
-        ],
+        // 'RELATÓRIOS',
+        // [
+        //     'text' => 'Campo',
+        //     'url' => 'reports/partners',
+        //     'icon' => 'address-book',
+        //     'active' => ['reports/partners']
+        // ],
+        // [
+        //     'text' => 'Assistência as reuniões',
+        //     'url' => 'reports/total',
+        //     'icon' => 'ticket',
+        //     'active' => ['reports/total']
+        // ],
         'CONFIG',
+        [
+            'text'        => 'Anos de Serviço',
+            'url'         => 'year_service/list',
+            'icon'        => 'home',
+            'active' => ['year_service/*'],
+        ],
         [
             'text' => 'Alterar Senha',
             'url'  => 'user/password',

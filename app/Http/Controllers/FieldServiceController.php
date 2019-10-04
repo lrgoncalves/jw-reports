@@ -23,8 +23,16 @@ class FieldServiceController extends Controller
 
     public function ajaxData() 
     {
+        $lastMonth = date('m') - 1;
+        $dt =  sprintf('%s-%s-%s', date('Y'), str_pad($lastMonth, 2, '0', STR_PAD_LEFT), '01');
 
-        $builder = FieldService::whereRaw('1=1');
+        $yearService = YearService::
+                    whereRaw('"'.$dt.'" >= start_at')
+                    ->whereRaw('"'.$dt.'" <= finish_at')
+                    ->first();
+
+        $builder = FieldService::where('year_service_id', $yearService->id)
+            ->where('month', $lastMonth);
 
         $dt = new Datatables();
         return $dt->eloquent($builder)
