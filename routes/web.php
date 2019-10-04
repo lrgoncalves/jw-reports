@@ -81,3 +81,13 @@ Route::prefix('group')->group(function() {
     Route::get('ajaxData', 'GroupController@ajaxData')->name('group.ajaxData');
     Route::get('/delete/{id}', 'GroupController@delete')->name('group.delete');
 });
+
+Route::prefix('group_member')->group(function() {
+    Route::get('/list', 'GroupMemberController@index')->name('group_member');
+    Route::get('/new', 'GroupMemberController@edit')->name('group_member.new');
+    Route::get('/edit/{id}', 'GroupMemberController@edit')->name('group_member.edit');
+    Route::post('/new', 'GroupMemberController@new');
+    Route::post('/edit', 'GroupMemberController@update');
+    Route::get('ajaxData', 'GroupMemberController@ajaxData')->name('group_member.ajaxData');
+    Route::get('/delete/{id}', 'GroupMemberController@delete')->name('group_member.delete');
+});

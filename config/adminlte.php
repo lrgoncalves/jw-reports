@@ -130,9 +130,9 @@ return [
         ],
         [
             'text'        => 'Membros',
-            'url'         => 'group/list',
+            'url'         => 'group_member/list',
             'icon'        => 'book',
-            'active' => ['group/*'],
+            'active' => ['group_member/*'],
         ],
         'PIONEIROS',
         [
