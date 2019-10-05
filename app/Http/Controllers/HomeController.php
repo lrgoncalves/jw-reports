@@ -40,12 +40,8 @@ class HomeController extends Controller
         $totalReports = FieldService::where('year_service_id', $yearService->id)
             ->where('month', $lastMonth)
             ->get()->count();
-            
-        $sixMonthAgo = date('m') - 7;
-        $dt =  sprintf('%s-%s-%s', date('Y'), str_pad($sixMonthAgo, 2, '0', STR_PAD_LEFT), '01');
 
         $totalNonBaptizedPublishers = Publisher::whereNull('baptize_date')->count();
-
 
         $groups = Group::orderBy('name', 'ASC')->get();
         $membersGroups = [];
@@ -68,6 +64,22 @@ class HomeController extends Controller
             
         }
 
-        return view('home', compact('totalPublishers', 'totalPioneers', 'totalReports', 'totalNonBaptizedPublishers', 'membersGroups'));
+        // pioneers activity
+        $regularPioneers = FieldService::where('year_service_id', $yearService->id)
+            ->where('month', $lastMonth)
+            ->where('service_type_id', 4)
+            ->get();
+        
+        $auxiliarPioneers = FieldService::where('year_service_id', $yearService->id)
+            ->where('month', $lastMonth)
+            ->whereIn('service_type_id', [2,3])
+            ->get();
+
+        $publishers = FieldService::where('year_service_id', $yearService->id)
+            ->where('month', $lastMonth)
+            ->where('service_type_id', 1)
+            ->get();
+
+        return view('home', compact('totalPublishers', 'totalPioneers', 'totalReports', 'totalNonBaptizedPublishers', 'membersGroups', 'regularPioneers', 'auxiliarPioneers', 'publishers'));
     }
 }

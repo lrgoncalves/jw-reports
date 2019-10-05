@@ -27,7 +27,9 @@ class PioneerController extends Controller
     public function ajaxData() 
     {
 
-        $builder = PublisherServiceType::whereNull('finish_at');
+        $builder = PublisherServiceType::whereRaw('1=1')
+            ->orderBy('finish_at', 'ASC')
+            ->orderBy('start_at', 'ASC');
 
         $dt = new Datatables();
         return $dt->eloquent($builder)

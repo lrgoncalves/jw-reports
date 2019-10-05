@@ -143,6 +143,7 @@ class FieldServiceController extends Controller
 
             $fieldService->publisher_id = $req->publisher_id;
             $fieldService->year_service_id = $req->year_service_id;
+            $fieldService->service_type_id = $req->service_type_id;
             $fieldService->month = $req->month;
             $fieldService->hours = $req->hours;
             $fieldService->placements = $req->placements;

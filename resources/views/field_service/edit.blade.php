@@ -18,6 +18,7 @@
     <div class="col-xs-12">
         <div class="box">
 
+
             <div class="box-body">
                 <div class="row">
                     <div class="col-sm-12">
@@ -50,12 +51,17 @@
 
                                     <div class="form-group">
                                         <label>Perfil</label>
-                                        <select class="form-control serviceTypesSelect" id="serviceTypesSelect" name="year_service_id" required>
+                                        <select class="form-control serviceTypesSelect" id="serviceTypesSelect" name="service_type_id" required>
                                             @foreach ($serviceTypes as $item)
                                                 <option value="{{ $item->id }}"
-                                                {{ (($fieldService->year_service_id == $item->id)) ? 'selected' : ''}}
-                                                
-                                                {{ ($item->id == $publisherServiceTypeId) ? 'selected' : '' }}
+
+                                                @if (($fieldService->service_type_id == $item->id))
+                                                    selected
+                                                @elseif ($item->id == $publisherServiceTypeId) 
+                                                    selected
+                                                @else
+                                                    ''
+                                                @endif
                                                 >
                                                     {{ $item->name }}
                                                 </option>
