@@ -18,7 +18,8 @@ class GroupMemberController extends Controller
 
     public function ajaxData() 
     {
-        $builder = GroupMember::whereRaw('1=1');
+        $builder = GroupMember::whereRaw('1=1')
+            ->orderBy('group_id', 'ASC');
 
         $dt = new Datatables();
         return $dt->eloquent($builder)
