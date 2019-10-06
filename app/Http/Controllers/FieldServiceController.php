@@ -165,13 +165,21 @@ class FieldServiceController extends Controller
 
     public function new(Request $req) {
         $this->save($req);
-        return redirect('/field_service/list')
+        // return redirect('/field_service/list')
+        //     ->with('status', 'Relatório cadastrado com sucesso.');
+
+        $url = $req->redirects_to;
+        return redirect()->to($url)
             ->with('status', 'Relatório cadastrado com sucesso.');
     }
 
     public function update(Request $req) {
         $this->save($req);
-        return redirect('/field_service/list')
+        // return redirect('/field_service/list')
+        //     ->with('status', 'Relatório atualizado com sucesso.');
+
+        $url = $req->redirects_to;
+        return redirect()->to($url)
             ->with('status', 'Relatório atualizado com sucesso.');
     }
 
