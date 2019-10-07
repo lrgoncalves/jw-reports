@@ -19,8 +19,8 @@ class CreateGroupMembersTable extends Migration
             $table->bigInteger('group_id')->unsigned();
             $table->foreign('group_id')->references("id")->on('groups');
 
-            $table->integer('householder_id')->unsigned();
-            $table->foreign('householder_id')->references("id")->on('publishers');
+            $table->integer('publisher_id')->unsigned();
+            $table->foreign('publisher_id')->references("id")->on('publishers');
 
             $table->timestamps();
         });

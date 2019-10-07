@@ -8,7 +8,7 @@ class GroupMember extends Model
 {
     protected $fillable = [
         'group_id',
-        'householder_id',
+        'publisher_id',
         'name',
     ];
 
@@ -17,7 +17,7 @@ class GroupMember extends Model
         return $this->belongsTo(Group::class);
     }
 
-    public function householder()
+    public function publisher()
     {
         return $this->belongsTo(Publisher::class);
     }

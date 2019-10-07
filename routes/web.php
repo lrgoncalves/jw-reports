@@ -91,3 +91,8 @@ Route::prefix('group_member')->group(function() {
     Route::get('ajaxData', 'GroupMemberController@ajaxData')->name('group_member.ajaxData');
     Route::get('/delete/{id}', 'GroupMemberController@delete')->name('group_member.delete');
 });
+
+Route::prefix('irregular_report')->group(function() {
+    Route::get('/index', 'IrregularReportController@index')->name('irregular_report');
+    Route::post('/generate', 'IrregularReportController@generate')->name('irregular_report.generate');
+});

@@ -70,7 +70,7 @@
             <div class="icon">
                 <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="{{ route('publisher') }}" class="small-box-footer">Detalhes <i
+            <a href="{{ route('irregular_report') }}" class="small-box-footer">Detalhes <i
                     class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>

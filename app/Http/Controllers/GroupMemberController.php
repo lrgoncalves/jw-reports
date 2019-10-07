@@ -19,18 +19,15 @@ class GroupMemberController extends Controller
     public function ajaxData() 
     {
         $builder = GroupMember::whereRaw('1=1')
-            ->orderBy('group_id', 'ASC');
+            ->leftJoin('publishers AS p', 'group_members.publisher_id', '=', 'p.id')
+            ->leftJoin('groups AS g', 'group_members.group_id', '=', 'g.id')
+            ->whereRaw('p.householder_id is null')
+            ->orderBy('g.name', 'ASC')
+            ->orderBy('p.name', 'ASC')
+            ->selectRaw('group_members.id AS id, g.name AS group_name, p.name AS publisher_name');
 
         $dt = new Datatables();
         return $dt->eloquent($builder)
-
-            ->addColumn('group', function($item) {
-                return $item->group()->first()->name;
-            })
-
-            ->addColumn('householder', function($item) {
-                return $item->householder()->first()->name;
-            })
 
             ->addColumn('action', function($item) {
                 $html = "";
@@ -85,9 +82,20 @@ class GroupMemberController extends Controller
             }
 
             $group->group_id = $req->group_id;
-            $group->householder_id = $req->householder_id;
+            $group->publisher_id = $req->householder_id;
 
             $group->save();
+
+            // family 
+            $family = Publisher::where('householder_id', $req->householder_id)->get();
+            foreach ($family as $f) {
+                $gp = GroupMember::updateOrCreate([
+                    'publisher_id' => $f->id
+                ],[
+                    'group_id' => $req->group_id,
+                    'publisher_id' => $f->id
+                ]);
+            }
 
             return true;
         } catch (Illuminate\Database\QueryException $e) {

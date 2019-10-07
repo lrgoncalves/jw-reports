@@ -66,8 +66,8 @@
             "ajax": "{{ route('group_member.ajaxData') }}",
             "columns": [
                 { "data": "id", "name" : "id" },
-                { "data": "group", "name" : "group" },
-                { "data": "householder", "name": "householder"},
+                { "data": "group_name", "name" : "group_name" },
+                { "data": "publisher_name", "name": "publisher_name"},
                 { "data": "action" }
             ]
         })

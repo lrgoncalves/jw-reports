@@ -55,7 +55,7 @@
                                             <option value="">Selecione</option>                                        
                                             @foreach ($publishers as $item)
                                                 <option value="{{ $item->id }}"
-                                                {{ (($group->householder_id == $item->id)) ? 'selected' : ''}}>
+                                                {{ (($group->publisher_id == $item->id)) ? 'selected' : ''}}>
                                                     {{ $item->name }}
                                                 </option>
                                             @endforeach

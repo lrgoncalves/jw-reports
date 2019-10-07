@@ -50,11 +50,6 @@ class HomeController extends Controller
         foreach ($groups as $g) {
 
             $members = $g->members()->count();
-            foreach ($g->members()->get() as $householder) {
-                // dd($householder->householder_id);
-                $family = Publisher::where('householder_id', $householder->householder_id)->count();
-                $members = $members + $family;
-            }
             
             $membersGroups[$g->name] = [
                 'color' => $colors[$i],
