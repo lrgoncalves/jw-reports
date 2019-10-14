@@ -138,20 +138,20 @@ return [
         [
             'text'        => 'Pioneiros',
             'url'         => 'pioneer/list',
-            'icon'        => 'book',
+            'icon'        => 'address-book',
             'active' => ['pioneer/*'],
         ],
         'LANÇAMENTOS', 
         [
             'text'        => 'Serviço de campo',
             'url'         => 'field_service/list',
-            'icon'        => 'calendar',
+            'icon'        => 'edit',
             'active' => ['field_service/*'],
         ],
         [
             'text'        => 'Reuniões',
             'url'         => 'meeting/list',
-            'icon'        => 'calendar',
+            'icon'        => 'edit',
             'active' => ['meeting/*'],
         ],
         // 'RELATÓRIOS',
