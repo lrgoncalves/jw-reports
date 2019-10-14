@@ -8,6 +8,14 @@
 
 @section('content')
 
+<div class="pad margin no-print">
+    <div class="callout callout-warning" style="margin-bottom: 0!important;">
+        <h4> Nota:</h4>
+        {{ $totalPublishers - $totalReports }} publicadores ainda não entregaram o relatório esse mês.
+        <a href="{{ route('non_reported') }}" class="small-box-footer">Detalhes <i class="fa fa-arrow-circle-right"></i></a> 
+    </div>
+</div>
+
 <h4>Dados Gerais</h4>
 
 <div class="row">
@@ -54,7 +62,7 @@
             <div class="icon">
                 <i class="ion ion-person-add"></i>
             </div>
-            <a href="{{ route('publisher') }}" class="small-box-footer">Detalhes <i
+            <a href="#" class="small-box-footer">Detalhes <i
                     class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
@@ -63,14 +71,14 @@
         <!-- small box -->
         <div class="small-box bg-red">
             <div class="inner">
-                <h3>{{ $totalPublishers - $totalReports}} </h3>
+                <h3>{{ $totalIrregular }} </h3>
 
                 <p>Irregulares</p>
             </div>
             <div class="icon">
                 <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="{{ route('irregular_report') }}" class="small-box-footer">Detalhes <i
+            <a href="#" class="small-box-footer">Detalhes <i
                     class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>

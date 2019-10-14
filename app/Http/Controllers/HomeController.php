@@ -7,7 +7,9 @@ use App\Models\FieldService;
 use App\Models\Publisher;
 use App\Models\PublisherServiceType;
 use App\Models\YearService;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -39,7 +41,25 @@ class HomeController extends Controller
                     ->first();
         $totalReports = FieldService::where('year_service_id', $yearService->id)
             ->where('month', $lastMonth)
+            ->whereNotNull('hours')
             ->get()->count();
+        
+        $irregularDate = Carbon::createFromFormat("!Y-m-d", $dt);
+        $irregularDate->subMonth(6);
+
+        $irregularDateYs = YearService::
+                    whereRaw('"'.$irregularDate->format('Y-m-d').'" >= start_at')
+                    ->whereRaw('"'.$irregularDate->format('Y-m-d').'" <= finish_at')
+                    ->first();
+        
+        $totalIrregular = DB::select("SELECT count(1) as total FROM publishers p
+            left join ( 
+                select s.publisher_id, s.month as last_month 
+                from field_services s 
+                where s.created_at > '" . $irregularDate->format('Y-m-d H:i:s') . "' 
+                and s.hours is not null 
+                order by id desc) S on p.id = S.publisher_id
+            where S.publisher_id is null")[0]->total;
 
         $totalNonBaptizedPublishers = Publisher::whereNull('baptize_date')->count();
 
@@ -75,6 +95,6 @@ class HomeController extends Controller
             ->where('service_type_id', 1)
             ->get();
 
-        return view('home', compact('totalPublishers', 'totalPioneers', 'totalReports', 'totalNonBaptizedPublishers', 'membersGroups', 'regularPioneers', 'auxiliarPioneers', 'publishers'));
+        return view('home', compact('totalPublishers', 'totalPioneers', 'totalReports', 'totalNonBaptizedPublishers', 'totalIrregular', 'membersGroups', 'regularPioneers', 'auxiliarPioneers', 'publishers'));
     }
 }

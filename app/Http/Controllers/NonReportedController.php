@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
 
-class IrregularReportController extends Controller
+class NonReportedController extends Controller
 {
     use DateTrait;
 
@@ -55,7 +55,7 @@ class IrregularReportController extends Controller
         $groups = Group::all();
         $irregulars = $this->report();
 
-        return view('irregular_report/index', compact('irregulars', 'groups'));
+        return view('non_reported/index', compact('irregulars', 'groups'));
     }
 
     public function generate(Request $request)
@@ -65,7 +65,7 @@ class IrregularReportController extends Controller
 
         $headers = array(
             "Content-type" => "text/csv",
-            "Content-Disposition" => "attachment; filename=rel_partners.csv",
+            "Content-Disposition" => "attachment; filename=irregular.csv",
             "Pragma" => "no-cache",
             "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
             "Expires" => "0"
