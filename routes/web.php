@@ -96,3 +96,13 @@ Route::prefix('non_reported')->group(function() {
     Route::get('/index', 'NonReportedController@index')->name('non_reported');
     Route::post('/generate', 'NonReportedController@generate')->name('non_reported.generate');
 });
+
+Route::prefix('publisher_unhealthy')->group(function() {
+    Route::get('/list', 'PublisherUnhealthyController@index')->name('publisher_unhealthy');
+    Route::get('/new', 'PublisherUnhealthyController@edit')->name('publisher_unhealthy.new');
+    Route::get('/edit/{id}', 'PublisherUnhealthyController@edit')->name('publisher_unhealthy.edit');
+    Route::post('/new', 'PublisherUnhealthyController@new');
+    Route::post('/edit', 'PublisherUnhealthyController@update');
+    Route::get('ajaxData', 'PublisherUnhealthyController@ajaxData')->name('publisher_unhealthy.ajaxData');
+    Route::get('/delete/{id}', 'PublisherUnhealthyController@delete')->name('publisher_unhealthy.delete');
+});

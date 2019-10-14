@@ -154,6 +154,19 @@ return [
             'icon'        => 'edit',
             'active' => ['meeting/*'],
         ],
+        'CONSIDERAÇÕES ESPECIAIS',
+        [
+            'text'        => 'Publicadores limitados',
+            'url'         => 'publisher_unhealthy/list',
+            'icon'        => 'address-book',
+            'active' => ['publisher_unhealthy/*'],
+        ],
+        [
+            'text'        => 'Frações de Horas',
+            'url'         => 'fraction/list',
+            'icon'        => 'edit',
+            'active' => ['fraction_service/*'],
+        ],
         // 'RELATÓRIOS',
         // [
         //     'text' => 'Campo',
