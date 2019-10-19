@@ -18,6 +18,9 @@ class CreatePublishersTable extends Migration
             $table->integer('householder_id')->nullable()->unsigned();
             $table->foreign('householder_id')->references("id")->on('publishers');
 
+            $table->bigInteger('group_id')->nullable()->unsigned();
+            $table->foreign('group_id')->references("id")->on('groups');
+
             $table->string('name', 60);
             $table->date('birthdate')->nullable();
             $table->date('baptize_date')->nullable();

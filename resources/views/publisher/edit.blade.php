@@ -75,12 +75,29 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Número de pioneiro (caso já tenha servido)</label>
                                         <input name="pioneer_code" type="text" class="form-control" placeholder="" value="{{ $publisher->pioneer_code }}"
                                             {{ ($disabled) ? 'disabled' : '' }}>
                                     </div>
+                                </div>
+
+                                <div class="col-md-6">
+
+                                    <div class="form-group">
+                                        <label>Grupo</label>
+                                        <select class="form-control groupSelect selectgroups" id="groupSelect" name="group_id" required>
+                                            <option value="">Selecione</option>
+                                            @foreach ($groups as $item)
+                                                <option value="{{ $item->id }}"
+                                                {{ (($publisher->group_id == $item->id)) ? 'selected' : ''}}>
+                                                    {{ $item->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    
                                 </div>
                             </div>
 
@@ -114,6 +131,8 @@
         $('[data-mask]').inputmask()
 
         $('.selecthouseholders').select2();
+
+        $('.selectgroups').select2();
 
         $('form').on('submit', function() {
 

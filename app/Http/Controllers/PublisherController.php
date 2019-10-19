@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Group;
 use App\Models\FieldService;
 use App\Models\Publisher;
 use App\Models\YearService;
@@ -103,6 +104,7 @@ class PublisherController extends Controller
             'title' => $title,
             'publisher' => $publisher,
             'householders' => Publisher::whereNull('householder_id')->get(),
+            'groups' => Group::all(),
             'disabled' => false
         ]);
     }
@@ -120,8 +122,8 @@ class PublisherController extends Controller
             $publisher->name = $req->name;
             $publisher->birthdate = $this->convertString2Carbon($req->birthdate);
             $publisher->baptize_date = $this->convertString2Carbon($req->baptize_date);
-
             $publisher->pioneer_code = $req->pioneer_code;
+            $publisher->group_id = $req->group_id;
 
             $publisher->save();
 

@@ -14,7 +14,7 @@ class CreateGroupsTable extends Migration
     public function up()
     {
         Schema::create('groups', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
 
             $table->integer('overseer_id')->unsigned();
             $table->foreign('overseer_id')->references("id")->on('publishers');

@@ -114,31 +114,29 @@ return [
             'icon'        => 'dashboard',
             'active' => ['home'],
         ],
-        'PUBLICADORES',
+        'CADASTROS',
+        [
+            'text'        => 'Anos de Serviço',
+            'url'         => 'year_service/list',
+            'icon'        => 'calendar-plus-o',
+            'active' => ['year_service/*'],
+        ],
+        [
+            'text'        => 'Grupos',
+            'url'         => 'group/list',
+            'icon'        => 'group',
+            'active' => ['group/*'],
+        ],
         [
             'text'        => 'Publicadores',
             'url'         => 'publisher/list',
             'icon'        => 'address-book',
             'active' => ['publisher/*'],
         ],
-        'GRUPOS',
         [
-            'text'        => 'Grupos',
-            'url'         => 'group/list',
-            'icon'        => 'address-book',
-            'active' => ['group/*'],
-        ],
-        [
-            'text'        => 'Membros',
-            'url'         => 'group_member/list',
-            'icon'        => 'book',
-            'active' => ['group_member/*'],
-        ],
-        'PIONEIROS',
-        [
-            'text'        => 'Pioneiros',
+            'text'        => 'Pioneiros ',
             'url'         => 'pioneer/list',
-            'icon'        => 'address-book',
+            'icon'        => 'user-plus',
             'active' => ['pioneer/*'],
         ],
         'LANÇAMENTOS', 
@@ -151,7 +149,7 @@ return [
         [
             'text'        => 'Reuniões',
             'url'         => 'meeting/list',
-            'icon'        => 'edit',
+            'icon'        => 'check',
             'active' => ['meeting/*'],
         ],
         'CONSIDERAÇÕES ESPECIAIS',
@@ -164,7 +162,7 @@ return [
         [
             'text'        => 'Frações de Horas',
             'url'         => 'fraction/list',
-            'icon'        => 'edit',
+            'icon'        => 'check-square-o',
             'active' => ['fraction_service/*'],
         ],
         // 'RELATÓRIOS',
@@ -181,12 +179,6 @@ return [
         //     'active' => ['reports/total']
         // ],
         'CONFIG',
-        [
-            'text'        => 'Anos de Serviço',
-            'url'         => 'year_service/list',
-            'icon'        => 'home',
-            'active' => ['year_service/*'],
-        ],
         [
             'text' => 'Alterar Senha',
             'url'  => 'user/password',

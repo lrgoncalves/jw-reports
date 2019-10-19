@@ -12,6 +12,7 @@ class Publisher extends Model
         'baptize_date',
         'pioneer_code',
         'householder_id',
+        'group_id',
     ];
 
     public function householder()
@@ -24,5 +25,10 @@ class Publisher extends Model
     {
         return $this->hasMany('App\Models\Publisher', 'householder_id', 'id');
 
+    }
+
+    public function group()
+    {
+        return $this->belongsTo('App\Models\Group', 'id', 'group_id');
     }
 }

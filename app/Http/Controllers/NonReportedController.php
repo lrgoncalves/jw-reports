@@ -31,8 +31,7 @@ class NonReportedController extends Controller
             ->first();
             
         $irregulars = DB::table('publishers AS p')
-            ->leftJoin('group_members AS gm', 'p.id', '=', 'gm.publisher_id')
-            ->leftJoin('groups AS g', 'g.id', '=', 'gm.group_id')
+            ->leftJoin('groups AS g', 'g.id', '=', 'p.group_id')
             ->leftJoin('field_services AS f', function ($join) use ($yearService, $lastMonth) {
                 $join->on('f.publisher_id', '=', 'p.id');
                 $join->on('f.year_service_id', '=', DB::raw($yearService->id));
