@@ -21,7 +21,7 @@
             <div class="box-body">
                 <div class="row">
                     <div class="col-sm-12">
-                        <form method="post" action="{{ url('irregular_report/generate') }}">
+                        <form method="post" action="{{ url('non_reported/generate') }}">
                             {{csrf_field()}}
                             <input type="hidden" name="redirects_to" value="{{ URL::previous() }}">
 

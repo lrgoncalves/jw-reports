@@ -165,13 +165,13 @@ return [
             'icon'        => 'check-square-o',
             'active' => ['fraction_service/*'],
         ],
-        // 'RELATÓRIOS',
-        // [
-        //     'text' => 'Campo',
-        //     'url' => 'reports/partners',
-        //     'icon' => 'address-book',
-        //     'active' => ['reports/partners']
-        // ],
+        'RELATÓRIOS',
+        [
+            'text' => 'Cartões dos publicadores',
+            'url' => 'publisher_field_service_report/list',
+            'icon' => 'list',
+            'active' => ['publisher_field_service_report/*']
+        ],
         // [
         //     'text' => 'Assistência as reuniões',
         //     'url' => 'reports/total',
