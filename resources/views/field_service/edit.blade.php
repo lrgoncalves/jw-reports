@@ -165,6 +165,16 @@
                             </div>
 
                             <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>Observações</label>
+                                        <input name="observations" type="text" class="form-control" placeholder="" value="{{ $fieldService->observations }}"
+                                            {{ ($disabled) ? 'disabled' : '' }}>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-md-2">
                                     <button type="reset" class="btn btn-lg btn-block btn-info"  onclick="javascript: history.go(-1);" id="btnVoltar">{{ ($disabled) ? 'Voltar' : 'Cancelar' }}</button>
                                 </div>

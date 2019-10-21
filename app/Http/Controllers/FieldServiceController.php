@@ -150,6 +150,7 @@ class FieldServiceController extends Controller
             $fieldService->videos = $req->videos;
             $fieldService->return_visits = $req->return_visits;
             $fieldService->studies = $req->studies;
+            $fieldService->observations = $req->observations;
 
             $fieldService->save();
 

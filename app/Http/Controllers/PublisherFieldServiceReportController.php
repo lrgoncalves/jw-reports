@@ -65,6 +65,7 @@ class PublisherFieldServiceReportController extends Controller
                         'hours' => (!$monthData) ? null : $monthData->hours,
                         'return_visits' => (!$monthData) ? null : $monthData->return_visits,
                         'studies' => (!$monthData) ? null : $monthData->studies,
+                        'observations' => (!$monthData) ? null : $monthData->observations,
                     ];
                 }
                 
@@ -194,6 +195,7 @@ class PublisherFieldServiceReportController extends Controller
                             $m['hours'],
                             $m['return_visits'],
                             $m['studies'],
+                            $m['observations'],
                         ));
                     }
                     
