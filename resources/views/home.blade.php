@@ -150,20 +150,83 @@
     </div>
 
     <div class="col-md-4">
-            <div class="box box-widget widget-user-2">
-                <div class="widget-user-header bg-aqua">
-                    <h3 class="widget-user-username" style="margin-left: 0;">Publicadores</h3>
-                </div>
-                <div class="box-footer no-padding">
-                    <ul class="nav nav-stacked">
-                        <li><a href="#">Total de Relatórios <span class="pull-right badge bg-blue">{{ $publishers->count() }}</span></a></li>
-                        <li><a href="#">Horas <span class="pull-right badge bg-aqua">{{ $publishers->sum('hours')}} </span></a></li>
-                        <li><a href="#">Revisitas <span class="pull-right badge bg-green">{{ $publishers->sum('return_visits')}}</span></a></li>
-                        <li><a href="#">Estudos bíblicos <span class="pull-right badge bg-red">{{ $publishers->sum('studies') }}</span></a></li>
-                    </ul>
+        <div class="box box-widget widget-user-2">
+            <div class="widget-user-header bg-aqua">
+                <h3 class="widget-user-username" style="margin-left: 0;">Publicadores</h3>
+            </div>
+            <div class="box-footer no-padding">
+                <ul class="nav nav-stacked">
+                    <li><a href="#">Total de Relatórios <span class="pull-right badge bg-blue">{{ $publishers->count() }}</span></a></li>
+                    <li><a href="#">Horas <span class="pull-right badge bg-aqua">{{ $publishers->sum('hours')}} </span></a></li>
+                    <li><a href="#">Revisitas <span class="pull-right badge bg-green">{{ $publishers->sum('return_visits')}}</span></a></li>
+                    <li><a href="#">Estudos bíblicos <span class="pull-right badge bg-red">{{ $publishers->sum('studies') }}</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h4>Assistência as reuniões</h4>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="box box-widget widget-user">
+            <div class="widget-user-header bg-yellow-active">
+                <h3 class="widget-user">Meio de semana</h3>
+            </div>
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                            <h5 class="description-header"> {{ $midweekMeeting->count() }} </h5>
+                            <span class="description-text">Total de reuniões</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                            <h5 class="description-header"> {{ $midweekMeeting->sum('attendance') }} </h5>
+                            <span class="description-text">Total da assistência</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="description-block">
+                            <h5 class="description-header"> {{ $midweekMeeting->avg('attendance') }} </h5>
+                            <span class="description-text">Média da assistência</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="col-md-6">
+        <div class="box box-widget widget-user">
+            <div class="widget-user-header bg-purple-active">
+                <h3 class="widget-user">Final de semana</h3>
+            </div>
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                            <h5 class="description-header"> {{ $weekendMeeting->count() }} </h5>
+                            <span class="description-text">Total de reuniões</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 border-right">
+                        <div class="description-block">
+                            <h5 class="description-header"> {{ $weekendMeeting->sum('attendance') }} </h5>
+                            <span class="description-text">Total da assistência</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="description-block">
+                            <h5 class="description-header"> {{ $weekendMeeting->avg('attendance') }} </h5>
+                            <span class="description-text">Média da assistência</span>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @stop

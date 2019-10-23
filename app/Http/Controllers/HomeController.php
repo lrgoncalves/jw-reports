@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Group;
 use App\Models\FieldService;
+use App\Models\Meeting;
 use App\Models\Publisher;
 use App\Models\PublisherServiceType;
 use App\Models\YearService;
@@ -96,6 +97,25 @@ class HomeController extends Controller
         
         $pendingReports = $totalPublishers - $totalReports;
 
-        return view('home', compact('totalPublishers', 'totalPioneers', 'totalReports', 'totalNonBaptizedPublishers', 'totalIrregular', 'pendingReports', 'membersGroups', 'regularPioneers', 'auxiliarPioneers', 'publishers', 'lastMonth'));
+        $weekendMeeting = Meeting::whereRaw('weekday(date) in (5,6)')->get();
+        $midweekMeeting = Meeting::whereRaw('weekday(date) in (0,1,2,3,4)')->get();
+
+        // dd($weekendMeeting, $midweekMeeting->avg('attendance'));
+
+        return view('home', compact(
+            'totalPublishers', 
+            'totalPioneers', 
+            'totalReports', 
+            'totalNonBaptizedPublishers', 
+            'totalIrregular', 
+            'pendingReports', 
+            'membersGroups', 
+            'regularPioneers', 
+            'auxiliarPioneers', 
+            'publishers', 
+            'lastMonth',
+            'weekendMeeting',
+            'midweekMeeting'
+        ));
     }
 }
