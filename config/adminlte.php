@@ -159,12 +159,6 @@ return [
             'icon'        => 'address-book',
             'active' => ['publisher_unhealthy/*'],
         ],
-        [
-            'text'        => 'Frações de Horas',
-            'url'         => 'fraction/list',
-            'icon'        => 'check-square-o',
-            'active' => ['fraction_service/*'],
-        ],
         'RELATÓRIOS',
         [
             'text' => 'Cartões dos publicadores',
