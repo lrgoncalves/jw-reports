@@ -41,7 +41,6 @@ class HomeController extends Controller
                     ->first();
         $totalReports = FieldService::where('year_service_id', $yearService->id)
             ->where('month', $lastMonth)
-            ->whereNotNull('hours')
             ->get()->count();
         
         $irregularDate = Carbon::createFromFormat("!Y-m-d", $dt);
@@ -94,7 +93,9 @@ class HomeController extends Controller
             ->where('month', $lastMonth)
             ->where('service_type_id', 1)
             ->get();
+        
+        $pendingReports = $totalPublishers - $totalReports;
 
-        return view('home', compact('totalPublishers', 'totalPioneers', 'totalReports', 'totalNonBaptizedPublishers', 'totalIrregular', 'membersGroups', 'regularPioneers', 'auxiliarPioneers', 'publishers'));
+        return view('home', compact('totalPublishers', 'totalPioneers', 'totalReports', 'totalNonBaptizedPublishers', 'totalIrregular', 'pendingReports', 'membersGroups', 'regularPioneers', 'auxiliarPioneers', 'publishers', 'lastMonth'));
     }
 }

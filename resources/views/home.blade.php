@@ -8,13 +8,21 @@
 
 @section('content')
 
+@if ($pendingReports > 0)
 <div class="pad margin no-print">
     <div class="callout callout-warning" style="margin-bottom: 0!important;">
         <h4> Nota:</h4>
-        {{ $totalPublishers - $totalReports }} publicadores ainda não entregaram o relatório esse mês.
+        {{ $pendingReports }} publicadores ainda não entregaram o relatório esse mês.
         <a href="{{ route('non_reported') }}" class="small-box-footer">Detalhes <i class="fa fa-arrow-circle-right"></i></a> 
     </div>
 </div>
+@else
+<div class="pad margin no-print">
+    <div class="callout callout-success" style="margin-bottom: 0!important;">
+        Bom trabalho! Relatório do mês {{ $lastMonth }} compilado com sucesso.
+    </div>
+</div>
+@endif
 
 <h4>Dados Gerais</h4>
 
@@ -111,7 +119,7 @@
 <div class="row">
     <div class="col-md-4">
         <div class="box box-widget widget-user-2">
-            <div class="widget-user-header bg-yellow">
+            <div class="widget-user-header bg-green">
                 <h3 class="widget-user-username" style="margin-left: 0;">Pioneiros Regulares</h3>
             </div>
             <div class="box-footer no-padding">
