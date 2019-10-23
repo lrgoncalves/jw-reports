@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\FieldService;
 use App\Models\Publisher;
+use App\Models\PublisherServiceType;
 use App\Models\YearService;
 use App\Traits\DateTrait;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class NonReportedController extends Controller
                 $join->on('f.year_service_id', '=', DB::raw($yearService->id));
                 $join->on('f.month', '=', DB::raw($lastMonth));
             })
-            ->selectRaw('p.name AS publisher_name, g.name AS group_name, f.hours')
+            ->selectRaw('p.id, p.name AS publisher_name, g.name AS group_name, f.hours')
             ->whereRaw('f.id is null')
             ->orderBy('g.name', 'ASC')
             ->orderBy('p.name', 'ASC');
@@ -87,5 +88,53 @@ class NonReportedController extends Controller
         };
         return response()->stream($callback, 200, $headers);
         
+    }
+
+    public function closeMonth(Request $request)
+    {
+        $irregulars = $this->report();
+
+        $lastMonth = date('m') - 1;
+
+        $dt =  sprintf('%s-%s-%s', date('Y'), str_pad($lastMonth, 2, '0', STR_PAD_LEFT), '01');
+
+        $yearService = YearService::whereRaw('"'.$dt.'" >= start_at')
+            ->whereRaw('"'.$dt.'" <= finish_at')
+            ->first();
+
+        foreach ($irregulars as $i) {
+
+            $publisherServiceTypeId = 1;
+            $publisherServiceType = PublisherServiceType::where('publisher_id', $i->id)
+                ->whereRaw('"'.$dt.'" >= start_at')
+                ->where(function ($q) use ($dt) {
+                    return $q->whereRaw('"'.$dt.'" <= finish_at')->orWhereNull('finish_at');
+                })
+                ->first();
+            if ($publisherServiceType) {
+                $publisherServiceTypeId = $publisherServiceType->serviceType()->first()->id;
+            }
+
+            $fieldService = FieldService::updateOrCreate([
+                'publisher_id' => $i->id,
+                'year_service_id' => $yearService->id,
+                'month' => $lastMonth,
+            ],[
+                'publisher_id' => $i->id,
+                'year_service_id' => $yearService->id,
+                'month' => $lastMonth,
+                'service_type_id' => $publisherServiceTypeId,
+                'hours' => null,
+                'placements' => null,
+                'videos' => null,
+                'return_visits' => null,
+                'studies' => null,
+                'observations' => null
+            ]);            
+        }
+        
+        $url = $request->redirects_to;
+        return redirect()->to($url)
+            ->with('status', 'Fechamento do mês realizado com sucesso.');
     }
 }

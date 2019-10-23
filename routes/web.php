@@ -85,6 +85,8 @@ Route::prefix('group')->group(function() {
 Route::prefix('non_reported')->group(function() {
     Route::get('/index', 'NonReportedController@index')->name('non_reported');
     Route::post('/generate', 'NonReportedController@generate')->name('non_reported.generate');
+    Route::post('/close-month', 'NonReportedController@closeMonth')->name('non_reported.closeMonth');
+    // non_reported/close-month
 });
 
 Route::prefix('publisher_unhealthy')->group(function() {
