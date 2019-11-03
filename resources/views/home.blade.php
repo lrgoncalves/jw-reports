@@ -166,13 +166,12 @@
     </div>
 </div>
 
-<h4>Assistência as reuniões</h4>
-
 <div class="row">
     <div class="col-md-6">
         <div class="box box-widget widget-user">
-            <div class="widget-user-header bg-yellow-active">
+            <div class="widget-user-header bg-blue-active">
                 <h3 class="widget-user">Meio de semana</h3>
+                <h5 class="widget-user-desc">Assistência as reuniões</h5>
             </div>
             <div class="box-footer">
                 <div class="row">
@@ -203,6 +202,7 @@
         <div class="box box-widget widget-user">
             <div class="widget-user-header bg-purple-active">
                 <h3 class="widget-user">Final de semana</h3>
+                <h5 class="widget-user-desc">Assistência as reuniões</h5>
             </div>
             <div class="box-footer">
                 <div class="row">
@@ -229,4 +229,6 @@
         </div>
     </div>
 </div>
+
+
 @stop

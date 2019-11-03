@@ -97,10 +97,19 @@ class HomeController extends Controller
         
         $pendingReports = $totalPublishers - $totalReports;
 
-        $weekendMeeting = Meeting::whereRaw('weekday(date) in (5,6)')->get();
-        $midweekMeeting = Meeting::whereRaw('weekday(date) in (0,1,2,3,4)')->get();
+        $meetingsLastMonthIniDate = Carbon::createFromFormat("!Y-m-d", $dt);
+        $meetingsLastMonthEndDate = Carbon::createFromFormat("!Y-m-d", $dt);
+        $meetingsLastMonthEndDate->addMonth(1);
 
-        // dd($weekendMeeting, $midweekMeeting->avg('attendance'));
+        $weekendMeeting = Meeting::whereRaw('weekday(date) in (5,6)')
+            ->where('date', '>=', $meetingsLastMonthIniDate->format('Y-m-d'))
+            ->where('date', '<', $meetingsLastMonthEndDate->format('Y-m-d'))
+            ->get();
+
+        $midweekMeeting = Meeting::whereRaw('weekday(date) in (0,1,2,3,4)')
+            ->where('date', '>=', $meetingsLastMonthIniDate->format('Y-m-d'))
+            ->where('date', '<', $meetingsLastMonthEndDate->format('Y-m-d'))
+            ->get();
 
         return view('home', compact(
             'totalPublishers', 
