@@ -166,12 +166,12 @@ return [
             'icon' => 'list',
             'active' => ['publisher_field_service_report/*']
         ],
-        // [
-        //     'text' => 'Assistência as reuniões',
-        //     'url' => 'reports/total',
-        //     'icon' => 'ticket',
-        //     'active' => ['reports/total']
-        // ],
+        [
+            'text' => 'Pioneiros auxiliares/mês',
+            'url' => 'pioneer/report/auxiliar',
+            'icon' => 'list',
+            'active' => ['pioneer/report/auxiliar']
+        ],
         'CONFIG',
         [
             'text' => 'Alterar Senha',

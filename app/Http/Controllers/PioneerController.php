@@ -6,6 +6,7 @@ use App\Models\PublisherServiceType;
 use App\Models\Publisher;
 use App\Models\ServiceType;
 use App\Traits\DateTrait;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
@@ -126,6 +127,66 @@ class PioneerController extends Controller
         $url = $req->redirects_to;
         return redirect()->to($url)
             ->with('status', 'Pioneiro atualizada com sucesso.');
+    }
+
+    private function report($date, $serviceTypeId) 
+    {
+        return PublisherServiceType::where('service_type_id', $serviceTypeId)
+            ->whereRaw(sprintf('"%s" between start_at and finish_at', $date->format('Y-m-d')))
+            ->get();
+
+    }
+
+    public function reportMonth(Request $req)
+    {
+        $currentMonth = date('m');
+        $iniCurrentMonth =  sprintf('%s-%s-%s', date('Y'), str_pad($currentMonth, 2, '0', STR_PAD_LEFT), '01');
+
+        $iniDate = Carbon::createFromFormat("!Y-m-d", $iniCurrentMonth);
+
+        $auxiliarPioneerId = 2;
+
+        $pioneers = $this->report($iniDate, $auxiliarPioneerId);
+
+        return view('pioneer/report_month', compact('pioneers'));
+    }
+
+    public function reportMonthPrint(Request $request)
+    {
+        $currentMonth = date('m');
+        $iniCurrentMonth =  sprintf('%s-%s-%s', date('Y'), str_pad($currentMonth, 2, '0', STR_PAD_LEFT), '01');
+
+        $iniDate = Carbon::createFromFormat("!Y-m-d", $iniCurrentMonth);
+
+        $auxiliarPioneerId = 2;
+
+        $pioneers = $this->report($iniDate, $auxiliarPioneerId);
+
+        $headers = array(
+            "Content-type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=pioneers.csv",
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
+        );
+
+        $columns = array('NOME', 'REQUISITO');
+
+        $callback = function() use ($pioneers, $columns)
+        {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach($pioneers as $item) {
+                fputcsv($file, array(
+                    $item->publisher->name,
+                    $item->serviceType->name
+                ));
+            }
+            fclose($file);
+        };
+        return response()->stream($callback, 200, $headers);
+        
     }
 
 }
