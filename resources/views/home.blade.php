@@ -8,6 +8,16 @@
 
 @section('content')
 
+
+@foreach ($reminders as $r)
+<div class="pad margin no-print">
+    <div class="callout callout-success" style="margin-bottom: 0!important;">
+        <h4> Lembretes:</h4>
+        {{ $r }} 
+    </div>
+</div>
+@endforeach
+
 @if ($pendingReports > 0)
 <div class="pad margin no-print">
     <div class="callout callout-warning" style="margin-bottom: 0!important;">

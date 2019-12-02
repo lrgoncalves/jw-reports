@@ -111,6 +111,8 @@ class HomeController extends Controller
             ->where('date', '<', $meetingsLastMonthEndDate->format('Y-m-d'))
             ->get();
 
+        $reminders = $this->reminders();
+        
         return view('home', compact(
             'totalPublishers', 
             'totalPioneers', 
@@ -124,7 +126,41 @@ class HomeController extends Controller
             'publishers', 
             'lastMonth',
             'weekendMeeting',
-            'midweekMeeting'
+            'midweekMeeting',
+            'reminders'
         ));
+    }
+
+    public function reminders()
+    {
+        $arrayReminders = [];
+        $today = Carbon::today();
+
+
+        // limit date to send month report for bethel
+        $currentMonth = date('m');
+        $dt =  sprintf('%s-%s-%s', date('Y'), str_pad($currentMonth, 2, '0', STR_PAD_LEFT), '20');
+        $reportLimitDate = Carbon::createFromFormat("!Y-m-d", $dt);
+
+        if ($today->lte($reportLimitDate) and $today->diffInDays($reportLimitDate) < 5) {
+
+            if ($today->diffInDays($reportLimitDate) == 0) {
+                $arrayReminders[] = sprintf('Atenção!!!! Hoje é o último dia para enviar os relatórios para Betel.');
+            } else {
+                $arrayReminders[] = sprintf('Faltam %s dias para enviar os relatórios do mês para Betel!', $today->diffInDays($reportLimitDate));
+            }
+
+        }
+
+        // first year of baptized publishers
+        $publishers = Publisher::whereNotNull('baptize_date')
+            ->whereRaw('baptize_date between DATE_SUB(curdate(),INTERVAL 1 YEAR) and DATE_SUB(curdate(),INTERVAL 11 MONTH)')
+            ->get();
+        
+        foreach ($publishers as $p) {
+            $arrayReminders[] = sprintf('Dê os parabéns pelo seu um ano de batizmo a(o) %s que se batizou em %s', $p->name, $p->baptize_date->format('d/m/Y'));
+        }
+
+        return $arrayReminders;
     }
 }

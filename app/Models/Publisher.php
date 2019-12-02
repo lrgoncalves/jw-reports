@@ -15,6 +15,11 @@ class Publisher extends Model
         'group_id',
     ];
 
+    protected $dates = [
+        'birthdate',
+        'baptize_date',
+    ];
+
     public function householder()
     {
         return $this->belongsTo('App\Models\Publisher', 'id', 'householder_id');
