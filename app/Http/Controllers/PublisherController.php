@@ -62,10 +62,16 @@ class PublisherController extends Controller
                     <i class="fa fa-clock-o '.$color.' "></i>
                 </a>';
 
-                $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Remover" onclick="javascript: remover('.$item->id.')">
-                    <i class="fa fa-remove text-red"></i>
-                </a>';
+                // $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Remover" onclick="javascript: remover('.$item->id.')">
+                //     <i class="fa fa-remove text-red"></i>
+                // </a>';
 
+                if (is_null($item->householder_id)) {
+
+                    $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Endereço" onclick="javascript: endereco('.$item->id.');">
+                        <i class="fa fa-home text-black"></i>
+                    </a>';
+                }
                 
                 return $html;
             })

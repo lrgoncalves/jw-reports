@@ -42,6 +42,15 @@ Route::prefix('publisher')->group(function() {
     Route::get('/delete/{id}', 'PublisherController@delete')->name('publisher.delete');
 });
 
+Route::prefix('publisher_address')->group(function() {
+    Route::get('/new', 'PublisherAddressController@edit')->name('publisher_address.new');
+    Route::get('/edit/{id}', 'PublisherAddressController@edit')->name('publisher_address.edit');
+
+    Route::post('/new', 'PublisherAddressController@new');
+    Route::post('/edit', 'PublisherAddressController@update');
+
+});
+
 Route::prefix('field_service')->group(function() {
     Route::get('/list', 'FieldServiceController@index')->name('field_service');
     Route::get('/new', 'FieldServiceController@edit')->name('field_service.new');

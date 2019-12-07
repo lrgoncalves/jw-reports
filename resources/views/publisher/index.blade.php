@@ -87,5 +87,10 @@
         var url = "{{ route('field_service.new', ['pbid' =>0]) }}";
         window.location = url.substring(0, url.length-1) + id;
     }
+
+    function endereco(id) {
+        var url = "{{ route('publisher_address.new', ['pbid' =>0]) }}";
+        window.location = url.substring(0, url.length-1) + id;
+    }
 </script>
 @endpush
