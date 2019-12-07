@@ -114,6 +114,7 @@ class HomeController extends Controller
             ->get();
 
         $reminders = $this->reminders();
+        $reportedMonth = clone $meetingsLastMonthIniDate;
         
         return view('home', compact(
             'totalPublishers', 
@@ -129,7 +130,8 @@ class HomeController extends Controller
             'lastMonth',
             'weekendMeeting',
             'midweekMeeting',
-            'reminders'
+            'reminders',
+            'reportedMonth'
         ));
     }
 

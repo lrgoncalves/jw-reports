@@ -124,7 +124,7 @@
     @endforeach
 </div>
 
-<h4>Relatório mensal da Congregação</h4>
+<h4>Relatório mensal da Congregação ({{ $reportedMonth->format('m/Y') }})</h4>
 
 <div class="row">
     <div class="col-md-4">
