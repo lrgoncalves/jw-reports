@@ -102,11 +102,13 @@ class HomeController extends Controller
         $meetingsLastMonthEndDate->addMonth(1);
 
         $weekendMeeting = Meeting::whereRaw('weekday(date) in (5,6)')
+            ->whereNotNull('attendance')
             ->where('date', '>=', $meetingsLastMonthIniDate->format('Y-m-d'))
             ->where('date', '<', $meetingsLastMonthEndDate->format('Y-m-d'))
             ->get();
 
         $midweekMeeting = Meeting::whereRaw('weekday(date) in (0,1,2,3,4)')
+            ->whereNotNull('attendance')
             ->where('date', '>=', $meetingsLastMonthIniDate->format('Y-m-d'))
             ->where('date', '<', $meetingsLastMonthEndDate->format('Y-m-d'))
             ->get();

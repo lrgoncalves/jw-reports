@@ -25,7 +25,7 @@ class MeetingController extends Controller
     public function ajaxData() 
     {
 
-        $builder = Meeting::whereRaw('1=1');
+        $builder = Meeting::whereRaw('1=1')->orderBy('date', 'desc');
 
         $dt = new Datatables();
         return $dt->eloquent($builder)
