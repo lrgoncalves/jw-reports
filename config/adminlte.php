@@ -15,7 +15,7 @@ return [
 
     'title' => 'JW Reports',
 
-    'title_prefix' => '',
+    'title_prefix' => 'JW Reports',
 
     'title_postfix' => '',
 
