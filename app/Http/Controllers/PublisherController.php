@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\FieldService;
 use App\Models\Publisher;
+use App\Models\PublisherAddress;
 use App\Models\YearService;
 use App\Traits\DateTrait;
 use Illuminate\Http\Request;
@@ -68,8 +69,11 @@ class PublisherController extends Controller
 
                 if (is_null($item->householder_id)) {
 
+                    $publisherAddress = PublisherAddress::where('publisher_id', $item->id)->first();
+                    $color = ($publisherAddress) ? 'black' : 'red';
+
                     $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Endereço" onclick="javascript: endereco('.$item->id.');">
-                        <i class="fa fa-home text-black"></i>
+                        <i class="fa fa-home text-'.$color.'"></i>
                     </a>';
                 }
                 

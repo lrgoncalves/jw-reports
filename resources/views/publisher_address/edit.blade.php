@@ -77,8 +77,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                          <label>Complemento</label>
-                                        <input name="address_2" type="text" class="form-control" placeholder="" value="{{ $publisherAddress->address_2 }}" required
-                                            {{ ($disabled) ? 'disabled' : '' }}>
+                                        <input name="address_2" type="text" class="form-control" placeholder="" value="{{ $publisherAddress->address_2 }}" >
                                     </div>
                                 </div>
                             </div>

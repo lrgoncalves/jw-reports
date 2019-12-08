@@ -29,10 +29,12 @@ class PublisherAddressController extends Controller
 
         if($id != null) {
             $title = "Editar Endereço";
-            $publisherAddress = PublisherAddress::where('id', '=', $id)
+            $publisherAddress = PublisherAddress::where('publisher_id', '=', $id)
                 ->first();
 
-            // dd($publisherAddress, date('d/m/Y', strtotime($publisherAddress->baptize_date)));
+            if (!$publisherAddress) {
+                $publisherAddress = new PublisherAddress();
+            }
         }
 
         return view('publisher_address/edit', [
