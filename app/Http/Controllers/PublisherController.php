@@ -24,7 +24,7 @@ class PublisherController extends Controller
     public function ajaxData() 
     {
 
-        $builder = Publisher::whereRaw('1=1');
+        $builder = Publisher::whereRaw('1=1')->orderBy('name', 'asc');
 
         $dt = new Datatables();
         return $dt->eloquent($builder)
