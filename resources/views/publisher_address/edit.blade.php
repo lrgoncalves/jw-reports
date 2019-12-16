@@ -48,8 +48,8 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>CEP</label>
-                                        <input name="zipcode" id="zipcode" type="text" class="form-control" placeholder="" value="{{ $publisherAddress->zipcode }}" required
-                                            {{ ($disabled) ? 'disabled' : '' }}>
+                                        <input name="zipcode" id="zipcode" type="text" class="form-control" placeholder="" value="{{ $publisherAddress->zipcode }}" required data-inputmask="'mask': ['99999-999']" data-mask=""
+                                        placeholder="" {{ ($disabled) ? 'disabled' : '' }}>
                                     </div>
                                 </div>
                             </div>
@@ -138,6 +138,8 @@
 <script src="https://adminlte.io/themes/AdminLTE/plugins/input-mask/jquery.inputmask.js"></script>
 <script>
     $( function() {
+
+        $('[data-mask]').inputmask()
 
         $('.selecthouseholders').select2();
 

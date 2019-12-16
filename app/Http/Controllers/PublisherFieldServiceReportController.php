@@ -22,7 +22,7 @@ class PublisherFieldServiceReportController extends Controller
 
     private function getReport($publisherId = null)
     {
-        $yearServices = YearService::orderBy('finish_at', 'desc')->get();
+        $yearServices = YearService::orderBy('finish_at', 'ASC')->get();
             
         if (!$publisherId) {
             $publishers = Publisher::orderBy('name', 'ASC')->get();
@@ -79,8 +79,8 @@ class PublisherFieldServiceReportController extends Controller
             $arrayCard[] = [
                 'name' => $p->name,
                 'group' => $p->group()->first()->name,
-                'birthdate' => $p->birthdate,
-                'baptize' => $p->baptize_date,
+                'birthdate' => ($p->birthdate) ? $p->birthdate->format('d/m/Y') : null,
+                'baptize' => ($p->baptize_date) ? $p->baptize_date->format('d/m/Y') : null,
                 'pioneer_code' => $p->pioneer_code,
 
                 // @todo
@@ -126,6 +126,106 @@ class PublisherFieldServiceReportController extends Controller
     }
 
     public function generate(Request $request, $publisherId = null)
+    {
+        $fieldData = $this->getReport($publisherId);
+
+        $headers = array(
+            "Content-type" => "text/csv",
+            "Content-Disposition" => "attachment; filename=publisher_card.csv",
+            "Pragma" => "no-cache",
+            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
+            "Expires" => "0"
+        );
+
+        // $columns = array(
+        //     'Publicações',
+        //     'Vídeos mostrados',
+        //     'Horas',
+        //     'Revisitas',
+        //     'Estudos bíblicos',
+        //     'Observações'
+        // );
+
+        $callback = function() use ($fieldData)
+        {
+            $file = fopen('php://output', 'w');
+
+            foreach ($fieldData as $fd) {
+                fputcsv($file, array(
+                    'Nome:',
+                    $fd['name'],
+                ));
+        
+                fputcsv($file, array(
+                    'Data de nascimento:',
+                    $fd['birthdate'],
+                    '',
+                    '',
+                    '[ ] Masculino',
+                    '[ ] Feminino',
+                ));
+        
+                fputcsv($file, array(
+                    'Data de batismo:',
+                    $fd['baptize'],
+                    '',
+                    '',
+                    '[ ] Outras ovelhas',
+                    '[ ] Ungido',
+                ));
+
+                fputcsv($file, array(
+                    '',
+                    '',
+                    '',
+                    '',
+                    '[ ] Ancião',
+                    '[ ] Servo Ministerial',
+                    '[ ] Pioneiro regular',
+                ));
+
+
+                $group_name = '';
+                foreach($fd['year_services'] as $item) {
+                    fputcsv($file, array(
+                        "Ano de serviço\n".$item['period'],
+                        'Publicações',
+                        'Vídeos mostrados',
+                        'Horas',
+                        'Revisitas',
+                        'Estudos bíblicos',
+                        'Observações'
+                    ));
+
+                    foreach ($item['report'] as $m) {
+                        fputcsv($file, array(
+                            $m['month'],
+                            $m['placements'],
+                            $m['videos'],
+                            $m['hours'],
+                            $m['return_visits'],
+                            $m['studies'],
+                            $m['observations'],
+                        ));
+                    }
+
+                    fputcsv($file, array(
+                        'Total:',
+                    ));
+                    
+                    fputcsv($file, array(
+                        'Média:',
+                    ));
+                }
+            }
+            
+            fclose($file);
+        };
+        return response()->stream($callback, 200, $headers);
+        
+    }
+
+    public function generateBkp(Request $request, $publisherId = null)
     {
         $fieldData = $this->getReport($publisherId);
 

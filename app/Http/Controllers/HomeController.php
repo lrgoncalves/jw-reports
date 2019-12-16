@@ -34,7 +34,9 @@ class HomeController extends Controller
         $totalPublishers = Publisher::all()->count();
         $totalPioneers = PublisherServiceType::where('service_type_id', 4)->get()->count();
 
-        $lastMonth = date('m') - 1;
+        // $lastMonth = date('m') - 1;
+        $lastMonth = 9;
+
         $dt =  sprintf('%s-%s-%s', date('Y'), str_pad($lastMonth, 2, '0', STR_PAD_LEFT), '01');
         $yearService = YearService::
                     whereRaw('"'.$dt.'" >= start_at')
