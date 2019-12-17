@@ -216,6 +216,15 @@ class PublisherFieldServiceReportController extends Controller
                     fputcsv($file, array(
                         'Média:',
                     ));
+
+                    fputcsv($file, array(
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                    ));
                 }
             }
             
