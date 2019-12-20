@@ -22,8 +22,10 @@ class CreatePublishersTable extends Migration
             $table->foreign('group_id')->references("id")->on('groups');
 
             $table->string('name', 60);
+            $table->string('gender', 1)->default('F');
             $table->date('birthdate')->nullable();
             $table->date('baptize_date')->nullable();
+            $table->tinyInteger('anointed')->default(0);
             $table->integer('pioneer_code')->nullable();
             $table->timestamps();
         });

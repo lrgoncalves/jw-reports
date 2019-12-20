@@ -78,9 +78,11 @@ class PublisherFieldServiceReportController extends Controller
 
             $arrayCard[] = [
                 'name' => $p->name,
+                'gender' => $p->gender,
                 'group' => $p->group()->first()->name,
                 'birthdate' => ($p->birthdate) ? $p->birthdate->format('d/m/Y') : null,
                 'baptize' => ($p->baptize_date) ? $p->baptize_date->format('d/m/Y') : null,
+                'anointed' => $p->anointed,
                 'pioneer_code' => $p->pioneer_code,
 
                 // @todo
@@ -161,8 +163,8 @@ class PublisherFieldServiceReportController extends Controller
                     $fd['birthdate'],
                     '',
                     '',
-                    '[ ] Masculino',
-                    '[ ] Feminino',
+                    '[ '.($fd['gender'] == 'M' ? 'x' : '').' ] Masculino',
+                    '[ '.($fd['gender'] == 'F' ? 'x' : '').' ] Feminino',
                 ));
         
                 fputcsv($file, array(
@@ -170,8 +172,8 @@ class PublisherFieldServiceReportController extends Controller
                     $fd['baptize'],
                     '',
                     '',
-                    '[ ] Outras ovelhas',
-                    '[ ] Ungido',
+                    '[ '.(!$fd['anointed'] ? 'x' : '').' ] Outras ovelhas',
+                    '[ '.($fd['anointed'] ? 'x' : '').' ] Ungido',
                 ));
 
                 fputcsv($file, array(

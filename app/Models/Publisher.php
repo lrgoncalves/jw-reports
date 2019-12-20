@@ -8,8 +8,10 @@ class Publisher extends Model
 {
     protected $fillable = [
         'name',
+        'gender',
         'birthdate',
         'baptize_date',
+        'anointed',
         'pioneer_code',
         'householder_id',
         'group_id',
