@@ -85,16 +85,19 @@ class HomeController extends Controller
         $regularPioneers = FieldService::where('year_service_id', $yearService->id)
             ->where('month', $lastMonth)
             ->where('service_type_id', 4)
+            ->whereNotNull('hours')
             ->get();
         
         $auxiliarPioneers = FieldService::where('year_service_id', $yearService->id)
             ->where('month', $lastMonth)
             ->whereIn('service_type_id', [2,3])
+            ->whereNotNull('hours')
             ->get();
 
         $publishers = FieldService::where('year_service_id', $yearService->id)
             ->where('month', $lastMonth)
             ->where('service_type_id', 1)
+            ->whereNotNull('hours')
             ->get();
         
         $pendingReports = $totalPublishers - $totalReports;

@@ -21,18 +21,52 @@ class FieldServiceController extends Controller
         $this->middleware('auth');
     }
 
-    public function ajaxData() 
+    public function ajaxData(Request $req) {
+        
+        $data = [];
+        if ($req->has('pbid')) {
+            $fieldService = FieldService::
+                where('publisher_id', $req->input('pbid'))
+                ->orderBy('year_service_id', 'Desc')
+                ->orderBy('month', 'Desc')
+                ->get();
+            
+            foreach ($fieldService as $fs) {
+                $data[] = [
+                    'id' => $fs->id,
+                    'name' => $fs->publisher()->first()->name,
+                    'year' => $fs->yearService()->first()->start_at->format('Y') . '/' . $fs->yearService()->first()->finish_at->format('Y'),
+                    'month' => $fs->month,
+                    'hours' => $fs->hours,
+                    'placements' => $fs->placements,
+                    'videos' => $fs->videos,
+                    'return_visits' => $fs->return_visits,
+                    'studies' => $fs->studies,
+                ];
+            }
+        }
+        // return json_encode(['dsfsd'=>$req->input('pbid')]);
+        return json_encode($data);
+    }
+
+    public function ajaxDataOld($req) 
     {
-        $lastMonth = date('m') - 1;
-        $dt =  sprintf('%s-%s-%s', date('Y'), str_pad($lastMonth, 2, '0', STR_PAD_LEFT), '01');
+        // $lastMonth = date('m') - 1;
+        // $dt =  sprintf('%s-%s-%s', date('Y'), str_pad($lastMonth, 2, '0', STR_PAD_LEFT), '01');
 
-        $yearService = YearService::
-                    whereRaw('"'.$dt.'" >= start_at')
-                    ->whereRaw('"'.$dt.'" <= finish_at')
-                    ->first();
+        // $yearService = YearService::
+        //             whereRaw('"'.$dt.'" >= start_at')
+        //             ->whereRaw('"'.$dt.'" <= finish_at')
+        //             ->first();
 
-        $builder = FieldService::where('year_service_id', $yearService->id)
-            ->where('month', $lastMonth);
+        if ($req->has('pbid')) {
+
+        }
+
+        $builder = FieldService::
+            // where('year_service_id', $yearService->id)
+            // ->where('month', $lastMonth)
+            orderBy('id', 'Desc');
 
         $dt = new Datatables();
         return $dt->eloquent($builder)
@@ -68,8 +102,9 @@ class FieldServiceController extends Controller
             return view('year_service/init');
         }
 
-
-        return view('field_service/index');
+        return view('field_service/index', [
+            'publishers' => Publisher::orderBy('name', 'asc')->get(['id', 'name'])
+        ]);
     }
 
     public function edit(Request $req, $id = null)
