@@ -45,54 +45,7 @@ class FieldServiceController extends Controller
                 ];
             }
         }
-        // return json_encode(['dsfsd'=>$req->input('pbid')]);
         return json_encode($data);
-    }
-
-    public function ajaxDataOld($req) 
-    {
-        // $lastMonth = date('m') - 1;
-        // $dt =  sprintf('%s-%s-%s', date('Y'), str_pad($lastMonth, 2, '0', STR_PAD_LEFT), '01');
-
-        // $yearService = YearService::
-        //             whereRaw('"'.$dt.'" >= start_at')
-        //             ->whereRaw('"'.$dt.'" <= finish_at')
-        //             ->first();
-
-        if ($req->has('pbid')) {
-
-        }
-
-        $builder = FieldService::
-            // where('year_service_id', $yearService->id)
-            // ->where('month', $lastMonth)
-            orderBy('id', 'Desc');
-
-        $dt = new Datatables();
-        return $dt->eloquent($builder)
-            ->addColumn('action', function($item) {
-                $html = "";
-                $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Editar" onclick="javascript: window.location=\'edit/'.$item->id.'\'">
-                    <i class="fa fa-pencil text-blue"></i>
-                </a>';
-
-                $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Remover" onclick="javascript: remover('.$item->id.')">
-                    <i class="fa fa-remove text-red"></i>
-                </a>';
-
-                
-                return $html;
-            })
-            ->addColumn('month', function($item) {
-                return ($this->getMonth($item->month));
-            })
-            ->addColumn('publisher_name', function($item) {
-                return ($item->publisher()->first()->name);
-            })
-            ->rawColumns([
-                'hours', 'placements', 'videos', 'return_visits', 'studies', 'action'
-            ])
-            ->make();
     }
 
     public function index()
@@ -157,7 +110,7 @@ class FieldServiceController extends Controller
             'title' => $title,
             'fieldService' => $fieldService,
             'lastMonth' => $lastMonth,
-            'publishers' => Publisher::all(),
+            'publishers' => Publisher::orderBy('name', 'asc')->get(),
             'yearServices' => YearService::orderBy('id', 'desc')->get(),
             'YearServiceDefault' => $yearServiceDefaul,
             'serviceTypes' => ServiceType::all(),

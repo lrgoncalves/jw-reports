@@ -20,6 +20,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="form-group">
+            <form action="#">
             <label>Publicador</label>
             <select class="form-control select_publisher" id="select_publisher" name="publisher_id">
                 <option value="">Selecione o publicador</option>
@@ -29,6 +30,7 @@
                     </option>
                 @endforeach
             </select>
+            </form>
         </div>
     </div>
 </div>
