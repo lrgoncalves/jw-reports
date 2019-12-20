@@ -26,6 +26,7 @@ class CreatePublishersTable extends Migration
             $table->date('birthdate')->nullable();
             $table->date('baptize_date')->nullable();
             $table->tinyInteger('anointed')->default(0);
+            $table->string('privilege', 2)->nullable();
             $table->integer('pioneer_code')->nullable();
             $table->timestamps();
         });

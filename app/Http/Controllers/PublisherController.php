@@ -134,6 +134,7 @@ class PublisherController extends Controller
             $publisher->birthdate = $this->convertString2Carbon($req->birthdate);
             $publisher->baptize_date = $this->convertString2Carbon($req->baptize_date);
             $publisher->anointed = $req->anointed;
+            $publisher->privilege = $req->privilege;
             $publisher->pioneer_code = $req->pioneer_code;
             $publisher->group_id = $req->group_id;
 

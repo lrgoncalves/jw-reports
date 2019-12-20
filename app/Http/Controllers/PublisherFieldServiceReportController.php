@@ -57,7 +57,7 @@ class PublisherFieldServiceReportController extends Controller
                         ->where('month', $key)
                         ->where('publisher_id', $p->id)
                         ->first();
-
+                    
                     $arrayReport[] = [
                         'month' => $month,
                         'placements' => (!$monthData) ? null : $monthData->placements,
@@ -75,7 +75,6 @@ class PublisherFieldServiceReportController extends Controller
                 ];
             }
 
-
             $arrayCard[] = [
                 'name' => $p->name,
                 'gender' => $p->gender,
@@ -84,6 +83,7 @@ class PublisherFieldServiceReportController extends Controller
                 'baptize' => ($p->baptize_date) ? $p->baptize_date->format('d/m/Y') : null,
                 'anointed' => $p->anointed,
                 'pioneer_code' => $p->pioneer_code,
+                'privilege' => $p->privilege,
 
                 // @todo
                 'address' => null,
@@ -181,9 +181,9 @@ class PublisherFieldServiceReportController extends Controller
                     '',
                     '',
                     '',
-                    '[ ] Ancião',
-                    '[ ] Servo Ministerial',
-                    '[ ] Pioneiro regular',
+                    '[ '.($fd['privilege'] == 'OM' ? 'x' : '').' ] Ancião',
+                    '[ '.($fd['privilege'] == 'MS' ? 'x' : '').' ] Servo Ministerial',
+                    '[ ' .($fd['pioneer_code'] ? 'x' : ''). ' ] Pioneiro regular',
                 ));
 
 
@@ -217,6 +217,15 @@ class PublisherFieldServiceReportController extends Controller
                     
                     fputcsv($file, array(
                         'Média:',
+                    ));
+
+                    fputcsv($file, array(
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
+                        '',
                     ));
 
                     fputcsv($file, array(

@@ -135,6 +135,27 @@
                                 </div>
                             </div>
 
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Privilégio</label>
+
+                                    <div class="form-group">
+                                        <div class="radio">
+                                            <label>
+                                                <input name="privilege" type="radio" value="OM" required {{ ($disabled) ? 'disabled' : '' }} {{ $publisher->privilege == 'OM' ? 'checked' : '' }} >
+                                                Ancião
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input name="privilege" type="radio" value="MS" required {{ ($disabled) ? 'disabled' : '' }} {{ $publisher->privilege == 'MS' ? 'checked' : '' }} >
+                                                Servo Ministerial
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
 
                             <div class="row">
                                 <div class="col-md-2">

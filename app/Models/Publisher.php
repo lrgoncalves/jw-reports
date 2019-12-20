@@ -12,6 +12,7 @@ class Publisher extends Model
         'birthdate',
         'baptize_date',
         'anointed',
+        'privilege',
         'pioneer_code',
         'householder_id',
         'group_id',
