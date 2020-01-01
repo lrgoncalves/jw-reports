@@ -45,11 +45,45 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Nome</label>
                                         <input name="name" type="text" class="form-control" placeholder="" value="{{ $publisher->name }}" required
                                             {{ ($disabled) ? 'disabled' : '' }}>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div class="radio">
+                                            <label>
+                                                <input name="gender" type="radio" value="M" required {{ ($disabled) ? 'disabled' : '' }} {{ $publisher->gender == 'M' ? 'checked' : '' }} >
+                                                Masculino
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input name="gender" type="radio" value="F" required {{ ($disabled) ? 'disabled' : '' }} {{ $publisher->gender == 'F' ? 'checked' : '' }} >
+                                                Feminino
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <div class="radio">
+                                            <label>
+                                                <input name="anointed" type="radio" value="1" required {{ ($disabled) ? 'disabled' : '' }} {{ $publisher->anointed == '1' ? 'checked' : '' }} >
+                                                Ungido
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input name="anointed" type="radio" value="0" required {{ ($disabled) ? 'disabled' : '' }} {{ $publisher->anointed == '0' ? 'checked' : '' }} >
+                                                Outras ovelhas
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -98,6 +132,27 @@
                                         </select>
                                     </div>
                                     
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label>Privilégio</label>
+
+                                    <div class="form-group">
+                                        <div class="radio">
+                                            <label>
+                                                <input name="privilege" type="radio" value="OM" required {{ ($disabled) ? 'disabled' : '' }} {{ $publisher->privilege == 'OM' ? 'checked' : '' }} >
+                                                Ancião
+                                            </label>
+                                        </div>
+                                        <div class="radio">
+                                            <label>
+                                                <input name="privilege" type="radio" value="MS" required {{ ($disabled) ? 'disabled' : '' }} {{ $publisher->privilege == 'MS' ? 'checked' : '' }} >
+                                                Servo Ministerial
+                                            </label>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

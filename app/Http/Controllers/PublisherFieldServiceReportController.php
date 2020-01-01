@@ -57,7 +57,7 @@ class PublisherFieldServiceReportController extends Controller
                         ->where('month', $key)
                         ->where('publisher_id', $p->id)
                         ->first();
-
+                    
                     $arrayReport[] = [
                         'month' => $month,
                         'placements' => (!$monthData) ? null : $monthData->placements,
@@ -75,13 +75,15 @@ class PublisherFieldServiceReportController extends Controller
                 ];
             }
 
-
             $arrayCard[] = [
                 'name' => $p->name,
+                'gender' => $p->gender,
                 'group' => $p->group()->first()->name,
                 'birthdate' => ($p->birthdate) ? $p->birthdate->format('d/m/Y') : null,
                 'baptize' => ($p->baptize_date) ? $p->baptize_date->format('d/m/Y') : null,
+                'anointed' => $p->anointed,
                 'pioneer_code' => $p->pioneer_code,
+                'privilege' => $p->privilege,
 
                 // @todo
                 'address' => null,
@@ -161,8 +163,8 @@ class PublisherFieldServiceReportController extends Controller
                     $fd['birthdate'],
                     '',
                     '',
-                    '[ ] Masculino',
-                    '[ ] Feminino',
+                    '[ '.($fd['gender'] == 'M' ? 'x' : '').' ] Masculino',
+                    '[ '.($fd['gender'] == 'F' ? 'x' : '').' ] Feminino',
                 ));
         
                 fputcsv($file, array(
@@ -170,8 +172,8 @@ class PublisherFieldServiceReportController extends Controller
                     $fd['baptize'],
                     '',
                     '',
-                    '[ ] Outras ovelhas',
-                    '[ ] Ungido',
+                    '[ '.(!$fd['anointed'] ? 'x' : '').' ] Outras ovelhas',
+                    '[ '.($fd['anointed'] ? 'x' : '').' ] Ungido',
                 ));
 
                 fputcsv($file, array(
@@ -179,9 +181,9 @@ class PublisherFieldServiceReportController extends Controller
                     '',
                     '',
                     '',
-                    '[ ] Ancião',
-                    '[ ] Servo Ministerial',
-                    '[ ] Pioneiro regular',
+                    '[ '.($fd['privilege'] == 'OM' ? 'x' : '').' ] Ancião',
+                    '[ '.($fd['privilege'] == 'MS' ? 'x' : '').' ] Servo Ministerial',
+                    '[ ' .($fd['pioneer_code'] ? 'x' : ''). ' ] Pioneiro regular',
                 ));
 
 
@@ -225,7 +227,27 @@ class PublisherFieldServiceReportController extends Controller
                         '',
                         '',
                     ));
+
+                    
                 }
+
+                fputcsv($file, array(
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                ));
+
+                fputcsv($file, array(
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                    '',
+                ));
             }
             
             fclose($file);
