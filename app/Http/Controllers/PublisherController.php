@@ -34,9 +34,15 @@ class PublisherController extends Controller
                     <i class="fa fa-pencil text-blue"></i>
                 </a>';
 
-                $lastMonth = date('m') - 1;
+                if (date('m') == 1) {
+                    $lastMonth = 12;
+                    $year = date('Y') - 1;
+                } else {
+                    $lastMonth = date('m') - 1;
+                    $year = date('Y');
+                }
 
-                $dt =  sprintf('%s-%s-%s', date('Y'), str_pad($lastMonth, 2, '0', STR_PAD_LEFT), '01');
+                $dt =  sprintf('%s-%s-%s', $year, str_pad($lastMonth, 2, '0', STR_PAD_LEFT), '01');
 
                 $yearService = YearService::
                     whereRaw('"'.$dt.'" >= start_at')
