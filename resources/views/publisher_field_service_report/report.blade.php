@@ -4,7 +4,15 @@
 
         <style>
             body {
-                font-size: 8px;
+                font-family: Times New Roman;
+            }
+
+            table.data th {
+                padding-bottom: 10px;
+            }
+
+            table.data td {
+                font-size: 14px;
             }
 
             table.data td span {
@@ -23,8 +31,9 @@
 
             table.report, table.report th, table.report td {
                 min-width: 70px;
-                padding: 5px 10px 10px 10px;
+                padding: 3px 10px 2px 10px;
                 text-align: center;
+                font-size: 12px;
             }
 
             table.report {
@@ -47,6 +56,10 @@
                 font-weight: bold;
             }
             
+            th.obs, td.obs {
+                min-width: 150px !important;;
+                max-width: 150px;
+            }
             
         </style>
     </head>
@@ -54,6 +67,9 @@
     <body>
 
         <table class="data">
+            <tr>
+                <th colspan="7">REGISTRO DE PUBLICADOR DA CONGREGAÇÃO</th>
+            </tr>
             <tr>
                 <td colspan="7">
                     <span>Nome:</span> {{ $data['name'] }}
@@ -108,7 +124,7 @@
                                 <th>Horas</th>
                                 <th>Revisitas</th>
                                 <th>Estudos <br />bíblicos</th>
-                                <th>Observações</th>
+                                <th class="obs">Observações</th>
                             </tr>
 
                             @php
@@ -143,7 +159,7 @@
                                     <td>{{ $r['hours'] }}</td>
                                     <td>{{ $r['return_visits'] }}</td>
                                     <td>{{ $r['studies'] }}</td>
-                                    <td>{{ $r['observations'] }}</td>
+                                    <td class="obs">{{ $r['observations'] }}</td>
                                 </tr>
                             @endforeach
 
