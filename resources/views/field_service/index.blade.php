@@ -55,9 +55,9 @@
                                     <th>Nome</th>
                                     <th>Ano</th>
                                     <th>Mês</th>
-                                    <th>Horas</th>
                                     <th>Colocações</th>
                                     <th>Vídeos</th>
+                                    <th>Horas</th>
                                     <th>Revisitas</th>
                                     <th>Estudos</th>
                                     <th style="width: 110px">Ações</th>
@@ -105,9 +105,9 @@
                             item.name,
                             item.year,
                             item.month,
-                            item.hours,
                             item.placements,
                             item.videos,
+                            item.hours,
                             item.return_visits,
                             item.studies,
                             html,
