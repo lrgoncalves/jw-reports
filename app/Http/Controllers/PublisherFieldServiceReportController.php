@@ -110,7 +110,11 @@ class PublisherFieldServiceReportController extends Controller
 
             ->addColumn('action', function($item) {
                 $html = "";
-                $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Exportar relatorio" href="' . route('publisher_field_service_report.generate', $item->id) . '" target="_blank">
+                // $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Exportar relatorio" href="' . route('publisher_field_service_report.generate', $item->id) . '" target="_blank">
+                //     <i class="fa fa-cloud-download text-blue"></i>
+                // </a>';
+
+                $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Exportar relatorio" href="' . route('publisher_field_service_report.report', $item->id) . '" target="_blank">
                     <i class="fa fa-cloud-download text-blue"></i>
                 </a>';
                 return $html;
@@ -256,86 +260,9 @@ class PublisherFieldServiceReportController extends Controller
         
     }
 
-    public function generateBkp(Request $request, $publisherId = null)
+    public function report(Request $request, $publisherId = null) 
     {
-        $fieldData = $this->getReport($publisherId);
-
-        $headers = array(
-            "Content-type" => "text/csv",
-            "Content-Disposition" => "attachment; filename=publisher_card.csv",
-            "Pragma" => "no-cache",
-            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-            "Expires" => "0"
-        );
-
-        $columns = array(
-            'Mês',
-            'Publicações',
-            'Vídeos mostrados',
-            'Horas',
-            'Revisitas',
-            'Estudos bíblicos',
-            'Observações'
-        );
-
-        $callback = function() use ($fieldData, $columns)
-        {
-            $file = fopen('php://output', 'w');
-
-            foreach ($fieldData as $fd) {
-                fputcsv($file, array(
-                    'Nome:',
-                    $fd['name'],
-                    'Grupo:',
-                    $fd['group']
-                ));
-    
-                fputcsv($file, array(
-                    'Endereço:',
-                    $fd['address'],
-                ));
-    
-                fputcsv($file, array(
-                    'Telefone residencial:',
-                    $fd['landline'],
-                    'Telefone celular:',
-                    $fd['msisdn'],
-                ));
-    
-                fputcsv($file, array(
-                    'Data de nascimento:',
-                    $fd['birthdate'],
-                    'Data da imersão:',
-                    $fd['baptize'],
-                ));
-        
-                $group_name = '';
-                foreach($fd['year_services'] as $item) {
-                    fputcsv($file, array(
-                        'Ano de Serviço:',
-                        $item['period']
-                    ));
-
-                    fputcsv($file, $columns);
-
-                    foreach ($item['report'] as $m) {
-                        fputcsv($file, array(
-                            $m['month'],
-                            $m['placements'],
-                            $m['videos'],
-                            $m['hours'],
-                            $m['return_visits'],
-                            $m['studies'],
-                            $m['observations'],
-                        ));
-                    }
-                    
-                }
-            }
-            
-            fclose($file);
-        };
-        return response()->stream($callback, 200, $headers);
-        
+        $data = $this->getReport($publisherId);
+        return view('publisher_field_service_report/report', ['data' => $data[0]]);
     }
 }

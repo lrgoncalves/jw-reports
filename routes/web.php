@@ -116,4 +116,5 @@ Route::prefix('publisher_field_service_report')->group(function() {
     Route::get('/list', 'PublisherFieldServiceReportController@index')->name('publisher_field_service_report');
     Route::get('ajaxData', 'PublisherFieldServiceReportController@ajaxData')->name('publisher_field_service_report.ajaxData');
     Route::get('/generate/{publisherId?}', 'PublisherFieldServiceReportController@generate')->name('publisher_field_service_report.generate');
+    Route::get('/report/{publisherId?}', 'PublisherFieldServiceReportController@report')->name('publisher_field_service_report.report');
 });
