@@ -35,6 +35,7 @@
                                 <tr>
                                     <th style="width: 50px">ID</th>
                                     <th>Nome</th>
+                                    <th>Grupo</th>
                                     <th>Data de batismo</th>
                                     <th style="width: 150px">Ações</th>
                                 </tr>
@@ -67,6 +68,7 @@
             "columns": [
                 { "data": "id", "name" : "id" },
                 { "data": "name", "name" : "name" },
+                { "data": "group", "name": "group"},
                 { "data": "baptize_date", "name": "baptize_date"},
                 { "data": "action" }
             ]

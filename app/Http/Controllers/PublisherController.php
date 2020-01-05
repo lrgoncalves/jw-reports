@@ -69,7 +69,7 @@ class PublisherController extends Controller
                     <i class="fa fa-clock-o '.$color.' "></i>
                 </a>';
 
-                $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Cartão do publicador" onclick="javascript: printCard('.$item->id.');">
+                $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Cartão do publicador (S-21-T 12/18)" onclick="javascript: printCard('.$item->id.');">
                     <i class="fa fa-file-pdf-o text-blue "></i>
                 </a>';
 
@@ -88,6 +88,9 @@ class PublisherController extends Controller
                 }
                 
                 return $html;
+            })
+            ->addColumn('group', function($item){
+                return $item->group()->first()->name;
             })
             ->addColumn('baptize_date', function($item) {
                 return ($item->baptize_date) ? date('d/m/Y', strtotime($item->baptize_date)) : "";
