@@ -69,6 +69,10 @@ class PublisherController extends Controller
                     <i class="fa fa-clock-o '.$color.' "></i>
                 </a>';
 
+                $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Cartão do publicador" onclick="javascript: printCard('.$item->id.');">
+                    <i class="fa fa-file-pdf-o text-blue "></i>
+                </a>';
+
                 // $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Remover" onclick="javascript: remover('.$item->id.')">
                 //     <i class="fa fa-remove text-red"></i>
                 // </a>';

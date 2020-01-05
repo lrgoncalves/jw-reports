@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Group;
 use App\Models\FieldService;
 use App\Models\Publisher;
+use App\Models\ServiceType;
 use App\Models\YearService;
 use App\Traits\DateTrait;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
+use PDF;
 use Yajra\Datatables\Datatables;
 
 class PublisherFieldServiceReportController extends Controller
@@ -22,7 +25,7 @@ class PublisherFieldServiceReportController extends Controller
 
     private function getReport($publisherId = null)
     {
-        $yearServices = YearService::orderBy('finish_at', 'ASC')->get();
+        $yearServices = YearService::orderBy('finish_at', 'DESC')->limit(1)->get();
             
         if (!$publisherId) {
             $publishers = Publisher::orderBy('name', 'ASC')->get();
@@ -48,6 +51,12 @@ class PublisherFieldServiceReportController extends Controller
         $arrayCard = [];
         foreach ($publishers as $p) {
 
+            $isRegularPioneer = $p->serviceType()
+                ->where('start_at', '<=', date('Y-m-d'))
+                ->whereNull('finish_at')
+                ->where('service_type_id', ServiceType::REGULAR_PIONEER)
+                ->first();
+
             $years = [];
             foreach ($yearServices as $y) {
 
@@ -57,6 +66,17 @@ class PublisherFieldServiceReportController extends Controller
                         ->where('month', $key)
                         ->where('publisher_id', $p->id)
                         ->first();
+
+                    $observations = null;
+                    if ($monthData) {
+                        if ($monthData->observations) {
+                            $observations = $monthData->observations;
+                        } else if ($monthData->service_type_id == ServiceType::AUXILIAR_PIONNER_30) {
+                            $observations = 'Pioneiro auxiliar 30h';
+                        } else if ($monthData->service_type_id == ServiceType::AUXILIAR_PIONEER_50) {
+                            $observations = 'Pioneiro auxiliar 50h';
+                        }
+                    }
                     
                     $arrayReport[] = [
                         'month' => $month,
@@ -65,7 +85,7 @@ class PublisherFieldServiceReportController extends Controller
                         'hours' => (!$monthData) ? null : $monthData->hours,
                         'return_visits' => (!$monthData) ? null : $monthData->return_visits,
                         'studies' => (!$monthData) ? null : $monthData->studies,
-                        'observations' => (!$monthData) ? null : $monthData->observations,
+                        'observations' => $observations,
                     ];
                 }
                 
@@ -82,7 +102,7 @@ class PublisherFieldServiceReportController extends Controller
                 'birthdate' => ($p->birthdate) ? $p->birthdate->format('d/m/Y') : null,
                 'baptize' => ($p->baptize_date) ? $p->baptize_date->format('d/m/Y') : null,
                 'anointed' => $p->anointed,
-                'pioneer_code' => $p->pioneer_code,
+                'regular_pioneer' => (!is_null($isRegularPioneer)),
                 'privilege' => $p->privilege,
 
                 // @todo
@@ -263,6 +283,12 @@ class PublisherFieldServiceReportController extends Controller
     public function report(Request $request, $publisherId = null) 
     {
         $data = $this->getReport($publisherId);
-        return view('publisher_field_service_report/report', ['data' => $data[0]]);
+
+        $array = ['data' => $data[0]];
+
+        // dd($array);
+        // return view('publisher_field_service_report/report', $array);
+        $pdf = PDF::loadView('publisher_field_service_report/report', $array);  
+        return $pdf->download(sprintf('%s.pdf', Str::slug($array['data']['name'])));
     }
 }

@@ -4,8 +4,9 @@ version: '2'
 services:
   # PHP (with Caddy)
   app:
-    image: ambientum/php:7.1-caddy
-    container_name: jw-reports
+    # image: ambientum/php:7.1-caddy
+    image: ambientum/php:7.3-nginx
+    container_name: jw-reports-v2
     volumes:
       - .:/var/www/app
     ports:

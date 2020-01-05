@@ -29,10 +29,14 @@ class Publisher extends Model
         // return $this->belongsTo(Publisher::class);
     }
 
+    public function serviceType()
+    {
+        return $this->hasMany('App\Models\PublisherServiceType');
+    }
+
     public function members()
     {
         return $this->hasMany('App\Models\Publisher', 'householder_id', 'id');
-
     }
 
     public function group()

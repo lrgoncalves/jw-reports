@@ -142,13 +142,13 @@
                                     <div class="form-group">
                                         <div class="radio">
                                             <label>
-                                                <input name="privilege" type="radio" value="OM" required {{ ($disabled) ? 'disabled' : '' }} {{ $publisher->privilege == 'OM' ? 'checked' : '' }} >
+                                                <input name="privilege" type="radio" value="OM" {{ ($disabled) ? 'disabled' : '' }} {{ $publisher->privilege == 'OM' ? 'checked' : '' }} >
                                                 Ancião
                                             </label>
                                         </div>
                                         <div class="radio">
                                             <label>
-                                                <input name="privilege" type="radio" value="MS" required {{ ($disabled) ? 'disabled' : '' }} {{ $publisher->privilege == 'MS' ? 'checked' : '' }} >
+                                                <input name="privilege" type="radio" value="MS" {{ ($disabled) ? 'disabled' : '' }} {{ $publisher->privilege == 'MS' ? 'checked' : '' }} >
                                                 Servo Ministerial
                                             </label>
                                         </div>

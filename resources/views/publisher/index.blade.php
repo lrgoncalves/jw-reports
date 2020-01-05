@@ -36,7 +36,7 @@
                                     <th style="width: 50px">ID</th>
                                     <th>Nome</th>
                                     <th>Data de batismo</th>
-                                    <th style="width: 110px">Ações</th>
+                                    <th style="width: 150px">Ações</th>
                                 </tr>
                             </thead>
                         </table>
@@ -86,6 +86,12 @@
     function lancar(id) {
         var url = "{{ route('field_service.new', ['pbid' =>0]) }}";
         window.location = url.substring(0, url.length-1) + id;
+    }
+
+    function printCard($id) {
+        var url = "{{ route('publisher_field_service_report.report') }}";
+        url = `${url}/${$id}`;
+        window.open(url);
     }
 
     function endereco(id) {

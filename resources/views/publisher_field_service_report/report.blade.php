@@ -68,7 +68,7 @@
 
         <table class="data">
             <tr>
-                <th colspan="7">REGISTRO DE PUBLICADOR DA CONGREGAÇÃO</th>
+                <th colspan="7" style="text-align: center;">REGISTRO DE PUBLICADOR DA CONGREGAÇÃO</th>
             </tr>
             <tr>
                 <td colspan="7">
@@ -105,7 +105,7 @@
                         &nbsp;
                         <span>[ {{ ($data['privilege'] == 'MS' ? 'x' : ' ') }} ] Servo ministerial</span>
                         &nbsp;
-                        <span>[ {{ ($data['pioneer_code'] ? 'x' : ' ') }} ] Pioneiro regular</span>
+                        <span>[ {{ ($data['regular_pioneer'] ? 'x' : ' ') }} ] Pioneiro regular</span>
                     </div>
                 </td>
             </tr>
@@ -114,7 +114,7 @@
                 <td colspan="7">
 
                     @foreach($data['year_services'] as $ys)
-                        <table class='report'>
+                        <table class='report' style="margin-left: 0;">
                             <tr>
                                 <th>
                                     Ano de serviço <br /> <span>{{ $ys['period']}}</span>
