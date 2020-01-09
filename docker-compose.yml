@@ -1,13 +1,31 @@
 # v2 syntax
 version: '2'
 
+volumes:
+  sandbox-mysql-data:
+    driver: local
+
 services:
+  mysql:
+    image: mysql:5.7
+    container_name: sandbox-mysql
+    volumes:
+      - sandbox-mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=q1w2e3r4
+      - MYSQL_DATABASE=jw-reports
+      - MYSQL_USER=jwreportsuser
+      - MYSQL_PASSWORD=jwuser1234
+
   # PHP (with Caddy)
   app:
-    # image: ambientum/php:7.1-caddy
     image: ambientum/php:7.3-nginx
     container_name: jw-reports-v2
     volumes:
       - .:/var/www/app
     ports:
       - "89:8080"
+    links:
+      - mysql
