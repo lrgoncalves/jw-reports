@@ -64,7 +64,7 @@
             "lengthChange": false,
             "processing": true,
             "serverSide": true,
-            "ajax": "{{ route('publisher.ajaxData') }}",
+            "ajax": "{{ route('publisher.ajaxData') }}?filter={{$filter}}",
             "columns": [
                 { "data": "id", "name" : "id" },
                 { "data": "name", "name" : "name" },

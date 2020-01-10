@@ -64,7 +64,7 @@
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="{{ route('pioneer') }}" class="small-box-footer">Detalhes <i
+            <a href="{{ route('publisher', ['nonBaptized']) }}" class="small-box-footer">Detalhes <i
                     class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
@@ -80,7 +80,7 @@
             <div class="icon">
                 <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer">Detalhes <i
+            <a href="{{ route('publisher', ['irregulars']) }}" class="small-box-footer">Detalhes <i
                     class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
@@ -96,7 +96,7 @@
             <div class="icon">
                 <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">Detalhes <i
+            <a href="{{ route('publisher', ['inactives']) }}" class="small-box-footer">Detalhes <i
                     class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
@@ -117,7 +117,7 @@
             <div class="icon">
                 <i class="ion ion-person-add"></i>
             </div>
-            <a href="{{ route('publisher') }}" class="small-box-footer">Detalhes <i
+            <a href="{{ route('publisher', ['elderly']) }}" class="small-box-footer">Detalhes <i
                     class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
@@ -133,7 +133,7 @@
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="{{ route('pioneer') }}" class="small-box-footer">Detalhes <i
+            <a href="{{ route('publisher', ['ministerialServants']) }}" class="small-box-footer">Detalhes <i
                     class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
@@ -149,7 +149,7 @@
             <div class="icon">
                 <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer">Detalhes <i
+            <a href="{{ route('regular_pioneer') }}" class="small-box-footer">Detalhes <i
                     class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
@@ -165,7 +165,7 @@
             <div class="icon">
                 <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="#" class="small-box-footer">Detalhes <i
+            <a href="{{ route('auxiliar_pioneer') }}" class="small-box-footer">Detalhes <i
                     class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
@@ -198,7 +198,10 @@ if (count($membersGroups) % 3 === 0)
         <!-- small box -->
         <div class="small-box bg-{{ $m['color'] }} ">
             <div class="inner">
-                <h3>{{ $m['total'] }} </h3>
+                <h3>
+                    {{ $m['total'] }} 
+                    <sup style="font-size: 20px">membros</sup>
+                </h3>
 
                 <p>{{ $k }}</p>
             </div>

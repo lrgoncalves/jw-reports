@@ -21,10 +21,54 @@ class PublisherController extends Controller
         $this->middleware('auth');
     }
 
-    public function ajaxData() 
+    public function ajaxData(Request $request) 
     {
-
+        // if ($request->has('nonBaptized')) $filter = 'nonBaptized';
+        // if ($request->has('irregulars')) $filter = 'irregulars';
+        // if ($request->has('inactives')) $filter = 'inactives';
+        // if ($request->has('elderly')) $filter = 'elderly';
+        // if ($request->has('ministerialServants')) $filter = 'ministerialServants';
         $builder = Publisher::whereRaw('1=1')->orderBy('name', 'asc');
+        // var_dump($request->get('filter'));die;
+        if ($request->has('filter')) {
+            switch ($request->get('filter')) {
+                case 'nonBaptized':
+                    $builder->whereNull('baptize_date');
+                break;
+                case 'elderly':
+                    $builder->where('privilege', 'OM');
+                break;
+                case 'ministerialServants':
+                    $builder->where('privilege', 'MS');
+                break;
+                case 'irregulars':
+                    $irregulars = DB::select("SELECT DISTINCT publisher_id FROM field_services
+                        WHERE hours IS NULL
+                        AND date_ref >= DATE_SUB(CURDATE(), INTERVAL 5 MONTH)");
+                    $ids = [];
+                    foreach ($irregulars as $i) {
+                        $ids[] = $i->publisher_id;
+                    }
+                    
+                    $builder->whereIn('id', $ids);
+                break;
+                case 'inactives':
+                    $inactives = DB::select("SELECT p.id, sum(fs.hours) as total_hours 
+                        FROM publishers p
+                        LEFT JOIN (
+                            SELECT publisher_id, hours FROM field_services WHERE date_ref >= (DATE_SUB(curdate(), INTERVAL 7 MONTH))
+                        ) AS fs ON fs.publisher_id = p.id
+                        WHERE p.baptize_date IS NOT NULL
+                        GROUP BY 1
+                        HAVING SUM(fs.hours) IS NULL");
+                    $ids = [];
+                    foreach ($inactives as $i) {
+                        $ids[] = $i->id;
+                    }
+                    $builder->whereIn('id', $ids);
+                break;
+            }
+        }
 
         $dt = new Datatables();
         return $dt->eloquent($builder)
@@ -101,9 +145,16 @@ class PublisherController extends Controller
             ->make();
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        return view('publisher/index');
+        // dd($request->has('nonBaptized'));
+        $filter = null;
+        if ($request->has('nonBaptized')) $filter = 'nonBaptized';
+        if ($request->has('irregulars')) $filter = 'irregulars';
+        if ($request->has('inactives')) $filter = 'inactives';
+        if ($request->has('elderly')) $filter = 'elderly';
+        if ($request->has('ministerialServants')) $filter = 'ministerialServants';
+        return view('publisher/index', compact('filter') );
     }
 
     public function edit($id = null)
@@ -118,8 +169,6 @@ class PublisherController extends Controller
             $title = "Editar Publicador";
             $publisher = Publisher::where('id', '=', $id)
                 ->first();
-
-            // dd($publisher, date('d/m/Y', strtotime($publisher->baptize_date)));
         }
 
         return view('publisher/edit', [
