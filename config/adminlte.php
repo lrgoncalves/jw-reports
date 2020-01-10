@@ -134,10 +134,16 @@ return [
             'active' => ['publisher/*'],
         ],
         [
-            'text'        => 'Pioneiros ',
-            'url'         => 'pioneer/list',
+            'text'        => 'Pioneiros Auxiliares',
+            'url'         => 'auxiliar_pioneer/list',
+            'icon'        => 'user',
+            'active' => ['auxiliar_pioneer/*'],
+        ],
+        [
+            'text'        => 'Pioneiros Regulares',
+            'url'         => 'regular_pioneer/list',
             'icon'        => 'user-plus',
-            'active' => ['pioneer/*'],
+            'active' => ['regular_pioneer/*'],
         ],
         'LANÇAMENTOS', 
         [
@@ -167,7 +173,7 @@ return [
             'active' => ['publisher_field_service_report/*']
         ],
         [
-            'text' => 'Pioneiros auxiliares/mês',
+            'text' => 'Pioneiros auxiliares 30h',
             'url' => 'pioneer/report/auxiliar',
             'icon' => 'list',
             'active' => ['pioneer/report/auxiliar']

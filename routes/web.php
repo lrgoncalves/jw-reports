@@ -61,6 +61,17 @@ Route::prefix('field_service')->group(function() {
     Route::get('/delete/{id}', 'FieldServiceController@delete')->name('field_service.delete');
 });
 
+
+Route::prefix('regular_pioneer')->group(function() {
+    Route::get('/list', 'RegularPioneerController@index')->name('regular_pioneer');
+    Route::get('ajaxData', 'RegularPioneerController@ajaxData')->name('regular_pioneer.ajaxData');
+});
+
+Route::prefix('auxiliar_pioneer')->group(function() {
+    Route::get('/list', 'AuxiliarPioneerController@index')->name('auxiliar_pioneer');
+    Route::get('ajaxData', 'AuxiliarPioneerController@ajaxData')->name('auxiliar_pioneer.ajaxData');
+});
+
 Route::prefix('pioneer')->group(function() {
     Route::get('/list', 'PioneerController@index')->name('pioneer');
     Route::get('/new', 'PioneerController@edit')->name('pioneer.new');

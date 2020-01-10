@@ -65,7 +65,7 @@
             "lengthChange": false,
             "processing": true,
             "serverSide": true,
-            "ajax": "{{ route('pioneer.ajaxData') }}",
+            "ajax": "{{ $ajaxDataRoute }}",
             "columns": [
                 { "data": "id", "name" : "id" },
                 { "data": "publisher_name", "name" : "publisher_name" },
