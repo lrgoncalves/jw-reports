@@ -17,7 +17,8 @@ class FieldService extends Model
         'return_visits',
         'studies',
         'month',
-        'observations'
+        'observations',
+        'date_ref',
     ];
 
     protected $dates = [

@@ -39,9 +39,9 @@
 <div class="row">
     <div class="col-lg-3 col-xs-6">
         <!-- small box -->
-        <div class="small-box bg-aqua">
+        <div class="small-box bg-purple">
             <div class="inner">
-                <h3>{{ $totalPublishers }} </h3>
+                <h3>{{ $totalMinister }} </h3>
 
                 <p>Total de Ministros</p>
             </div>
@@ -55,11 +55,11 @@
     <!-- ./col -->
     <div class="col-lg-3 col-xs-6">
         <!-- small box -->
-        <div class="small-box bg-green">
+        <div class="small-box bg-aqua">
             <div class="inner">
-                <h3>{{ $totalPioneers }}</h3>
+                <h3>{{ $totalNonBaptizedPublishers }}</h3>
 
-                <p>Total de Pioneiros</p>
+                <p>Não batizados</p>
             </div>
             <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -71,11 +71,11 @@
     <!-- ./col -->
     <div class="col-lg-3 col-xs-6">
         <!-- small box -->
-        <div class="small-box bg-yellow">
+        <div class="small-box bg-fuchsia">
             <div class="inner">
-                <h3>{{ $totalNonBaptizedPublishers}} </h3>
+                <h3>{{ $totalIrregular}} </h3>
 
-                <p>Não batizados</p>
+                <p>Irregulares</p>
             </div>
             <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -89,9 +89,78 @@
         <!-- small box -->
         <div class="small-box bg-red">
             <div class="inner">
-                <h3>{{ $totalIrregular }} </h3>
+                <h3>{{ $totalInactives }} </h3>
 
-                <p>Irregulares</p>
+                <p>Inativos</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-pie-graph"></i>
+            </div>
+            <a href="#" class="small-box-footer">Detalhes <i
+                    class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+</div>
+
+<h4>Dianteira</h4>
+
+<div class="row">
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-gray">
+            <div class="inner">
+                <h3>{{ $totalElderly }} </h3>
+
+                <p>Anciãos</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-person-add"></i>
+            </div>
+            <a href="{{ route('publisher') }}" class="small-box-footer">Detalhes <i
+                    class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-light-blue">
+            <div class="inner">
+                <h3>{{ $totalMinisterialServants }}</h3>
+
+                <p>Servos Ministeriais</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+            </div>
+            <a href="{{ route('pioneer') }}" class="small-box-footer">Detalhes <i
+                    class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-olive">
+            <div class="inner">
+                <h3>{{ $totalRegularPioneers}} </h3>
+
+                <p>Pioneiros Regulares</p>
+            </div>
+            <div class="icon">
+                <i class="ion ion-person-add"></i>
+            </div>
+            <a href="#" class="small-box-footer">Detalhes <i
+                    class="fa fa-arrow-circle-right"></i></a>
+        </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-6">
+        <!-- small box -->
+        <div class="small-box bg-maroon">
+            <div class="inner">
+                <h3>{{ $totalAuxiliarPioneers }} </h3>
+
+                <p>Pioneiros Auxiliares</p>
             </div>
             <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -106,8 +175,26 @@
 <h4>Grupos</h4>
 
 <div class="row">
+
+
+@php
+$class = 'col-lg-12';
+
+if (count($membersGroups) == 1) {
+    $class = 'col-lg-12';
+}
+
+if (count($membersGroups) % 4 === 0)
+    $class = 'col-lg-3';
+
+if (count($membersGroups) % 3 === 0)
+    $class = 'col-lg-4';
+
+
+@endphp
+
     @foreach ($membersGroups as $k => $m)
-    <div class="col-lg-3 col-xs-6">
+    <div class="{{$class}} col-xs-6">
         <!-- small box -->
         <div class="small-box bg-{{ $m['color'] }} ">
             <div class="inner">

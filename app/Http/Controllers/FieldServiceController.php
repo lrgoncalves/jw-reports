@@ -136,6 +136,16 @@ class FieldServiceController extends Controller
                 $fieldService = FieldService::where('id','=',$req->id)->first();
             }
 
+            $ys = YearService::whereId($req->year_service_id)->first();
+
+            if ($req->month > 9) {
+                $y = $ys->start_at->format('Y');
+            } else {
+                $y = $ys->finish_at->format('Y');
+            }
+
+            $dt =  sprintf('%s-%s-%s', $y, str_pad($req->month, 2, '0', STR_PAD_LEFT), '01');
+
             $fieldService->publisher_id = $req->publisher_id;
             $fieldService->year_service_id = $req->year_service_id;
             $fieldService->service_type_id = $req->service_type_id;
@@ -146,6 +156,7 @@ class FieldServiceController extends Controller
             $fieldService->return_visits = $req->return_visits;
             $fieldService->studies = $req->studies;
             $fieldService->observations = $req->observations;
+            $fieldService->date_ref = $dt;
 
             $fieldService->save();
 

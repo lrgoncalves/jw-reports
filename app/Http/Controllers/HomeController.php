@@ -31,8 +31,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $totalPublishers = Publisher::all()->count();
-        $totalPioneers = PublisherServiceType::where('service_type_id', 4)->get()->count();
+        $totalMinister = Publisher::all()->count();
 
         $lastMonth = date('m') - 1;
         // $lastMonth = 9;
@@ -53,25 +52,28 @@ class HomeController extends Controller
         $totalReports = FieldService::where('year_service_id', $yearService->id)
             ->where('month', $lastMonth)
             ->get()->count();
-        
-        $irregularDate = Carbon::createFromFormat("!Y-m-d", $dt);
-        $irregularDate->subMonth(6);
-
-        $irregularDateYs = YearService::
-                    whereRaw('"'.$irregularDate->format('Y-m-d').'" >= start_at')
-                    ->whereRaw('"'.$irregularDate->format('Y-m-d').'" <= finish_at')
-                    ->first();
-        
-        $totalIrregular = DB::select("SELECT count(1) as total FROM publishers p
-            left join ( 
-                select s.publisher_id, s.month as last_month 
-                from field_services s 
-                where s.created_at > '" . $irregularDate->format('Y-m-d H:i:s') . "' 
-                and s.hours is not null 
-                order by id desc) S on p.id = S.publisher_id
-            where S.publisher_id is null")[0]->total;
 
         $totalNonBaptizedPublishers = Publisher::whereNull('baptize_date')->count();
+
+        $inactives = DB::select("SELECT p.id, p.name, sum(fs.hours) as total_hours 
+            FROM publishers p
+            LEFT JOIN (
+                SELECT publisher_id, hours FROM field_services WHERE date_ref >= (DATE_SUB(curdate(), INTERVAL 7 MONTH))
+            ) AS fs ON fs.publisher_id = p.id
+            WHERE p.baptize_date IS NOT NULL
+            GROUP BY 1, 2
+            HAVING SUM(fs.hours) IS NULL");
+        $totalInactives = count($inactives);
+
+        $irregulars = DB::select("SELECT COUNT(DISTINCT publisher_id) AS total FROM field_services
+            WHERE hours IS NULL
+            AND date_ref >= DATE_SUB(CURDATE(), INTERVAL 5 MONTH)");
+        $totalIrregular = $irregulars[0]->total - $totalInactives;
+
+        $totalElderly = Publisher::where('privilege', 'OM')->count();
+        $totalMinisterialServants = Publisher::where('privilege', 'MS')->count();
+        $totalRegularPioneers = PublisherServiceType::where('service_type_id', 4)->get()->count();
+        $totalAuxiliarPioneers = PublisherServiceType::where('service_type_id', 3)->whereNull('finish_at')->count();
 
         $groups = Group::orderBy('name', 'ASC')->get();
         $membersGroups = [];
@@ -108,7 +110,7 @@ class HomeController extends Controller
             ->whereNotNull('hours')
             ->get();
         
-        $pendingReports = $totalPublishers - $totalReports;
+        $pendingReports = $totalMinister - $totalReports;
 
         $meetingsLastMonthIniDate = Carbon::createFromFormat("!Y-m-d", $dt);
         $meetingsLastMonthEndDate = Carbon::createFromFormat("!Y-m-d", $dt);
@@ -130,12 +132,19 @@ class HomeController extends Controller
         $reportedMonth = clone $meetingsLastMonthIniDate;
         
         return view('home', compact(
-            'totalPublishers', 
-            'totalPioneers', 
-            'totalReports', 
+            'totalMinister', 
             'totalNonBaptizedPublishers', 
             'totalIrregular', 
+            'totalInactives',
+            
+            'totalElderly',
+            'totalMinisterialServants',
+            'totalRegularPioneers', 
+            'totalAuxiliarPioneers',
+            
+            'totalReports', 
             'pendingReports', 
+            
             'membersGroups', 
             'regularPioneers', 
             'auxiliarPioneers', 

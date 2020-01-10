@@ -32,6 +32,8 @@ class CreateFieldServicesTable extends Migration
             $table->integer('studies')->nullable();
 
             $table->string('observations', 255)->nullable();
+            $table->date('date_ref')->nullable();
+
             $table->timestamps();
         });
     }
