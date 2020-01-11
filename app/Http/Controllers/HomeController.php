@@ -55,14 +55,11 @@ class HomeController extends Controller
 
         $totalNonBaptizedPublishers = Publisher::whereNull('baptize_date')->count();
 
-        $inactives = DB::select("SELECT p.id, p.name, sum(fs.hours) as total_hours 
-            FROM publishers p
-            LEFT JOIN (
-                SELECT publisher_id, hours FROM field_services WHERE date_ref >= (DATE_SUB(curdate(), INTERVAL 7 MONTH))
-            ) AS fs ON fs.publisher_id = p.id
-            WHERE p.baptize_date IS NOT NULL
-            GROUP BY 1, 2
-            HAVING SUM(fs.hours) IS NULL");
+        $inactives = DB::select("SELECT publisher_id, sum(hours ) as total_hours
+            FROM field_services 
+            WHERE date_ref >= (DATE_SUB(curdate(), INTERVAL 7 MONTH))
+            group by publisher_id
+            having total_hours is null");
         $totalInactives = count($inactives);
 
         $irregulars = DB::select("SELECT COUNT(DISTINCT publisher_id) AS total FROM field_services
