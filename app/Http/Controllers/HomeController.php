@@ -84,6 +84,7 @@ class HomeController extends Controller
             $members = $g->members()->count();
             
             $membersGroups[$g->name] = [
+                'id' => $g->id,
                 'color' => $colors[$i],
                 'total' => $members
             ];

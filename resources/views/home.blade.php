@@ -208,7 +208,7 @@ if (count($membersGroups) % 3 === 0)
             <div class="icon">
                 <i class="ion ion-person-add"></i>
             </div>
-            <!-- <a href="{{ route('publisher') }}" class="small-box-footer">Detalhes <i class="fa fa-arrow-circle-right"></i></a> -->
+            <a href="{{ route('publisher', ['group' => $m['id']]) }}" class="small-box-footer">Detalhes <i class="fa fa-arrow-circle-right"></i></a>
         </div>
     </div>
     @endforeach

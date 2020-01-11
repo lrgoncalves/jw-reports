@@ -23,13 +23,8 @@ class PublisherController extends Controller
 
     public function ajaxData(Request $request) 
     {
-        // if ($request->has('nonBaptized')) $filter = 'nonBaptized';
-        // if ($request->has('irregulars')) $filter = 'irregulars';
-        // if ($request->has('inactives')) $filter = 'inactives';
-        // if ($request->has('elderly')) $filter = 'elderly';
-        // if ($request->has('ministerialServants')) $filter = 'ministerialServants';
         $builder = Publisher::whereRaw('1=1')->orderBy('name', 'asc');
-        // var_dump($request->get('filter'));die;
+
         if ($request->has('filter')) {
             switch ($request->get('filter')) {
                 case 'nonBaptized':
@@ -66,6 +61,13 @@ class PublisherController extends Controller
                         $ids[] = $i->id;
                     }
                     $builder->whereIn('id', $ids);
+                break;
+
+                default:
+                    if (substr($request->get('filter'), 0, 5) == 'group') {
+                        $groupId = substr($request->get('filter'), 6);
+                        $builder->where('group_id', $groupId);
+                    }
                 break;
             }
         }
@@ -149,12 +151,39 @@ class PublisherController extends Controller
     {
         // dd($request->has('nonBaptized'));
         $filter = null;
-        if ($request->has('nonBaptized')) $filter = 'nonBaptized';
-        if ($request->has('irregulars')) $filter = 'irregulars';
-        if ($request->has('inactives')) $filter = 'inactives';
-        if ($request->has('elderly')) $filter = 'elderly';
-        if ($request->has('ministerialServants')) $filter = 'ministerialServants';
-        return view('publisher/index', compact('filter') );
+        $filterName = null;
+        if ($request->has('nonBaptized')) {
+            $filter = 'nonBaptized';
+            $filterName = 'Não Batizados';
+        }
+
+        if ($request->has('irregulars')) {
+            $filter = 'irregulars';
+            $filterName = 'Irregulares';
+        }
+
+        if ($request->has('inactives')) {
+            $filter = 'inactives';
+            $filterName = 'Inativos';
+        }
+
+        if ($request->has('elderly')) {
+            $filter = 'elderly';
+            $filterName = 'Anciãos';
+        }
+
+        if ($request->has('ministerialServants')) {
+            $filter = 'ministerialServants';
+            $filterName = 'Servos Ministeriais';
+        }
+
+        if ($request->has('group')) {
+            $filter = 'group:'.$request->get('group');
+            $filterName = sprintf('Grupo %s', Group::whereId($request->get('group'))->first()->name);
+        }
+
+
+        return view('publisher/index', compact('filter', 'filterName') );
     }
 
     public function edit($id = null)

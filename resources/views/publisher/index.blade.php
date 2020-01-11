@@ -3,7 +3,7 @@
 @section('title', 'publisher List')
 
 @section('content_header')
-    <h1>Publicadores</h1>
+    <h1>Publicadores @if($filterName) - {{$filterName}} @endif </h1>
 @stop
 
 @section('content')
