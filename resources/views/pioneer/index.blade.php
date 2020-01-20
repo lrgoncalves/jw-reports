@@ -52,6 +52,10 @@
 @stop
 
 @push('scripts')
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/buttons.html5.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.5.1/js/dataTables.buttons.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
 <script>
     $( function() {
         var idPartner = 0
@@ -61,10 +65,14 @@
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.19/i18n/Portuguese-Brasil.json"
             },
+            "dom": 'Bfrtip',
+            "buttons": [
+                'csv'
+            ],
             "ordering":  false,
             "lengthChange": false,
             "processing": true,
-            "serverSide": true,
+            "serverSide": false,
             "ajax": "{{ $ajaxDataRoute }}",
             "columns": [
                 { "data": "id", "name" : "id" },

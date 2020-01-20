@@ -72,6 +72,11 @@ Route::prefix('auxiliar_pioneer')->group(function() {
     Route::get('ajaxData', 'AuxiliarPioneerController@ajaxData')->name('auxiliar_pioneer.ajaxData');
 });
 
+Route::prefix('auxiliar_pioneer_30')->group(function() {
+    Route::get('/list', 'AuxiliarPioneer30Controller@index')->name('auxiliar_pioneer_30');
+    Route::get('ajaxData', 'AuxiliarPioneer30Controller@ajaxData')->name('auxiliar_pioneer_30.ajaxData');
+});
+
 Route::prefix('pioneer')->group(function() {
     Route::get('/list', 'PioneerController@index')->name('pioneer');
     Route::get('/new', 'PioneerController@edit')->name('pioneer.new');

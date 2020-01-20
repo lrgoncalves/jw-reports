@@ -134,16 +134,22 @@ return [
             'active' => ['publisher/*'],
         ],
         [
-            'text'        => 'Pioneiros Auxiliares',
+            'text'        => 'Pioneiros Regulares',
+            'url'         => 'regular_pioneer/list',
+            'icon'        => 'user-plus',
+            'active' => ['regular_pioneer/*'],
+        ],
+        [
+            'text'        => 'Pioneiros Auxiliares 50h',
             'url'         => 'auxiliar_pioneer/list',
             'icon'        => 'user',
             'active' => ['auxiliar_pioneer/*'],
         ],
         [
-            'text'        => 'Pioneiros Regulares',
-            'url'         => 'regular_pioneer/list',
-            'icon'        => 'user-plus',
-            'active' => ['regular_pioneer/*'],
+            'text'        => 'Pioneiros Auxiliares 30h',
+            'url'         => 'auxiliar_pioneer_30/list',
+            'icon'        => 'user',
+            'active' => ['auxiliar_pioneer_30/*'],
         ],
         'LANÇAMENTOS', 
         [

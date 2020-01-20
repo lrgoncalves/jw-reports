@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\Datatables\Datatables;
 
-class AuxiliarPioneerController extends PioneerController
+class AuxiliarPioneer30Controller extends PioneerController
 {
     use DateTrait;
 
@@ -23,13 +23,13 @@ class AuxiliarPioneerController extends PioneerController
     public function index()
     {
         return view('pioneer/index', [
-            'ajaxDataRoute' => route('auxiliar_pioneer.ajaxData')
+            'ajaxDataRoute' => route('auxiliar_pioneer_30.ajaxData')
         ]);
     }
 
     public function ajaxData() 
     {
-        $builder = PublisherServiceType::whereIn('service_type_id', [3])
+        $builder = PublisherServiceType::whereIn('service_type_id', [2])
             ->orderBy('finish_at', 'ASC')
             ->orderBy('start_at', 'ASC');
 

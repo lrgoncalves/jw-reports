@@ -60,9 +60,6 @@ class RegularPioneerController extends PioneerController
                 return $html;
             })
 
-            ->rawColumns([
-                'action'
-            ])
             ->make();
     }
 
