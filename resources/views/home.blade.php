@@ -225,9 +225,9 @@ if (count($membersGroups) % 3 === 0)
             <div class="box-footer no-padding">
                 <ul class="nav nav-stacked">
                     <li><a href="#">Total de Relatórios <span class="pull-right badge bg-blue">{{ $regularPioneers->count() }}</span></a></li>
-                    <li><a href="#">Horas <span class="pull-right badge bg-aqua">{{ $regularPioneers->sum('hours')}} </span></a></li>
+                    <li><a href="#">Publicações <span class="pull-right badge bg-blue">{{ $regularPioneers->sum('placements')}} </span></a></li>
                     <li><a href="#">Vídeos <span class="pull-right badge bg-green">{{ $regularPioneers->sum('videos')}} </span></a></li>
-                    <li><a href="#">Colocações <span class="pull-right badge bg-blue">{{ $regularPioneers->sum('placements')}} </span></a></li>
+                    <li><a href="#">Horas <span class="pull-right badge bg-aqua">{{ $regularPioneers->sum('hours')}} </span></a></li>
                     <li><a href="#">Revisitas <span class="pull-right badge bg-aqua">{{ $regularPioneers->sum('return_visits')}}</span></a></li>
                     <li><a href="#">Estudos bíblicos <span class="pull-right badge bg-green">{{ $regularPioneers->sum('studies') }}</span></a></li>
                 </ul>
@@ -243,9 +243,9 @@ if (count($membersGroups) % 3 === 0)
             <div class="box-footer no-padding">
                 <ul class="nav nav-stacked">
                     <li><a href="#">Total de Relatórios <span class="pull-right badge bg-blue">{{ $auxiliarPioneers->count() }}</span></a></li>
-                    <li><a href="#">Horas <span class="pull-right badge bg-aqua">{{ $auxiliarPioneers->sum('hours')}} </span></a></li>
+                    <li><a href="#">Publicações <span class="pull-right badge bg-blue">{{ $auxiliarPioneers->sum('placements')}} </span></a></li>
                     <li><a href="#">Vídeos <span class="pull-right badge bg-green">{{ $auxiliarPioneers->sum('videos')}} </span></a></li>
-                    <li><a href="#">Colocações <span class="pull-right badge bg-blue">{{ $auxiliarPioneers->sum('placements')}} </span></a></li>
+                    <li><a href="#">Horas <span class="pull-right badge bg-aqua">{{ $auxiliarPioneers->sum('hours')}} </span></a></li>
                     <li><a href="#">Revisitas <span class="pull-right badge bg-green">{{ $auxiliarPioneers->sum('return_visits')}}</span></a></li>
                     <li><a href="#">Estudos bíblicos <span class="pull-right badge bg-red">{{ $auxiliarPioneers->sum('studies') }}</span></a></li>
                 </ul>
@@ -261,9 +261,9 @@ if (count($membersGroups) % 3 === 0)
             <div class="box-footer no-padding">
                 <ul class="nav nav-stacked">
                     <li><a href="#">Total de Relatórios <span class="pull-right badge bg-blue">{{ $publishers->count() }}</span></a></li>
-                    <li><a href="#">Horas <span class="pull-right badge bg-aqua">{{ $publishers->sum('hours')}} </span></a></li>
+                    <li><a href="#">Publicações <span class="pull-right badge bg-blue">{{ $publishers->sum('placements')}} </span></a></li>
                     <li><a href="#">Vídeos <span class="pull-right badge bg-green">{{ $publishers->sum('videos')}} </span></a></li>
-                    <li><a href="#">Colocações <span class="pull-right badge bg-blue">{{ $publishers->sum('placements')}} </span></a></li>
+                    <li><a href="#">Horas <span class="pull-right badge bg-aqua">{{ $publishers->sum('hours')}} </span></a></li>
                     <li><a href="#">Revisitas <span class="pull-right badge bg-green">{{ $publishers->sum('return_visits')}}</span></a></li>
                     <li><a href="#">Estudos bíblicos <span class="pull-right badge bg-red">{{ $publishers->sum('studies') }}</span></a></li>
                 </ul>
