@@ -141,7 +141,8 @@ class NonReportedController extends Controller
                 'videos' => null,
                 'return_visits' => null,
                 'studies' => null,
-                'observations' => null
+                'observations' => null,
+                'date_ref' => $dt,
             ]);            
         }
         
