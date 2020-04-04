@@ -118,7 +118,9 @@ class PioneerController extends Controller
 
     public function new(Request $req) {
         $this->save($req);
-        return redirect('/pioneer/list')
+        // return redirect('/pioneer/list')
+        $url = $req->redirects_to;
+        return redirect()->to($url)
             ->with('status', 'Pioneiro cadastrada com sucesso.');
     }
 
