@@ -113,7 +113,9 @@
 
                         <tr>
                             <td colspan="3" style="text-align: right;">Assistência média por mês</td>
-                            <td>{{ round($totalAvg / $totalMonth, 2) }}</td>
+                            <td>
+                                {{ ($totalMonth > 0) ? round($totalAvg / $totalMonth, 2) : '' }}
+                            </td>
                         </tr>
 
                     </table>
@@ -166,7 +168,9 @@
 
                         <tr>
                             <td colspan="3" style="text-align: right;">Assistência média por mês</td>
-                            <td>{{ round($totalAvg / $totalMonth, 2) }}</td>
+                            <td>
+                                {{ ($totalMonth > 0) ? round($totalAvg / $totalMonth, 2) : '' }}
+                            </td>
                         </tr>
 
                     </table>

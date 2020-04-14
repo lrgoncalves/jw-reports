@@ -99,7 +99,6 @@ Route::prefix('meeting')->group(function() {
     Route::post('/edit', 'MeetingController@update');
     Route::get('ajaxData', 'MeetingController@ajaxData')->name('meeting.ajaxData');
     Route::get('/delete/{id}', 'MeetingController@delete')->name('meeting.delete');
-    Route::get('/report', 'MeetingController@report')->name('meeting.report');
 
 });
 
@@ -135,4 +134,10 @@ Route::prefix('publisher_field_service_report')->group(function() {
     Route::get('ajaxData', 'PublisherFieldServiceReportController@ajaxData')->name('publisher_field_service_report.ajaxData');
     Route::get('/generate/{publisherId?}', 'PublisherFieldServiceReportController@generate')->name('publisher_field_service_report.generate');
     Route::get('/report/{publisherId?}', 'PublisherFieldServiceReportController@report')->name('publisher_field_service_report.report');
+});
+
+Route::prefix('meeting_report')->group(function() {
+    Route::get('/list', 'MeetingReportController@index')->name('meeting_report');
+    Route::get('ajaxData', 'MeetingReportController@ajaxData')->name('meeting_report.ajaxData');
+    Route::get('/report/{yearServiceId}', 'MeetingReportController@report')->name('meeting_report.report');
 });

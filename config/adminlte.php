@@ -179,10 +179,10 @@ return [
             'active' => ['publisher_field_service_report/*']
         ],
         [
-            'text' => 'Assistência às Reuniões (S-88).',
-            'url' => 'pioneer/report/auxiliar',
+            'text' => 'Assistência às Reuniões (S-88)',
+            'url' => 'meeting_report/list',
             'icon' => 'list',
-            'active' => ['pioneer/report/auxiliar']
+            'active' => ['meeting_report/*']
         ],
         [
             'text' => 'Pioneiros auxiliares 30h',
