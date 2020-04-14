@@ -173,10 +173,16 @@ return [
         ],
         'RELATÓRIOS',
         [
-            'text' => 'Cartões dos publicadores',
+            'text' => 'Reg. de Publicador (S-21)',
             'url' => 'publisher_field_service_report/list',
             'icon' => 'list',
             'active' => ['publisher_field_service_report/*']
+        ],
+        [
+            'text' => 'Assistência às Reuniões (S-88).',
+            'url' => 'pioneer/report/auxiliar',
+            'icon' => 'list',
+            'active' => ['pioneer/report/auxiliar']
         ],
         [
             'text' => 'Pioneiros auxiliares 30h',

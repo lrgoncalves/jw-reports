@@ -99,6 +99,8 @@ Route::prefix('meeting')->group(function() {
     Route::post('/edit', 'MeetingController@update');
     Route::get('ajaxData', 'MeetingController@ajaxData')->name('meeting.ajaxData');
     Route::get('/delete/{id}', 'MeetingController@delete')->name('meeting.delete');
+    Route::get('/report', 'MeetingController@report')->name('meeting.report');
+
 });
 
 Route::prefix('group')->group(function() {

@@ -26,6 +26,14 @@
                         Novo Lançamento
                     </button>
                 </div>
+
+                <div class="col-md-9">
+                    <div class="col-md-6">
+                        <a class="btn btn-block btn-lg" href="{{ route('meeting.report') }}" target="_blank">
+                            Assistência às Reuniões (S-88)
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="box-body">
                 <div class="row">
