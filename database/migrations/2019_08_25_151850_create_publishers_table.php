@@ -25,6 +25,7 @@ class CreatePublishersTable extends Migration
             $table->string('gender', 1)->default('F');
             $table->date('birthdate')->nullable();
             $table->date('baptize_date')->nullable();
+            $table->string('phone_numbers', 45)->nullable();
             $table->tinyInteger('anointed')->default(0);
             $table->string('privilege', 2)->nullable();
             $table->integer('pioneer_code')->nullable();

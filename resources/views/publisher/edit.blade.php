@@ -136,7 +136,15 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Telefones</label>
+                                        <input name="phone_numbers" type="text" class="form-control" placeholder="" value="{{ $publisher->phone_numbers }}"
+                                            {{ ($disabled) ? 'disabled' : '' }}>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
                                     <label>Privilégio</label>
 
                                     <div class="form-group">

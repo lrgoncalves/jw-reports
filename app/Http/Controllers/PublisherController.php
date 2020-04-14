@@ -142,7 +142,7 @@ class PublisherController extends Controller
                 return ($item->baptize_date) ? date('d/m/Y', strtotime($item->baptize_date)) : "";
             })
             ->rawColumns([
-                'name', 'action'
+                'name', 'phone_numbers', 'action'
             ])
             ->make();
     }
@@ -224,6 +224,7 @@ class PublisherController extends Controller
             $publisher->gender = $req->gender;
             $publisher->birthdate = $this->convertString2Carbon($req->birthdate);
             $publisher->baptize_date = $this->convertString2Carbon($req->baptize_date);
+            $publisher->phone_numbers = $req->phone_numbers;
             $publisher->anointed = $req->anointed;
             $publisher->privilege = $req->privilege;
             $publisher->pioneer_code = $req->pioneer_code;
