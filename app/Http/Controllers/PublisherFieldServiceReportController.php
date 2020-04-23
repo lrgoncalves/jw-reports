@@ -151,7 +151,7 @@ class PublisherFieldServiceReportController extends Controller
         return view('publisher_field_service_report/index');
     }
 
-    public function generate(Request $request, $publisherId = null)
+    public function generateOld(Request $request, $publisherId = null)
     {
         $fieldData = $this->getReport($publisherId);
 
@@ -280,13 +280,43 @@ class PublisherFieldServiceReportController extends Controller
         
     }
 
+    public function generate(Request $request, $publisherId = null)
+    {
+
+        $inactives = DB::select("SELECT p.id, sum(fs.hours) as total_hours 
+                        FROM publishers p
+                        LEFT JOIN (
+                            SELECT publisher_id, hours FROM field_services WHERE date_ref >= (DATE_SUB(curdate(), INTERVAL 7 MONTH))
+                        ) AS fs ON fs.publisher_id = p.id
+                        WHERE p.baptize_date IS NOT NULL
+                        GROUP BY 1
+                        HAVING SUM(fs.hours) IS NULL");
+        $ids = [];
+        foreach ($inactives as $i) {
+            $ids[] = $i->id;
+        }
+
+
+        $actives = Publisher::whereNotIn('id', $ids)
+            ->orderBy('name', 'ASC')
+            ->pluck('id');
+
+        $data = [];
+        foreach ($actives as $pbId) {
+            $data[] = $this->getReport($pbId)[0];
+        }
+        
+        // return view('publisher_field_service_report/congregation_report', ['data' => $data]);
+        $pdf = PDF::loadView('publisher_field_service_report/congregation_report', ['data' => $data]); 
+        return $pdf->download(sprintf('%s.pdf', Str::slug('congregation_field_service')));
+    }
+
     public function report(Request $request, $publisherId = null) 
     {
         $data = $this->getReport($publisherId);
 
         $array = ['data' => $data[0]];
 
-        // dd($array);
         // return view('publisher_field_service_report/report', $array);
         $pdf = PDF::loadView('publisher_field_service_report/report', $array);  
         return $pdf->download(sprintf('%s.pdf', Str::slug($array['data']['name'])));
