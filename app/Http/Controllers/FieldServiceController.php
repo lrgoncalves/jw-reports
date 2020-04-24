@@ -27,8 +27,7 @@ class FieldServiceController extends Controller
         if ($req->has('pbid')) {
             $fieldService = FieldService::
                 where('publisher_id', $req->input('pbid'))
-                ->orderBy('year_service_id', 'Desc')
-                ->orderBy('month', 'Desc')
+                ->orderBy('date_ref', 'Desc')
                 ->get();
             
             foreach ($fieldService as $fs) {
@@ -36,7 +35,7 @@ class FieldServiceController extends Controller
                     'id' => $fs->id,
                     'name' => $fs->publisher()->first()->name,
                     'year' => $fs->yearService()->first()->start_at->format('Y') . '/' . $fs->yearService()->first()->finish_at->format('Y'),
-                    'month' => $fs->month,
+                    'month' => $this->getMonth($fs->month),
                     'hours' => $fs->hours,
                     'placements' => $fs->placements,
                     'videos' => $fs->videos,
