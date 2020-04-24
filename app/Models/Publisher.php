@@ -30,6 +30,11 @@ class Publisher extends Model
         // return $this->belongsTo(Publisher::class);
     }
 
+    public function address()
+    {
+        return $this->hasMany('App\Models\PublisherAddress');
+    }
+
     public function serviceType()
     {
         return $this->hasMany('App\Models\PublisherServiceType');

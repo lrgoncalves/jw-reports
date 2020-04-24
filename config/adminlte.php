@@ -185,6 +185,12 @@ return [
             'active' => ['meeting_report/*']
         ],
         [
+            'text' => 'Endereço dos publicadores',
+            'url' => 'publisher_address_report/list',
+            'icon' => 'list',
+            'active' => ['publisher_address_report/*']
+        ],
+        [
             'text' => 'Pioneiros auxiliares 30h',
             'url' => 'pioneer/report/auxiliar',
             'icon' => 'list',
