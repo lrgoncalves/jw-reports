@@ -186,7 +186,7 @@ class CongregationActivityReportController extends Controller
         // return view('congregation_activity_report/report', ['data' => $types]);
         $pdf = PDF::loadView('congregation_activity_report/report', ['data' => $types])
             ->setPaper('a4', 'portrait'); 
-        return $pdf->download(sprintf('%s.pdf', Str::slug('publishers_addresses')));
+        return $pdf->download(sprintf('%s.pdf', Str::slug('congregation_activity')));
 
     }
 }
