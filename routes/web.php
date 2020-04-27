@@ -147,3 +147,9 @@ Route::prefix('publisher_address_report')->group(function() {
     Route::get('ajaxData', 'PublisherAddressReportController@ajaxData')->name('publisher_address_report.ajaxData');
     Route::get('/report', 'PublisherAddressReportController@report')->name('publisher_address_report.report');
 });
+
+Route::prefix('congregation_activity_report')->group(function() {
+    Route::get('/list', 'CongregationActivityReportController@index')->name('congregation_activity_report');
+    Route::get('ajaxData', 'CongregationActivityReportController@ajaxData')->name('congregation_activity_report.ajaxData');
+    Route::get('/report/{yearServiceId}', 'CongregationActivityReportController@report')->name('congregation_activity_report.report');
+});

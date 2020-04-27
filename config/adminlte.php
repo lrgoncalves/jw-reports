@@ -191,6 +191,12 @@ return [
             'active' => ['publisher_address_report/*']
         ],
         [
+            'text' => 'Atividades da Congregação',
+            'url' => 'congregation_activity_report/list',
+            'icon' => 'list',
+            'active' => ['congregation_activity_report/*']
+        ],
+        [
             'text' => 'Pioneiros auxiliares 30h',
             'url' => 'pioneer/report/auxiliar',
             'icon' => 'list',
