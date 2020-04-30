@@ -40,7 +40,7 @@
         <div class="box">
             <div class="box-header">
                 <div class="col-md-3">
-                    <button type="button" class="btn btn-block btn-primary btn-lg" onclick="window.location='{{ url('field_service/new') }}'">
+                    <button type="button" class="btn btn-block btn-primary btn-lg" onclick="javascript: novo();">
                         Novo Lançamento
                     </button>
                 </div>
@@ -75,7 +75,9 @@
 
 @push('scripts')
 <script>
+    var idPublisher = 0;
     $( function() {
+
         $('.select_publisher').select2();
 
         $('.select_publisher').on('select2:select', function (e) {
@@ -83,6 +85,8 @@
 
 
             var route = `{{ route('field_service.ajaxData') }}?pbid=${data.id}`;
+
+            idPublisher = data.id;
 
             console.log(data.id, route);
 
@@ -144,6 +148,11 @@
     function confirmRemover() {
         var url = "{{ route('field_service.delete', 0) }}";
         window.location = url.substring(0, url.length-1) + idPartner;
+    }
+
+    function novo() {
+        var route = `{{ route('field_service.new') }}?pbid=${idPublisher}`;
+        window.location = route;
     }
 </script>
 @endpush
