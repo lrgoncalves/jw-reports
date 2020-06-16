@@ -80,6 +80,7 @@ class PublisherFieldServiceReportController extends Controller
                     
                     $arrayReport[] = [
                         'month' => $month,
+                        'field_service_id' => (!$monthData) ? null : $monthData->id,
                         'placements' => (!$monthData) ? null : $monthData->placements,
                         'videos' => (!$monthData) ? null : $monthData->videos,
                         'hours' => (!$monthData) ? null : $monthData->hours,

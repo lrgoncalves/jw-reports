@@ -106,7 +106,7 @@ class MeetingReportController extends Controller
         }
 
         // dd($array); 
-        return view('meeting_report/report', ['meetings' => $array]);
+        // return view('meeting_report/report', ['meetings' => $array]);
         $pdf = PDF::loadView('meeting_report/report', ['meetings' => $array]);  
         return $pdf->download(sprintf('Meetings - %s.pdf', $array['period']));
 

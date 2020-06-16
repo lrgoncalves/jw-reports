@@ -156,7 +156,19 @@
                                     <td class="left">{{ $r['month'] }}</td>
                                     <td>{{ $r['placements'] }}</td>
                                     <td>{{ $r['videos'] }}</td>
-                                    <td>{{ $r['hours'] }}</td>
+                                    <td>
+                                        @php
+                                            if ($r['field_service_id']) {
+                                                if (!$r['hours'] || $r['hours'] == '') {
+                                                    echo "0";
+                                                } else {
+                                                    echo $r['hours'];
+                                                }
+                                            } else {
+                                                echo "";
+                                            }
+                                        @endphp
+                                    </td>
                                     <td>{{ $r['return_visits'] }}</td>
                                     <td>{{ $r['studies'] }}</td>
                                     <td class="obs">{{ $r['observations'] }}</td>
@@ -175,11 +187,11 @@
 
                                 <tr>
                                     <td class="left bold">Média</td>
-                                    <td>{{ round($placements / $avg, 2) }}</td>
-                                    <td>{{ round($videos / $avg, 2) }}</td>
-                                    <td>{{ round($hours / $avg, 2) }}</td>
-                                    <td>{{ round($return_visits / $avg, 2) }}</td>
-                                    <td>{{ round($studies / $avg, 2) }}</td>
+                                    <td>{{ ($placements > 0) ? round($placements / $avg, 2) : 0 }}</td>
+                                    <td>{{ ($videos > 0) ? round($videos / $avg, 2) : 0 }}</td>
+                                    <td>{{ ($hours > 0) ? round($hours / $avg, 2) : 0 }}</td>
+                                    <td>{{ ($return_visits > 0) ? round($return_visits / $avg, 2) : 0 }}</td>
+                                    <td>{{ ($studies > 0) ? round($studies / $avg, 2) : 0 }}</td>
                                     <td></td>
                                 </tr>
                         </table>

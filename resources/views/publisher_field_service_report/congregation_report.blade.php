@@ -170,7 +170,19 @@
                                     <td class="left">{{ $r['month'] }}</td>
                                     <td>{{ $r['placements'] }}</td>
                                     <td>{{ $r['videos'] }}</td>
-                                    <td>{{ $r['hours'] }}</td>
+                                    <td>
+                                        @php
+                                            if ($r['field_service_id']) {
+                                                if (!$r['hours']) {
+                                                    echo "0";
+                                                } else {
+                                                    echo $r['hours'];
+                                                }
+                                            } else {
+                                                echo "";
+                                            }
+                                        @endphp
+                                    </td>
                                     <td>{{ $r['return_visits'] }}</td>
                                     <td>{{ $r['studies'] }}</td>
                                     <td class="obs">{{ $r['observations'] }}</td>

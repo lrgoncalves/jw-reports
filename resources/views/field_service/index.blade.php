@@ -151,7 +151,7 @@
     }
 
     function novo() {
-        var route = `{{ route('field_service.new') }}?pbid=${idPublisher}`;
+        var route = `{{ route('field_service.new') }}`;
         window.location = route;
     }
 </script>
