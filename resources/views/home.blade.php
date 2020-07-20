@@ -336,5 +336,4 @@ if (count($membersGroups) % 3 === 0)
     </div>
 </div>
 
-
 @stop
