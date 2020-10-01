@@ -12,6 +12,10 @@
 @include('components.alerts', ['type'=>'success', 'display'=>'block', 'message'=>session('status')])
 @endif
 
+@if (session('status_service'))
+@include('components.alerts', ['type'=>'warning', 'display'=>'block', 'message'=>session('status_service')])
+@endif
+
 @include('components.confirmwarning', [
     'display'=>'none',
     'message'=>'Tem certeza que deseja remover a congregação? Esse item não será mais listado.'

@@ -49,6 +49,11 @@ class HomeController extends Controller
                     whereRaw('"'.$dt.'" >= start_at')
                     ->whereRaw('"'.$dt.'" <= finish_at')
                     ->first();
+        if (!$yearService) {
+            return redirect('/year_service/list')
+                ->with('status_service', 'Para iniciar, crie um novo ano de serviço.');
+        }
+
         $totalReports = FieldService::where('year_service_id', $yearService->id)
             ->where('month', $lastMonth)
             ->get()->count();
