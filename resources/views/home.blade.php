@@ -41,9 +41,9 @@
         <!-- small box -->
         <div class="small-box bg-purple">
             <div class="inner">
-                <h3>{{ $totalMinister }} </h3>
+                <h3>{{ $totalMinister - $totalInactives }} </h3>
 
-                <p>Total de Ministros</p>
+                <p>Total de publicadores ativos</p>
             </div>
             <div class="icon">
                 <i class="ion ion-person-add"></i>
