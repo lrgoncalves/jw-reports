@@ -201,11 +201,11 @@
 
                                 <tr>
                                     <td class="left bold">Média</td>
-                                    <td>{{ round($placements / $avg, 2) }}</td>
-                                    <td>{{ round($videos / $avg, 2) }}</td>
-                                    <td>{{ round($hours / $avg, 2) }}</td>
-                                    <td>{{ round($return_visits / $avg, 2) }}</td>
-                                    <td>{{ round($studies / $avg, 2) }}</td>
+                                    <td>{{ ($placements > 0 && $avg > 0) ? round($placements / $avg, 2) : 0 }}</td>
+                                    <td>{{ ($videos > 0 && $avg > 0) ? round($videos / $avg, 2) : 0 }}</td>
+                                    <td>{{ ($hours > 0 && $avg > 0) ? round($hours / $avg, 2) : 0 }}</td>
+                                    <td>{{ ($return_visits > 0 && $avg > 0) ? round($return_visits / $avg, 2) : 0 }}</td>
+                                    <td>{{ ($studies > 0 && $avg > 0) ? round($studies / $avg, 2) : 0 }}</td>
                                     <td></td>
                                 </tr>
                         </table>

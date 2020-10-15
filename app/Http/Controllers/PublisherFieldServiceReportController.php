@@ -25,11 +25,11 @@ class PublisherFieldServiceReportController extends Controller
 
     private function getReport($publisherId = null)
     {
-        $yearServices = YearService::orderBy('finish_at', 'DESC')->limit(1)->get();
-            
         if (!$publisherId) {
+            $yearServices = YearService::orderBy('finish_at', 'DESC')->limit(1)->get();
             $publishers = Publisher::orderBy('name', 'ASC')->get();
         } else {
+            $yearServices = YearService::orderBy('finish_at', 'DESC')->get();
             $publishers = Publisher::where('id', $publisherId)->orderBy('name', 'ASC')->get();
         }
 
@@ -105,12 +105,6 @@ class PublisherFieldServiceReportController extends Controller
                 'anointed' => $p->anointed,
                 'regular_pioneer' => (!is_null($isRegularPioneer)),
                 'privilege' => $p->privilege,
-
-                // @todo
-                'address' => null,
-                'landline' => null,
-                'msisdn' => null,
-
                 'year_services' => $years
             ];
         }
@@ -316,10 +310,33 @@ class PublisherFieldServiceReportController extends Controller
     {
         $data = $this->getReport($publisherId);
 
-        $array = ['data' => $data[0]];
+        $publisherData = $data[0];
+        unset($publisherData['year_services']);
+        $yearServices = $data[0]['year_services'];
+
+        
+        $totalPages = ceil(count($yearServices) / 2);
+        $arrayPages = [];
+        
+        
+        $idxPage = 0;
+        for ($i=0; $i < count($yearServices); $i++) { 
+            $arrayPages[$idxPage][] = $yearServices[$i];
+
+            if (count($arrayPages[$idxPage]) > 1) {
+                $idxPage++;
+            }
+
+        }
+        
+        $array = [
+            'publisherData' => $publisherData,
+            'arrayPages' => $arrayPages
+        ];
+        // dd($publisherData, $arrayPages);
 
         // return view('publisher_field_service_report/report', $array);
         $pdf = PDF::loadView('publisher_field_service_report/report', $array);  
-        return $pdf->download(sprintf('%s.pdf', Str::slug($array['data']['name'])));
+        return $pdf->download(sprintf('%s.pdf', Str::slug($publisherData['name'])));
     }
 }
