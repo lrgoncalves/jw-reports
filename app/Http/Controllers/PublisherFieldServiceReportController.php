@@ -23,13 +23,30 @@ class PublisherFieldServiceReportController extends Controller
         $this->middleware('auth');
     }
 
-    private function getReport($publisherId = null)
+    private function getReport($publisherId = null, $yearServiceId = null, $limit = 1)
     {
         if (!$publisherId) {
-            $yearServices = YearService::orderBy('finish_at', 'DESC')->limit(1)->get();
+            $yS = YearService::orderBy('finish_at', 'DESC');
+            
+            if ($yearServiceId) {
+                $yS->where('id', $yearServiceId);
+            }
+            $yS->limit(1);
+            $yearServices = $yS->get();
             $publishers = Publisher::orderBy('name', 'ASC')->get();
         } else {
-            $yearServices = YearService::orderBy('finish_at', 'DESC')->get();
+            $yS = YearService::orderBy('finish_at', 'DESC');
+            
+            if ($yearServiceId) {
+                $yS->where('id', $yearServiceId);
+            }
+
+            if ($limit === 0) {
+                $yearServices = $yS->get();
+            } else {
+                $yearServices = $yS->limit($limit)->get();
+            }
+            
             $publishers = Publisher::where('id', $publisherId)->orderBy('name', 'ASC')->get();
         }
 
@@ -114,22 +131,18 @@ class PublisherFieldServiceReportController extends Controller
 
     public function ajaxData() 
     {
-        $builder = Publisher::orderBy('name', 'ASC');
+        $builder = YearService::orderBy('start_at', 'DESC');
 
         $dt = new Datatables();
         return $dt->eloquent($builder)
 
-            ->addColumn('group', function($item) {
-                return $item->group()->first()->name;
+            ->addColumn('year', function($item) {
+                return sprintf('%s/%s', $item->start_at->format('Y'), $item->finish_at->format('Y'));
             })
 
             ->addColumn('action', function($item) {
                 $html = "";
-                // $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Exportar relatorio" href="' . route('publisher_field_service_report.generate', $item->id) . '" target="_blank">
-                //     <i class="fa fa-cloud-download text-blue"></i>
-                // </a>';
-
-                $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Exportar relatorio" href="' . route('publisher_field_service_report.report', $item->id) . '" target="_blank">
+                $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Exportar relatorio" href="' . route('publisher_field_service_report.generate', $item->id) . '" target="_blank">
                     <i class="fa fa-cloud-download text-blue"></i>
                 </a>';
                 return $html;
@@ -146,138 +159,9 @@ class PublisherFieldServiceReportController extends Controller
         return view('publisher_field_service_report/index');
     }
 
-    public function generateOld(Request $request, $publisherId = null)
+    public function generate(Request $request, $yearServiceId)
     {
-        $fieldData = $this->getReport($publisherId);
-
-        $headers = array(
-            "Content-type" => "text/csv",
-            "Content-Disposition" => "attachment; filename=publisher_card.csv",
-            "Pragma" => "no-cache",
-            "Cache-Control" => "must-revalidate, post-check=0, pre-check=0",
-            "Expires" => "0"
-        );
-
-        // $columns = array(
-        //     'Publicações',
-        //     'Vídeos mostrados',
-        //     'Horas',
-        //     'Revisitas',
-        //     'Estudos bíblicos',
-        //     'Observações'
-        // );
-
-        $callback = function() use ($fieldData)
-        {
-            $file = fopen('php://output', 'w');
-
-            foreach ($fieldData as $fd) {
-                fputcsv($file, array(
-                    'Nome:',
-                    $fd['name'],
-                ));
-        
-                fputcsv($file, array(
-                    'Data de nascimento:',
-                    $fd['birthdate'],
-                    '',
-                    '',
-                    '[ '.($fd['gender'] == 'M' ? 'x' : '').' ] Masculino',
-                    '[ '.($fd['gender'] == 'F' ? 'x' : '').' ] Feminino',
-                ));
-        
-                fputcsv($file, array(
-                    'Data de batismo:',
-                    $fd['baptize'],
-                    '',
-                    '',
-                    '[ '.(!$fd['anointed'] ? 'x' : '').' ] Outras ovelhas',
-                    '[ '.($fd['anointed'] ? 'x' : '').' ] Ungido',
-                ));
-
-                fputcsv($file, array(
-                    '',
-                    '',
-                    '',
-                    '',
-                    '[ '.($fd['privilege'] == 'OM' ? 'x' : '').' ] Ancião',
-                    '[ '.($fd['privilege'] == 'MS' ? 'x' : '').' ] Servo Ministerial',
-                    '[ ' .($fd['pioneer_code'] ? 'x' : ''). ' ] Pioneiro regular',
-                ));
-
-
-                $group_name = '';
-                foreach($fd['year_services'] as $item) {
-                    fputcsv($file, array(
-                        "Ano de serviço\n".$item['period'],
-                        'Publicações',
-                        'Vídeos mostrados',
-                        'Horas',
-                        'Revisitas',
-                        'Estudos bíblicos',
-                        'Observações'
-                    ));
-
-                    foreach ($item['report'] as $m) {
-                        fputcsv($file, array(
-                            $m['month'],
-                            $m['placements'],
-                            $m['videos'],
-                            $m['hours'],
-                            $m['return_visits'],
-                            $m['studies'],
-                            $m['observations'],
-                        ));
-                    }
-
-                    fputcsv($file, array(
-                        'Total:',
-                    ));
-                    
-                    fputcsv($file, array(
-                        'Média:',
-                    ));
-
-                    fputcsv($file, array(
-                        '',
-                        '',
-                        '',
-                        '',
-                        '',
-                        '',
-                    ));
-
-                    
-                }
-
-                fputcsv($file, array(
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                ));
-
-                fputcsv($file, array(
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                    '',
-                ));
-            }
-            
-            fclose($file);
-        };
-        return response()->stream($callback, 200, $headers);
-        
-    }
-
-    public function generate(Request $request, $publisherId = null)
-    {
-
+        set_time_limit(0);
         $inactives = DB::select("SELECT p.id, sum(fs.hours) as total_hours 
                         FROM publishers p
                         LEFT JOIN (
@@ -291,14 +175,14 @@ class PublisherFieldServiceReportController extends Controller
             $ids[] = $i->id;
         }
 
-
         $actives = Publisher::whereNotIn('id', $ids)
             ->orderBy('name', 'ASC')
             ->pluck('id');
 
+        $yearsPerPage = 1;
         $data = [];
         foreach ($actives as $pbId) {
-            $data[] = $this->getReport($pbId)[0];
+            $data[] = $this->getReport($pbId, $yearServiceId, $yearsPerPage)[0];
         }
         
         // return view('publisher_field_service_report/congregation_report', ['data' => $data]);
@@ -308,7 +192,11 @@ class PublisherFieldServiceReportController extends Controller
 
     public function report(Request $request, $publisherId = null) 
     {
-        $data = $this->getReport($publisherId);
+        if ($publisherId) {
+            $data = $this->getReport($publisherId, null, 0);
+        } else {
+            $data = $this->getReport($publisherId, null, 1);
+        }
 
         $publisherData = $data[0];
         unset($publisherData['year_services']);

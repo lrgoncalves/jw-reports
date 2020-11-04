@@ -3,7 +3,7 @@
 @section('title', 'group List')
 
 @section('content_header')
-    <h1>Cartões dos Publicadores</h1>
+    <h1>Registro de Publicador (S-21)</h1>
 @stop
 
 @section('content')
@@ -20,21 +20,13 @@
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
-            <div class="box-header">
-                <div class="col-md-3">
-                    <a class="btn btn-block btn-primary btn-lg" href="{{ route('publisher_field_service_report.generate') }}" target="_blank">
-                        Exportar Cartões
-                    </a>
-                </div>
-            </div>
             <div class="box-body">
                 <div class="row">
                     <div class="col-sm-12 table-overflow-x">
                         <table class="table table-bordered table-striped dataTable" id="publisherFieldServiceReportDatatable">
                             <thead>
                                 <tr>
-                                    <th>Publicador</th>
-                                    <th>Grupo</th>
+                                    <th>Ano de serviço</th>
                                     <th style="width: 110px">Ações</th>
                                 </tr>
                             </thead>
@@ -64,8 +56,7 @@
             "serverSide": true,
             "ajax": "{{ route('publisher_field_service_report.ajaxData') }}",
             "columns": [
-                { "data": "name", "name": "name"},
-                { "data": "group", "name": "group"},
+                { "data": "year", "name": "year"},
                 { "data": "action" }
             ]
         })
