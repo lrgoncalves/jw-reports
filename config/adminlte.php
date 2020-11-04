@@ -196,12 +196,6 @@ return [
             'icon' => 'list',
             'active' => ['congregation_activity_report/*']
         ],
-        [
-            'text' => 'Pioneiros auxiliares 30h',
-            'url' => 'pioneer/report/auxiliar',
-            'icon' => 'list',
-            'active' => ['pioneer/report/auxiliar']
-        ],
         'CONFIG',
         [
             'text' => 'Alterar Senha',

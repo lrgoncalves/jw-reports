@@ -85,10 +85,6 @@ Route::prefix('pioneer')->group(function() {
     Route::post('/edit', 'PioneerController@update');
     Route::get('ajaxData', 'PioneerController@ajaxData')->name('pioneer.ajaxData');
     Route::get('/delete/{id}', 'PioneerController@delete')->name('pioneer.delete');
-
-    Route::get('report/auxiliar', 'PioneerController@reportMonth')->name('pioneer.auxilizar.reportMonth');
-    Route::get('report/auxiliar/print', 'PioneerController@reportMonthPrint')->name('pioneer.auxilizar.reportMonthPrint');
-
 });
 
 Route::prefix('meeting')->group(function() {
