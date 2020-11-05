@@ -137,7 +137,7 @@ class FieldServiceController extends Controller
 
             $ys = YearService::whereId($req->year_service_id)->first();
 
-            if ($req->month > 9) {
+            if ($req->month > 8) {
                 $y = $ys->start_at->format('Y');
             } else {
                 $y = $ys->finish_at->format('Y');
