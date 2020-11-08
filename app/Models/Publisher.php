@@ -49,4 +49,14 @@ class Publisher extends Model
     {
         return $this->belongsTo('App\Models\Group');
     }
+
+    public function fieldService()
+    {
+        return $this->hasMany('App\Models\FieldService');
+    }
+
+    public function unhealthy()
+    {
+        return $this->hasMany('App\Models\PublisherUnhealthy');
+    }
 }

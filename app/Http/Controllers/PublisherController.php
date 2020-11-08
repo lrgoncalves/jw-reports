@@ -124,9 +124,9 @@ class PublisherController extends Controller
                     <i class="fa fa-file-pdf-o text-blue "></i>
                 </a>';
 
-                // $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Remover" onclick="javascript: remover('.$item->id.')">
-                //     <i class="fa fa-remove text-red"></i>
-                // </a>';
+                $html .= '<a class="btn btn-social-icon" data-toggle="tooltip" title="Remover" onclick="javascript: remover('.$item->id.')">
+                    <i class="fa fa-remove text-red"></i>
+                </a>';
 
                 if (is_null($item->householder_id)) {
 
@@ -261,8 +261,15 @@ class PublisherController extends Controller
 
     public function delete(Request $req, $id)
     {
-        $publisher = Publisher::where('id', '=', $id)
-            ->first();
+        $publisher = Publisher::where('id', '=', $id)->first();
+        if (!$publisher) {
+            return redirect('/publisher/list')
+                ->with('status', 'Publicador não encontrado.');
+        }
+        $publisher->fieldService()->forceDelete();
+        $publisher->address()->forceDelete();
+        $publisher->serviceType()->forceDelete();
+        $publisher->unhealthy()->forceDelete();
         $publisher->forceDelete();
         return redirect('/publisher/list')
             ->with('status', 'Publicador removido.');
