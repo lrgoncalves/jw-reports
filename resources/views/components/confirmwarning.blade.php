@@ -7,6 +7,10 @@
     <hr>
     <div class="col-12" style="display: inline-flex;">
         <button class="btn btn-primary" onclick="$('#confirmWarning').hide()">Cancelar</button>
-        <button class="btn btn-danger" style="margin-left: 10px;" onclick="confirmRemover()">{{ isset($txtButton) ? $txtButton : 'Remover' }}</button>
+        @if(isset($jqueryBtn)) 
+            <button class="btn btn-danger btn-warning-confirm" style="margin-left: 10px;">{{ isset($txtButton) ? $txtButton : 'Remover' }}</button>
+        @else
+            <button class="btn btn-danger" style="margin-left: 10px;" onclick="confirmRemover()">{{ isset($txtButton) ? $txtButton : 'Remover' }}</button>
+        @endif
     </div>
 </div>

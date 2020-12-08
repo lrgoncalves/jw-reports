@@ -33,6 +33,7 @@ class CreateFieldServicesTable extends Migration
 
             $table->string('observations', 255)->nullable();
             $table->date('date_ref')->nullable();
+            $table->tinyInteger('irregular')->default(0);
 
             $table->timestamps();
         });

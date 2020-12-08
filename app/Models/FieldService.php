@@ -19,6 +19,7 @@ class FieldService extends Model
         'month',
         'observations',
         'date_ref',
+        'irregular',
     ];
 
     protected $dates = [

@@ -156,6 +156,7 @@ class FieldServiceController extends Controller
             $fieldService->studies = $req->studies;
             $fieldService->observations = $req->observations;
             $fieldService->date_ref = $dt;
+            $fieldService->irregular = $req->irregular;
 
             $fieldService->save();
 
@@ -198,4 +199,5 @@ class FieldServiceController extends Controller
             ->with('status', 'Relatório removido.');
 
     }
+
 }

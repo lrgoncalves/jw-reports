@@ -14,6 +14,13 @@
     ]
 )
 
+@include('components.confirmwarning', [
+    'display'=>'none',
+    'message'=>'Tem certeza que o publicador ficou irregular no mês?',
+    'txtButton'=>'Sim!',
+    'jqueryBtn'=>true
+])
+
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
@@ -27,6 +34,8 @@
                             <input type="hidden" name="redirects_to" value="{{ URL::previous() }}">
 
                             <input type="hidden" name="id" value="{{ $fieldService->id }}">
+                            
+                            <input type="hidden" name="irregular" id="irregular" value="{{ $fieldService->irregular }}">
 
                             <div class="row">
                                 <div class="col-md-12">
@@ -184,6 +193,10 @@
                                     <button type="submit" class="btn btn-lg btn-block btn-success">Salvar</button>
                                 </div>
 
+                                <div class="col-md-2 right">
+                                    <button type="button" class="btn btn-lg btn-block btn-danger" id="btn-irregular">Irregular</button>
+                                </div>
+
 
                             </div>
 
@@ -270,6 +283,25 @@
                     $('[name=country]').val("Brasil")
                 }
             })
+        }
+
+        $('#btn-irregular').click(() => {
+            $('#confirmWarning').show();
+            return false;
+        });
+
+        $('.btn-warning-confirm').on('click', () => {
+
+            $('#irregular').val(1);
+            console.log($('form').serialize())
+            $('form').submit();
+            return false;
+        })
+
+        function showErrors(msg) {
+            $('.alert').hide()
+            $('.alert-danger').show()
+            $('#msgError').text(msg)
         }
     })
 
