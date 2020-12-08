@@ -143,6 +143,7 @@ class NonReportedController extends Controller
                 'studies' => null,
                 'observations' => null,
                 'date_ref' => $dt,
+                'irregular' => 1
             ]);            
         }
         
