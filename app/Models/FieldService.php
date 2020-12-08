@@ -27,6 +27,10 @@ class FieldService extends Model
         'updated_at',
     ];
 
+    protected $attributes = [
+        'irregular' => 0,
+    ];
+
     public function publisher()
     {
         return $this->belongsTo(Publisher::class);
