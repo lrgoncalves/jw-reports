@@ -38,7 +38,7 @@ class PublisherController extends Controller
                 break;
                 case 'irregulars':
                     $irregulars = DB::select("SELECT DISTINCT publisher_id FROM field_services
-                        WHERE hours IS NULL
+                        WHERE irregular = 1
                         AND date_ref >= DATE_SUB(CURDATE(), INTERVAL 5 MONTH)");
                     $ids = [];
                     foreach ($irregulars as $i) {
@@ -48,14 +48,14 @@ class PublisherController extends Controller
                     $builder->whereIn('id', $ids);
                 break;
                 case 'inactives':
-                    $inactives = DB::select("SELECT p.id, sum(fs.hours) as total_hours 
+                    $inactives = DB::select("SELECT p.id, sum(fs.irregular) as total_irregular 
                         FROM publishers p
                         LEFT JOIN (
-                            SELECT publisher_id, hours FROM field_services WHERE date_ref >= (DATE_SUB(curdate(), INTERVAL 7 MONTH))
+                            SELECT publisher_id, irregular FROM field_services WHERE date_ref >= (DATE_SUB(curdate(), INTERVAL 7 MONTH))
                         ) AS fs ON fs.publisher_id = p.id
-                        WHERE p.baptize_date IS NOT NULL
+                        -- WHERE p.baptize_date IS NOT NULL
                         GROUP BY 1
-                        HAVING SUM(fs.hours) IS NULL");
+                        HAVING SUM(fs.irregular) > 5");
                     $ids = [];
                     foreach ($inactives as $i) {
                         $ids[] = $i->id;

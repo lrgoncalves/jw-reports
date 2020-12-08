@@ -162,14 +162,14 @@ class PublisherFieldServiceReportController extends Controller
     public function generate(Request $request, $yearServiceId)
     {
         set_time_limit(0);
-        $inactives = DB::select("SELECT p.id, sum(fs.hours) as total_hours 
+        $inactives = DB::select("SELECT p.id, sum(fs.irregular) as total_irregular 
                         FROM publishers p
                         LEFT JOIN (
-                            SELECT publisher_id, hours FROM field_services WHERE date_ref >= (DATE_SUB(curdate(), INTERVAL 7 MONTH))
+                            SELECT publisher_id, irregular FROM field_services WHERE date_ref >= (DATE_SUB(curdate(), INTERVAL 7 MONTH))
                         ) AS fs ON fs.publisher_id = p.id
-                        WHERE p.baptize_date IS NOT NULL
+                        -- WHERE p.baptize_date IS NOT NULL
                         GROUP BY 1
-                        HAVING SUM(fs.hours) IS NULL");
+                        HAVING SUM(fs.irregular) > 5");
         $ids = [];
         foreach ($inactives as $i) {
             $ids[] = $i->id;

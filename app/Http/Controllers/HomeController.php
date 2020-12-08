@@ -60,15 +60,15 @@ class HomeController extends Controller
 
         $totalNonBaptizedPublishers = Publisher::whereNull('baptize_date')->count();
 
-        $inactives = DB::select("SELECT publisher_id, sum(hours ) as total_hours
+        $inactives = DB::select("SELECT publisher_id, sum(irregular ) as total_irregular
             FROM field_services 
             WHERE date_ref >= (DATE_SUB(curdate(), INTERVAL 7 MONTH))
             group by publisher_id
-            having total_hours is null");
+            having total_irregular > 5");
         $totalInactives = count($inactives);
 
         $irregulars = DB::select("SELECT COUNT(DISTINCT publisher_id) AS total FROM field_services
-            WHERE hours IS NULL
+            WHERE irregular = 1
             AND date_ref >= DATE_SUB(CURDATE(), INTERVAL 5 MONTH)");
         $totalIrregular = $irregulars[0]->total - $totalInactives;
 
