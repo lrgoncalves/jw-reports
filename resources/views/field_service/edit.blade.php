@@ -21,6 +21,12 @@
     'jqueryBtn'=>true
 ])
 
+@include('components.confirmNonIrregular', [
+    'display'=>'none',
+    'txtButton'=>'Sim, deu testemunho!',
+    'jqueryBtn'=>true
+])
+
 <div class="row">
     <div class="col-xs-12">
         <div class="box">
@@ -146,7 +152,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Horas</label>
-                                        <input name="hours" type="number" class="form-control" placeholder="" value="{{ $fieldService->hours }}"
+                                        <input name="hours" id="input_hours" type="number" class="form-control" placeholder="" value="{{ $fieldService->hours }}"
                                             {{ ($disabled) ? 'disabled' : '' }}>
                                     </div>
                                 </div>
@@ -177,7 +183,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Observações</label>
-                                        <input name="observations" type="text" class="form-control" placeholder="" value="{{ $fieldService->observations }}"
+                                        <input name="observations" id="input_observations" type="text" class="form-control" placeholder="" value="{{ $fieldService->observations }}"
                                             {{ ($disabled) ? 'disabled' : '' }}>
                                     </div>
                                 </div>
@@ -223,6 +229,18 @@
             if(/voltar/g.test(this.action)) return true
             if(/editar/g.test(this.action)) return true
             if(/atender/g.test(this.action)) return true
+
+            var hours = $('#input_hours').val();
+            var irregular = $('#irregular').val();
+            var observations = $('#input_observations').val();
+            if (hours == '' && irregular == '0' && observations == '') {
+                $('#confirmNonIrregular').show();
+                return false;                
+            }
+
+            // console.log({hours, irregular, observations});
+            // alert('chegou aqui');
+            // return false;
 
             // var retorno = false
             // $.ajax({
@@ -297,6 +315,13 @@
             $('form').submit();
             return false;
         })
+
+        $('.btn-confirmNonIrregular-confirm').on('click', () => {
+            $('#input_observations').val('Deu testemunho');
+            console.log($('form').serialize())
+            $('form').submit();
+            return false;
+        });
 
         function showErrors(msg) {
             $('.alert').hide()
