@@ -74,7 +74,7 @@ class HomeController extends Controller
 
         $totalElderly = Publisher::where('privilege', 'OM')->count();
         $totalMinisterialServants = Publisher::where('privilege', 'MS')->count();
-        $totalRegularPioneers = PublisherServiceType::where('service_type_id', 4)->get()->count();
+        $totalRegularPioneers = PublisherServiceType::where('service_type_id', 4)->whereNull('finish_at')->get()->count();
         $totalAuxiliarPioneers = PublisherServiceType::where('service_type_id', 3)->whereNull('finish_at')->count();
 
         $groups = Group::orderBy('name', 'ASC')->get();
